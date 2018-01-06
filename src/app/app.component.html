@@ -1,0 +1,44 @@
+<div class="container-fluid" style="padding:0;">
+    <div class="row navigation-bar" style="margin:0;">
+        <div class="offset-xl-2 offset-md-1 col-xl-8 col-md-10 col-sm-12 col-xs-12" style="padding-left:0; padding-right:0;">
+            <nav class="navbar navbar-expand-xs navbar-light">
+              <a class="navbar-brand" routerLink=""><img src="./assets/logo-text.png" style="width: 60px" /></a>
+
+              <ul class="nav justify-content-end">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="feed">Feed</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="login">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="register">Register</a>
+                </li>
+              </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="row"  style="margin:0;padding: 1em 0;">
+      <div class="offset-xl-2 offset-md-1 col-xl-8 col-md-10 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" style="display: none" role="tablist" aria-orientation="vertical">
+              <a class="nav-link active" id="v-pills-home-tab"  routerLink="feed" role="tab" aria-selected="true">Feed</a>
+              <a class="nav-link" id="v-pills-profile-tab"  routerLink="bookmarks" role="tab" aria-selected="false">Bookmarks</a>
+              <a class="nav-link" id="v-pills-messages-tab" routerLink="notifications" role="tab" aria-selected="false">Notifications</a>
+
+              <a class="nav-link" id="v-pills-settings-tab" routerLink="my-stories" role="tab" aria-selected="false">My Stories</a>
+              <a class="nav-link" id="v-pills-settings-tab" routerLink="messages" role="tab" aria-selected="false">Messages</a>
+              <a class="nav-link" id="v-pills-settings-tab" routerLink="profile" role="tab" aria-selected="false">Profile</a>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <router-outlet></router-outlet>
+          </div>
+          <div class="col-md-2">
+
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
