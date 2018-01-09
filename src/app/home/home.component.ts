@@ -1,29 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: 'home.component.html',
+  styleUrls: ['home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
-
-  itemCount: number;
-  goalText: string = 'I want to climb a mountain';
-  goals = [];
-
-  constructor() { }
+  total_records: string[];
+  validate: string[];
+  posts = [];
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.goals.push(this.goalText);
-    this.itemCount = this.goals.length;
-    this.goalText = '';
+     this.http.get('http://localhost/riter/api/feed').subscribe(res => {
+          this.validate = res['validate'];
+          this.total_records = res['total_records'];
+          this.posts = res['data'];
+      });
+
   }
 
-  addItem()
-  {
-    this.goals.push(this.goalText);
-    this.itemCount++;
-    this.goalText = '';
-  }
 
 }

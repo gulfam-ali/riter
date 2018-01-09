@@ -1,28 +1,57 @@
-<div class="offset-xl-3 offset-lg-2 offset-md-1 offset-sm-2 col-xl-6 col-lg-8 col-md-10 col-sm-8 col-12" style="    padding: 2em; box-shadow: 0pt 0pt 3pt #ccc;">
+<div class="row">
+  <div class="offset-xl-3 offset-lg-2 offset-md-1 offset-sm-2 col-xl-6 col-lg-8 col-md-10 col-sm-8 col-12" style="    padding: 2em; box-shadow: 0pt 0pt 3pt #ccc;">
   <p style="font-size: 1.5em; font-weight: 400;">Register Yourself Now!</p>
   <p>Become a member and start posting your story and get recognized by millions of other users.</p>
-  <form>
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input type="email" class="form-control" id="firstName" aria-describedby="firstNameHelp" placeholder="First Name">
-    </div>
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input type="email" class="form-control" id="lastName" aria-describedby="lastNameHelp" placeholder="Last Name">
-    </div>
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="email" class="form-control" id="firstName"  [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel" aria-describedby="firstNameHelp" placeholder="First Name" required>
 
-    <div class="form-group">
-      <label for="email">Email address</label>
-      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email">
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <label for="confirmPassword">Password</label>
-      <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
-    </div>
-    <button type="submit" class="btn btn-primary btn-block">Register</button>
+        <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">
+            First Name is required
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="email" class="form-control" id="lastName" [(ngModel)]="user.lastName" name="lastName"  #lastName="ngModel" aria-describedby="lastNameHelp" placeholder="Last Name" required>
+
+        <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">
+            Last Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" #email="ngModel"  aria-describedby="emailHelp" placeholder="Email" required>
+
+        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+            Email is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" #password="ngModel" placeholder="Password" required>
+
+        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+            Password is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Password</label>
+        <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="user.confirmPassword" name="confirmPassword" #confirmPassword="ngModel"   placeholder="Confirm Password" required>
+
+        <div [hidden]="confirmPassword.valid || confirmPassword.pristine" class="alert alert-danger">
+            Password is required
+        </div>
+
+        <div [hidden]="confirmPassword.pristine " >
+            <div [hidden]="(user.confirmPassword == user.password) || confirmPassword.invalid" class="alert alert-danger">Password don't match</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Register</button>
   </form>
+</div>
 </div>

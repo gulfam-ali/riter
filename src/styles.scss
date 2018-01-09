@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.card{
+  margin: 0.5em 0 !important;
+  width: 100%;
+}
+
+.footer{
+  margin:0;
+  margin: 0;
+  padding: 1em 0.5em;
+  border-top: 0.1pt solid #e9e9e9;
+}
+
+.footer a{
+  color: #aaa;
+}
+
+.footer a:hover{
+  color: #444;
+}

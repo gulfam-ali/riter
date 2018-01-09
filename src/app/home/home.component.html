@@ -1,28 +1,54 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card" >
-        <div class="card-body">
-          <h5 class="card-title">Bucket List</h5>
-          <form>
-            <div class="form-group">
-              <input type="email" class="form-control" id="life_goal" aria-describedby="lifeGoal" [(ngModel)]="goalText" name="item" placeholder="You Life Goal...">
-              <small id="lifeGoalHelp" class="form-text text-muted">Enter you life goal!</small>
-            </div>
-            <button type="submit" class="btn btn-primary" (click)="addItem()">Add to Bucket List</button>
-          </form>
+<div class="row">
+    <div class="card register-card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Register Yourself Today</h5>
+          <p class="card-text">
+            Register now to read or post stories, poems and what not. You can post your confessions hiding your identity. Echo your thoughts to the millions of other users worldwide!</p>
+          <a routerLink="register" class="card-link btn btn-primary">Register Now</a>
         </div>
-      </div>
     </div>
 
-    <div class="col-md-6">
-      <div class="card" >
+    <div class="card" *ngFor="let post of posts">
         <div class="card-body">
-          <h5 class="card-title">Bucket List ({{ itemCount }})</h5>
-          <ul>
-            <li *ngFor="let goal of goals">{{goal}}</li>
-          </ul>
+          <h5 class="card-title">{{post.title}}</h5>
+          <p class="card-text"> {{ post.body | limit:600 }}<a href="#" data-toggle="modal" data-target="#RegisterModalCenter" *ngIf="post.body.length > 600">... (read more)</a></p>
         </div>
+        <div class="card-footer">
+          <a href="#" class="card-link" data-toggle="modal" data-target="#RegisterModalCenter">Upvote</a>
+          <a href="#" class="card-link" data-toggle="modal" data-target="#RegisterModalCenter">Downvote</a>
+
+          <a href="#" class="card-link float-right" data-toggle="modal" data-target="#RegisterModalCenter">All</a>
+          <a href="#" class="card-link float-right" data-toggle="modal" data-target="#RegisterModalCenter">Comment</a>
+        </div>
+    </div>
+</div>
+<div class="row footer " style="">
+    <div class="col-md-12 text-center">
+        <a href="" class="card-link">About</a>
+        <a href="" class="card-link">Privacy Policy</a>
+        <a href="" class="card-link">Contact Us</a>
+        <a href="" class="card-link">Terms of Service</a>
+    </div>
+</div>
+
+
+<!-- Register Modal -->
+<div class="modal fade" id="RegisterModalCenter" tabindex="-1" role="dialog" aria-labelledby="RegisterModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <h5 class="card-title  ">Become a Reader or Writer</h5>
+        <p>
+          Register now to read or post stories, poems and what not. You can post your confessions hiding your identity. Echo your thoughts to the millions of other users worldwide!
+          <br />
+          <br />
+          Explore the possibilities!
+        </p>
+
+          <div class="text-center" style="justify-content: center;">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" routerLink="register" >Register Now</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal">Not Interested</button>
+          </div>
       </div>
     </div>
   </div>

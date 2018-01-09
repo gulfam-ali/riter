@@ -1,9 +1,32 @@
 <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-body">
-        Mix and match multiple content types to create the card you need, or throw everything in there. Shown below are image styles, blocks, text styles, and a list group—all wrapped in a fixed-width card.
+    <div class="card register-card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Register Yourself Today</h5>
+          <p class="card-text">
+            Register now to post your stories, poems and what not. You can post your confessions hiding your identity. Echo your thoughts to the millions of other users worldwide!</p>
+          <a routerLink="register" class="card-link btn btn-primary">Register Now</a>
         </div>
-      </div>
+    </div>
+
+    <div class="card" *ngFor="let post of posts">
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          <p class="card-text"> {{ post.body | limit:600 }}<a href="" *ngIf="post.body.length > 600">... (read more)</a></p>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="card-link">Upvote</a>
+          <a href="#" class="card-link">Downvote</a>
+
+          <a href="#" class="card-link float-right">All</a>
+          <a href="#" class="card-link float-right">Comment</a>
+        </div>
+    </div>
+</div>
+<div class="row footer " style="">
+    <div class="col-md-12 text-center">
+        <a href="" class="card-link">About</a>
+        <a href="" class="card-link">Privacy Policy</a>
+        <a href="" class="card-link">Contact Us</a>
+        <a href="" class="card-link">Terms of Service</a>
     </div>
 </div>
