@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthenticateService } from '../authenticate.service';
 
 @Component({
   selector: 'app-feed',
@@ -10,7 +11,13 @@ export class FeedComponent implements OnInit {
   total_records: string[];
   validate: string[];
   posts = [];
-  constructor(private http: HttpClient) { }
+  constructor(private authService: AuthenticateService, private http: HttpClient) {
+
+      if(!this.authService.authorise())
+      {
+        window.location.href = "login";
+      }
+  }
 
   ngOnInit() {
      this.http.get('http://localhost/riter/api/feed').subscribe(res => {

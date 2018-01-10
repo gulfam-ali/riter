@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -16,13 +17,16 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
+
+import { AuthGuard }                from './auth-guard.service';
+
 const routes: Routes = [
 
   { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'about', component: AboutComponent},
-  { path: 'feed', component: FeedComponent},
-  { path: 'write', component: WriteComponent},
+  { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
+  { path: 'write', component: WriteComponent, canActivate: [AuthGuard]},
   { path: 'profile', component: ProfileComponent},
   { path: 'bookmarks', component: BookmarksComponent},
   { path: 'notifications', component: NotificationsComponent},
@@ -38,4 +42,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+  constructor() { }
+ }

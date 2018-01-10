@@ -2,17 +2,41 @@
   <div class="offset-xl-3 offset-lg-2 offset-md-1 offset-sm-2 col-xl-6 col-lg-8 col-md-10 col-sm-8 col-12" style="    padding: 2em; box-shadow: 0pt 0pt 3pt #ccc;">
   <p style="font-size: 1.5em; font-weight: 400;">Login to Riter</p>
   <br />
-  <form>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-primary btn-block">Login</button>
-    <a routerLink="forget" style="display:block; padding-top:0.5em;">Forget Password?</a>
+
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" #email="ngModel" placeholder="Enter email" required>
+
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+            <div *ngIf="email.errors.required">
+              Email is required
+            </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" minlength="4" pattern="[a-zA-Z#@0-9]*" #password="ngModel" placeholder="Password" required>
+
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+            <div *ngIf="password.errors.required">
+              Password is required
+            </div>
+            <div *ngIf="password.errors.minlength">
+              Password must not less than 4 characters
+            </div>
+            <div *ngIf="password.errors.pattern">
+              Only Alphabets, Numbers, @ and # characters are allowed
+            </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="(!loginForm.form.valid) ">Login</button>
+      <a routerLink="forget" style="display:block; padding-top:0.5em;">Forget Password?</a>
+
   </form>
+
 </div>
 </div>

@@ -22,6 +22,9 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { HttpClientModule } from '@angular/common/http';
 
 import { Limit } from './limit.pipe';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthGuard }  from './auth-guard.service';
+import { AuthenticateService } from './authenticate.service';
 
 
 
@@ -51,7 +54,7 @@ import { Limit } from './limit.pipe';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [CookieService, AuthGuard, AuthenticateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
