@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,25 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'riter';
-  constructor(private http: HttpClientModule)
+  is_logged: boolean;
+  constructor(private http: HttpClientModule, private cookieService: CookieService)
   {
 
+      if( !( this.cookieService.check('userId') && this.cookieService.check('token')) ){
+          this.is_logged = false;
+      }else{
+          this.is_logged = true;
+      }
   }
+
+  logout(){
+    this.cookieService.deleteAll();
+
+    //this.cookieService.delete('userId');
+    //cookieService.delete('token');
+
+    window.location.href = "";
+  }
+
+
 }

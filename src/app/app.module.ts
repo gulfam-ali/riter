@@ -23,8 +23,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { Limit } from './limit.pipe';
 import { CookieService } from 'ngx-cookie-service';
+import { GuestGuard }  from './guest-guard.service';
 import { AuthGuard }  from './auth-guard.service';
-import { AuthenticateService } from './authenticate.service';
+import { Globals } from './globals';
+import { StoryComponent } from './story/story.component';
 
 
 
@@ -44,7 +46,8 @@ import { AuthenticateService } from './authenticate.service';
     RegisterComponent,
     LoginComponent,
     ForgetPasswordComponent,
-    Limit
+    Limit,
+    StoryComponent
   ],
   entryComponents: [],
   imports: [
@@ -54,7 +57,7 @@ import { AuthenticateService } from './authenticate.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [CookieService, AuthGuard, AuthenticateService],
+  providers: [CookieService, GuestGuard, AuthGuard, Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

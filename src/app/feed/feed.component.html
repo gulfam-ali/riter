@@ -1,32 +1,23 @@
 <div class="row">
-    <div class="card register-card">
-        <div class="card-body text-center">
-          <h5 class="card-title">Register Yourself Today</h5>
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Gulfam Ali</h5>
           <p class="card-text">
-            Register now to post your stories, poems and what not. You can post your confessions hiding your identity. Echo your thoughts to the millions of other users worldwide!</p>
-          <a routerLink="register" class="card-link btn btn-primary">Register Now</a>
+            Post your story, poem or confession.
+          </p>
         </div>
     </div>
 
     <div class="card" *ngFor="let post of posts">
         <div class="card-body">
-          <h5 class="card-title">{{post.title}}</h5>
-          <p class="card-text"> {{ post.body | limit:600 }}<a href="" *ngIf="post.body.length > 600">... (read more)</a></p>
+          <h5 class="card-title story-title">{{post.title}}</h5>
+          <p class="card-text story-text"> {{ post.body | limit:600 }}<a routerLink="{{post.id}}" *ngIf="post.body.length > 600">... (read more)</a></p>
+          <a href="#" class="float-right gray-link">23 likes and 25 comments</a>
         </div>
-        <div class="card-footer">
-          <a href="#" class="card-link">Upvote</a>
-          <a href="#" class="card-link">Downvote</a>
+        <div class="card-footer story-footer">
+          <a href="#" class="card-link"><i class="far fa-heart" style="color: #777;"></i> Like</a>
 
-          <a href="#" class="card-link float-right">All</a>
-          <a href="#" class="card-link float-right">Comment</a>
+          <a href="#" class="card-link float-right"><i class="far fa-comment" style="color: #777;"></i> Comment</a>
         </div>
-    </div>
-</div>
-<div class="row footer " style="">
-    <div class="col-md-12 text-center">
-        <a href="" class="card-link">About</a>
-        <a href="" class="card-link">Privacy Policy</a>
-        <a href="" class="card-link">Contact Us</a>
-        <a href="" class="card-link">Terms of Service</a>
     </div>
 </div>

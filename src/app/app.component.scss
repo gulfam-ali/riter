@@ -1,5 +1,14 @@
 .navigation-bar{
   margin: 0;
-  background: #fff;
-  box-shadow: 0pt 0pt 3pt #ccc;
+  background: #5eaec3;
+box-shadow: 0pt 1pt 5pt #65b1ca;
+}
+
+.navigation-bar a.nav-link{
+  color: #fff;
+}
+
+.navigation-bar a.nav-link:hover{
+  background: #5399ab;
+  border-radius: 0.2em;
 }

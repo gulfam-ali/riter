@@ -2,9 +2,9 @@
     <div class="row navigation-bar" style="margin:0;">
         <div class="offset-xl-2 offset-md-1 col-xl-8 col-md-10 col-sm-12 col-xs-12" style="padding-left:0; padding-right:0;">
             <nav class="navbar navbar-expand-xs navbar-light">
-              <a class="navbar-brand" routerLink=""><img src="./assets/logo-text.png" style="width: 60px" /></a>
+              <a class="navbar-brand" routerLink=""><img src="./assets/white-logo-text.png" style="width: 110px" /></a>
 
-              <ul class="nav justify-content-end">
+              <ul class="nav justify-content-end" *ngIf="!is_logged">
                 <li class="nav-item">
                   <a class="nav-link" routerLink="login">Login</a>
                 </li>
@@ -12,6 +12,18 @@
                   <a class="nav-link" routerLink="register">Register</a>
                 </li>
               </ul>
+
+              <ul class="nav justify-content-end" *ngIf="is_logged">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gulfam Ali</a>
+                    <div class="dropdown-menu dropdown-menu-right" style="left:inherit !important; right:0 !important;">
+                      <a class="dropdown-item" href="#">Profile</a>
+                      <a class="dropdown-item" href="#">Settings</a>
+                      <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
+                    </div>
+                </li>
+              </ul>
+
             </nav>
         </div>
     </div>

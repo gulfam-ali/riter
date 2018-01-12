@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
 
       this.http.post('http://localhost/riter/api/login', this.user).subscribe(res => {
           console.log(res);
-          if(res.validate=="true")
+          if(res['validate']=="true")
           {
-              this.cookieService.set( 'userId', res.user_id );
-              this.cookieService.set( 'token', res.token );
+              this.cookieService.set( 'userId', res['user_id'] );
+              this.cookieService.set( 'token', res['token'] );
               window.location.href = "feed";
           }
        });

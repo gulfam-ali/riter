@@ -10,15 +10,13 @@
 
     <div class="card" *ngFor="let post of posts">
         <div class="card-body">
-          <h5 class="card-title">{{post.title}}</h5>
-          <p class="card-text"> {{ post.body | limit:600 }}<a href="#" data-toggle="modal" data-target="#RegisterModalCenter" *ngIf="post.body.length > 600">... (read more)</a></p>
+          <h5 class="card-title story-title">{{post.title}}</h5>
+          <p class="card-text story-text"> {{ post.body | limit:600 }}<a href="#" data-toggle="modal" data-target="#RegisterModalCenter" *ngIf="post.body.length > 600">... (read more)</a></p>
         </div>
-        <div class="card-footer">
-          <a href="#" class="card-link" data-toggle="modal" data-target="#RegisterModalCenter">Upvote</a>
-          <a href="#" class="card-link" data-toggle="modal" data-target="#RegisterModalCenter">Downvote</a>
+        <div class="card-footer story-footer">
+          <a href="#" class="card-link"><i class="far fa-heart" style="color: #777;"></i></a> 23 likes
 
-          <a href="#" class="card-link float-right" data-toggle="modal" data-target="#RegisterModalCenter">All</a>
-          <a href="#" class="card-link float-right" data-toggle="modal" data-target="#RegisterModalCenter">Comment</a>
+          <a href="#" class="card-link float-right">Comment</a>
         </div>
     </div>
 </div>
