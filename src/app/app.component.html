@@ -1,6 +1,6 @@
 <div class="container-fluid" style="padding:0;">
-    <div class="row navigation-bar" style="margin:0;">
-        <div class="offset-xl-2 offset-md-1 col-xl-8 col-md-10 col-sm-12 col-xs-12" style="padding-left:0; padding-right:0;">
+    <div class="row navigation-bar" style="margin:0;     position: fixed; top: 0;left: 0;right: 0;z-index: 999;">
+        <div class="offset-xl-3 offset-md-1 col-xl-6 col-md-10 col-sm-12 col-xs-12" style="padding-left:0; padding-right:0;">
             <nav class="navbar navbar-expand-xs navbar-light">
               <a class="navbar-brand" routerLink=""><img src="./assets/white-logo-text.png" style="width: 110px" /></a>
 
@@ -27,24 +27,28 @@
             </nav>
         </div>
     </div>
-    <div class="row"  style="margin:0;padding: 1em 0.5em;">
-      <div class="offset-xl-2 offset-md-1 col-xl-8 col-md-10 col-sm-12 col-xs-12">
+    <div class="row"  style="margin:0;padding: 1em 0.5em; margin-top:3em;">
+      <div class="offset-xl-3 offset-md-1 col-xl-7 col-md-10 col-sm-12 col-xs-12">
         <div class="row">
-          <div class="col-md-2">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" style="display: none" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" id="v-pills-home-tab"  routerLink="feed" role="tab" aria-selected="true">Feed</a>
-              <a class="nav-link" id="v-pills-profile-tab"  routerLink="bookmarks" role="tab" aria-selected="false">Bookmarks</a>
-              <a class="nav-link" id="v-pills-messages-tab" routerLink="notifications" role="tab" aria-selected="false">Notifications</a>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 d-none d-md-block sidebar" >
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="    position: fixed" [hidden]="!sidebarVisible">
+              <a class="nav-link {{sidebar.feed}}" id="v-pills-home-tab"  routerLink="feed" role="tab" aria-selected="true"><i class="far fa-file-alt"></i> &nbsp; Feeds</a>
+              <a class="nav-link {{sidebar.bookmarks}}" id="v-pills-profile-tab"  routerLink="bookmarks" role="tab" aria-selected="false"><i class="far fa-bookmark"></i> &nbsp; Bookmarks</a>
 
-              <a class="nav-link" id="v-pills-settings-tab" routerLink="my-stories" role="tab" aria-selected="false">My Stories</a>
-              <a class="nav-link" id="v-pills-settings-tab" routerLink="messages" role="tab" aria-selected="false">Messages</a>
-              <a class="nav-link" id="v-pills-settings-tab" routerLink="profile" role="tab" aria-selected="false">Profile</a>
+
+
+
+              <a class="nav-link {{sidebar.profile}}" id="v-pills-settings-tab" routerLink="profile" role="tab" aria-selected="false"><i class="far fa-user"></i>&nbsp; Profile</a>
+              <!--<a class="nav-link" id="v-pills-settings-tab" routerLink="messages" role="tab" aria-selected="false"><i class="far fa-comments"></i>&nbsp; Messages</a>-->
+              <a class="nav-link {{sidebar.notifications}}" id="v-pills-messages-tab" routerLink="notifications" role="tab" aria-selected="false"><i class="far fa-bell"></i>&nbsp; Notifications</a>
+              <a class="nav-link {{sidebar.myStories}}" id="v-pills-settings-tab" routerLink="my-stories" role="tab" aria-selected="false"><i class="fas fa-pencil-alt"></i>&nbsp; My Stories</a>
+              <a class="nav-link {{sidebar.settings}}" id="v-pills-settings-tab" routerLink="my-stories" role="tab" aria-selected="false"><i class="fas fa-cog"></i>&nbsp; Settings</a>
             </div>
           </div>
-          <div class="col-md-8">
+          <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12">
             <router-outlet></router-outlet>
           </div>
-          <div class="col-md-2">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-1">
 
           </div>
         </div>

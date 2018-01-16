@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
           if(res['validate']=="true")
           {
               this.cookieService.set( 'userId', res['user_id'] );
-              this.cookieService.set( 'token', res['token'] );
+              this.cookieService.set( 'token', res['user_token'] );
               window.location.href = "feed";
           }
        });

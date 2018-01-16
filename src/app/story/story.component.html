@@ -1,35 +1,47 @@
 <div class="row">
-    <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Gulfam Ali</h5>
-          <p class="card-text">
-            Post your story, poem or confession.
-          </p>
-        </div>
-    </div>
 
-    <div class="card">
+    <div class="card" unselectable="on"
+     onselectstart="return false;"
+     onmousedown="return false;">
         <div class="card-body">
-          <h5 class="card-title">{{posts.title}}</h5>
+          <h5 class="card-title story-title" style="margin-bottom:  0.2em;">{{posts.title}}</h5>
+          <p class="gray-link">
+
+            <button class="btn btn-sm btn-light"><i class="far fa-bookmark"></i> Bookmark</button>
+            <a href="feed/{{posts.id}}#comments" class="btn btn-sm btn-light"><i class="far fa-comment"></i> Comment</a>
+            <!--<button class="btn btn-sm btn-light"><i class="fas fa-exclamation-triangle"></i> Report</button>-->
+          </p>
           <div class="media story-author">
               <img class="mr-3" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
               <div class="media-body">
-                  <h6 class="mt-0">Aditya Agarwal</h6>
-                  <p class="comment-timestamp">27 Dec 2016</p>
+                  <h6 class="mt-0">{{posts.first_name}} {{posts.last_name}}</h6>
+                  <p class="comment-timestamp">{{posts.post_date | date }}</p>
+              </div>
+              <div class="media-body">
+                  <button class="btn btn-light float-right">Follow</button>
               </div>
           </div>
-          <p class="card-text"> {{ posts.body }}</p>
+          <p class="card-text story-text"> {{ posts.body }}</p>
 
-          <a href="#" class="card-link gray-link">23 Likes</a>
-          <a href="#" class="card-link gray-link">25 Comments</a>
-          <a href="#" class="card-link gray-link">125 Views</a>
+          <p class="post-stats gray-link">
+              {{posts.likes}} Likes &nbsp;
+              {{posts.comments}} Comments &nbsp;
+              {{posts.views}} Views
+          </p>
         </div>
         <div class="card-footer story-footer">
-          <a href="#" class="card-link"><i class="far fa-heart" style="color: #777;"></i> Like</a>
+            <a class="card-link" (click)="togglePostLike(posts.id)">
+              <span [hidden]="posts.liked==1">
+                <i class="far fa-heart" style="color: #777;"></i> Like
+              </span>
+              <span style="color: #ff1100;" [hidden]="posts.liked==0">
+                <i class="fas fa-heart"></i> Liked
+              </span>
+            </a>
         </div>
     </div>
 
-    <div class="heading heading-small">Comments</div>
+    <div class="heading heading-small" id="comments">Comments</div>
 
     <div class="card comment-body">
         <div class="input-group">

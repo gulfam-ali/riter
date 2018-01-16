@@ -9,6 +9,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AppComponent {
   title = 'riter';
+  sidebarVisible = false;
+  sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:''};
   is_logged: boolean;
   constructor(private http: HttpClientModule, private cookieService: CookieService)
   {
@@ -17,6 +19,7 @@ export class AppComponent {
           this.is_logged = false;
       }else{
           this.is_logged = true;
+          this.sidebarVisible = true;
       }
   }
 

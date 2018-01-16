@@ -1,3 +1,43 @@
-<p>
-  write works!
-</p>
+<div class="row">
+
+    <div class="card">
+        <div class="card-body">
+          <h5 class="mb-3 text-center"><i class="far fa-edit"></i> Post Your Story</h5>
+          <form (ngSubmit)="post()" #postForm="ngForm">
+              <div class="form-group">
+                  <label><b>Story Title</b></label>
+                  <input type="text" id="title"  [(ngModel)]="story.title" name="title" #title="ngModel"  class="form-control" placeholder="Title of your story" required />
+
+                  <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
+                      <div *ngIf="title.errors.required">
+                        Story is required
+                      </div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label><b>Story</b></label>
+                <p class="gray-link mb-1">Story must not be less than 420 characters.</p>
+                <textarea rows="{{storyRows}}"  id="body"   [(ngModel)]="story.body" minlength="4" name="body" #body="ngModel" (keyup)="expandArea()" class="form-control" placeholder="Write your story here..." required></textarea>
+
+                <div *ngIf="body.invalid && (body.dirty || body.touched)" class="alert alert-danger">
+                    <div *ngIf="body.errors.required">
+                      Story is required
+                    </div>
+                    <div *ngIf="body.errors.minlength">
+                      Story must not less than 4 characters
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                  <div class="alert alert-danger" [hidden]="!error.show">
+                    {{ error.message }}
+                  </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary"  [disabled]="(!postForm.form.valid) ">Post Story</button>
+          </form>
+        </div>
+    </div>
+</div>

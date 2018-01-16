@@ -1,5 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+a{
+  cursor: pointer;
+}
+
+a:hover{
+  text-decoration: none;
+}
+.story-text{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select:none;
+  user-select:none;
+  -o-user-select:none;
+}
 
 .alert {
     position: relative;
@@ -9,9 +23,36 @@
     border-radius: .25rem;
 }
 
+a:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+.write-body{
+  padding: 0.5em;
+}
+
+.write-body .float-right{
+  line-height: 3;
+  padding-right: 0.6em;
+}
+
 .card{
   margin: 0.5em 0 !important;
   width: 100%;
+  border: 1px solid #eaeaea;
+  border-radius: 0;
+  box-shadow: 0pt 0pt 4pt #e7e7e7;
+}
+
+.card-footer {
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,.03);
+    border-top: 1px solid #e8e8e8;
+}
+
+.post-stats{
+  margin:0;
+  font-size: 0.8em;
 }
 
 .footer{
@@ -34,7 +75,7 @@
 }
 
 .gray-link{
-  color: #777;
+  color: #bbb;
 }
 
 .heading{
