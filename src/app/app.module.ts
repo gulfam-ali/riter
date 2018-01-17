@@ -27,6 +27,7 @@ import { GuestGuard }  from './guest-guard.service';
 import { AuthGuard }  from './auth-guard.service';
 import { Globals } from './globals';
 import { StoryComponent } from './story/story.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 
@@ -47,7 +48,8 @@ import { StoryComponent } from './story/story.component';
     LoginComponent,
     ForgetPasswordComponent,
     Limit,
-    StoryComponent
+    StoryComponent,
+    SettingsComponent
   ],
   entryComponents: [],
   imports: [

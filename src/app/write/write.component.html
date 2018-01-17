@@ -18,14 +18,14 @@
               <div class="form-group">
                 <label><b>Story</b></label>
                 <p class="gray-link mb-1">Story must not be less than 420 characters.</p>
-                <textarea rows="{{storyRows}}"  id="body"   [(ngModel)]="story.body" minlength="4" name="body" #body="ngModel" (keyup)="expandArea()" class="form-control" placeholder="Write your story here..." required></textarea>
+                <textarea rows="{{storyRows}}"  id="body"   [(ngModel)]="story.body" minlength="420" name="body" #body="ngModel" (keyup)="expandArea()" class="form-control" placeholder="Write your story here..." required></textarea>
 
                 <div *ngIf="body.invalid && (body.dirty || body.touched)" class="alert alert-danger">
                     <div *ngIf="body.errors.required">
                       Story is required
                     </div>
                     <div *ngIf="body.errors.minlength">
-                      Story must not less than 4 characters
+                      Story must not less than 420 characters
                     </div>
                 </div>
               </div>

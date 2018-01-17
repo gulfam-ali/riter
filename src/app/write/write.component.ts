@@ -10,7 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class WriteComponent implements OnInit {
   error = { show: 0, message: '' }
-  storyRows: number = 5;
+  storyRows: number = 15;
   user_id: string;
   token: string;
 
@@ -28,6 +28,12 @@ export class WriteComponent implements OnInit {
 
   post(){
       console.log(this.story);
+      this.story.body = this.story.body.trim();
+      if(this.story.body.length < 420)
+      {
+        return false;
+      }
+
       var data = { title: this.story.title, body: this.story.body, user_id: this.user_id, token: this.token}
       this.http.post('http://localhost/riter/api/post/write', data).subscribe(res => {
           if(res['validate']=="true")
@@ -43,11 +49,11 @@ export class WriteComponent implements OnInit {
 
   expandArea(){
 
-      if(this.story.body.split(/\r\n|\r|\n/).length > 4)
+      if(this.story.body.split(/\r\n|\r|\n/).length > 14)
       {
         this.storyRows = (this.story.body.split(/\r\n|\r|\n/).length) +1;
       }else{
-        this.storyRows = 5;
+        this.storyRows = 15;
       }
   }
 

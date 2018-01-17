@@ -17,6 +17,7 @@ import { StatsComponent } from './stats/stats.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 import { GuestGuard }                from './guest-guard.service';
@@ -31,12 +32,13 @@ const routes: Routes = [
   { path: 'story',  redirectTo: '/feed', pathMatch: 'full'},
   { path: 'feed/:id', component: StoryComponent, canActivate: [AuthGuard]},
   { path: 'write', component: WriteComponent, canActivate: [AuthGuard]},
-  { path: 'profile', component: ProfileComponent},
-  { path: 'bookmarks', component: BookmarksComponent},
-  { path: 'notifications', component: NotificationsComponent},
-  { path: 'my-stories', component: MyStoriesComponent},
-  { path: 'messages', component: MessagesComponent},
-  { path: 'stats', component: StatsComponent},
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'bookmarks', component: BookmarksComponent, canActivate: [AuthGuard]},
+  { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
+  { path: 'my-stories', component: MyStoriesComponent, canActivate: [AuthGuard]},
+  { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard]},
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+  { path: 'stats', component: StatsComponent, canActivate: [AuthGuard]},
   { path: 'register', component: RegisterComponent, canActivate: [GuestGuard]},
   { path: 'login', component: LoginComponent, canActivate: [GuestGuard]},
   { path: 'forget', component: ForgetPasswordComponent, canActivate: [GuestGuard]}

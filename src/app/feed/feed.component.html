@@ -29,7 +29,7 @@
               {{post.views}} Views
           </p>
         </div>
-        <div class="card-footer story-footer">
+        <div class="card-footer story-footer" style="display: none">
           <a routerLink="" class="card-link" (click)="togglePostLike(post.id)">
             <span [hidden]="post.liked==1">
               <i class="far fa-heart" style="color: #777;"></i> Like
@@ -39,7 +39,7 @@
             </span>
           </a>
 
-          <a routerLink="" class="card-link float-right" (click)="openComment(post.id)"><i class="far fa-comment" style="color: #777;"></i> Comment</a>
+          <a href="feed/{{post.id}}#comments" class="card-link float-right" ><i class="far fa-comment" style="color: #777;"></i> Comment</a>
         </div>
     </div>
 </div>

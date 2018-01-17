@@ -1,13 +1,19 @@
 <div class="row">
 
-    <div class="card" unselectable="on"
-     onselectstart="return false;"
-     onmousedown="return false;">
+    <div class="card" >
         <div class="card-body">
           <h5 class="card-title story-title" style="margin-bottom:  0.2em;">{{posts.title}}</h5>
-          <p class="gray-link">
+          <p>
 
-            <button class="btn btn-sm btn-light"><i class="far fa-bookmark"></i> Bookmark</button>
+            <a class="btn btn-sm btn-light " (click)="bookmark()">
+              <span [hidden]="posts.bookmarked==1">
+                <i class="far fa-bookmark"></i> Bookmark
+              </span>
+              <span style="color: #07f;" [hidden]="posts.bookmarked==0">
+                <i class="fas fa-bookmark"></i> Bookmarked
+              </span>
+            </a>
+
             <a href="feed/{{posts.id}}#comments" class="btn btn-sm btn-light"><i class="far fa-comment"></i> Comment</a>
             <!--<button class="btn btn-sm btn-light"><i class="fas fa-exclamation-triangle"></i> Report</button>-->
           </p>
@@ -21,16 +27,10 @@
                   <button class="btn btn-light float-right">Follow</button>
               </div>
           </div>
-          <p class="card-text story-text"> {{ posts.body }}</p>
+          <p class="card-text story-text" unselectable="on" onselectstart="return false;" onmousedown="return false;"> {{ posts.body }}</p>
 
-          <p class="post-stats gray-link">
-              {{posts.likes}} Likes &nbsp;
-              {{posts.comments}} Comments &nbsp;
-              {{posts.views}} Views
-          </p>
-        </div>
-        <div class="card-footer story-footer">
-            <a class="card-link" (click)="togglePostLike(posts.id)">
+          <div>
+            <a class="card-link float-left" (click)="togglePostLike(posts.id)">
               <span [hidden]="posts.liked==1">
                 <i class="far fa-heart" style="color: #777;"></i> Like
               </span>
@@ -38,90 +38,50 @@
                 <i class="fas fa-heart"></i> Liked
               </span>
             </a>
+            <p class="post-stats gray-link float-right">
+                {{posts.likes}} Likes &nbsp;
+                {{posts.comments}} Comments &nbsp;
+                {{posts.views}} Views
+            </p>
+          </div>
+
+        </div>
+        <div class="card-footer story-footer" id="comments">
+          <form  (ngSubmit)="postComment()" #commentForm="ngForm">
+            <input type="hidden" [(ngModel)]="comment.postId" name="postId" #postId="ngModel"  />
+            <div class="input-group">
+                <div class="input-group-prepend" style="padding: 0 0.5em 0 0;">
+                  <img src="../assets/avtar.png" alt="Generic placeholder image" style="width: 38px;">
+                </div>
+                <textarea rows="{{storyRows}}" (keyup)="expandArea($event)" [(ngModel)]="comment.text" minlength="1" name="text" #text="ngModel"  class="form-control scrollbar-style comment-input" placeholder="Comment" required></textarea>
+                <div class="ml-1 input-group-append" style="margin: auto;">
+                  <button type="submit" class="btn btn-sm btn-primary" [disabled]="(!commentForm.form.valid) ">Comment</button>
+                </div>
+            </div>
+
+
+          </form>
         </div>
     </div>
 
-    <div class="heading heading-small" id="comments">Comments</div>
+    <div class="heading heading-small"  [hidden]=" posts.comments < 1">Comments</div>
 
-    <div class="card comment-body">
-        <div class="input-group">
-            <div class="input-group-prepend" style="padding: 0 0.5em 0 0;">
-              <img src="../assets/avtar.png" alt="Generic placeholder image" style="width: 38px;">
-            </div>
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button">Button</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-
-        <div class="card-body comment-body">
-          <div class="media">
-            <img class="mr-2" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
-            <div class="media-body">
-              <h6 class="mt-0">Mike Anderson</h6>
-              <p class="comment-timestamp">27 Dec 2016</p>
-              <p class="media-text comment">
-                I’m an atheist, but I really disagree with the claim that religion is useless.
-                Religion is very useful to most people; here’s why: Quora User's answer to Does God exist?
-              </p>
-              <div class="media">
-                <img class="mr-1" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
+    <div class="card" style="background-color: #fafafa;" [hidden]=" posts.comments < 1">
+        <div class="card-body comment-body" style="padding-bottom: 0;">
+            <div class="media" *ngFor="let comment of commentArr">
+                <img class="mr-2" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
                 <div class="media-body">
-                  <h6 class="mt-0">Aditya Agarwal</h6>
-                  <p class="comment-timestamp">27 Dec 2016</p>
-                  <p class="media-text comment">
-                    From what I understood, anything that cannot be explained, is called God’s work.
-                    I don’t know if that’s good or bad when you see the bigger picture.
-
-                    The last point though shows that God often acts as a authoritative father figure that keeps mankind in check.
-                    But that idea is often misused to misguide people.
-                    That is what I tried to explain in my answer. Maybe I am wrong. Hopefully :)
-                  </p>
+                      <h6 class="mt-0">{{comment.first_name}} {{comment.last_name}}</h6>
+                      <p class="comment-timestamp">{{ comment.comment_date | date }}</p>
+                      <p class="media-text comment">
+                        {{ comment.comment }}
+                      </p>
                 </div>
-                </div>
-                <div class="media">
-                  <img class="mr-1" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
-                  <div class="media-body">
-                    <h6 class="mt-0">Mike Anderson</h6>
-                    <p class="comment-timestamp">28 Dec 2016</p>
-                    <p class="media-text comment">
-                      This comment uses equivocation like “I don’t know” and “often”, but the answer is very different — it takes a hard black-and-white line:
-
-“The whole concept of religion is useless.
-
-It’s just an excuse for one group of people to hate and discriminate another group of people. Or to incite violence, act immaturely and justify all of it, all in the name of religion.”
-
-That’s what I was responding to. The answer seems to say that religion is always useless or harmful.
-                    </p>
-                  </div>
-                  </div>
             </div>
-            </div>
-
-            <div class="media">
-              <img class="mr-1" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
-              <div class="media-body">
-                <h6 class="mt-0">Emmanuel Anseline</h6>
-                <p class="comment-timestamp">01 Jan 2017</p>
-                <p class="media-text comment">
-                  Except pastafarianism. These guys are peaceful and they have an excellent religion. FSMism is the best, even atheists like me will say it.
-                </p>
-              </div>
-              </div>
-
-              <div class="media">
-                <img class="mr-1" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
-                <div class="media-body">
-                  <h6 class="mt-0">Sarah Citta</h6>
-                  <p class="comment-timestamp">01 Jan 2017</p>
-                  <p class="media-text comment">
-                    I'm a Minister of the CFSM and I bless you, young meatball, for spreading the word of Quob's love! r'Amen!
-                  </p>
-                </div>
-                </div>
+        </div>
+        <div class="card-footer story-footer text-center" [hidden]="comments_offset >= posts.comments">
+          <a (click)="loadMoreComments()">Load more comments</a>
         </div>
     </div>
+
 </div>

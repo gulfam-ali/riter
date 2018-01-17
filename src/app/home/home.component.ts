@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-     this.http.get('http://localhost/riter/api/feed').subscribe(res => {
+     this.http.get('http://localhost/riter/api/guestfeed').subscribe(res => {
           this.validate = res['validate'];
           this.total_records = res['total_records'];
           this.posts = res['data'];
