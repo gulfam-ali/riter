@@ -28,12 +28,10 @@ import { AuthGuard }  from './auth-guard.service';
 import { Globals } from './globals';
 import { StoryComponent } from './story/story.component';
 import { SettingsComponent } from './settings/settings.component';
-<<<<<<< HEAD
 import { ApiService } from './api.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerService } from './spinner.service';
-=======
->>>>>>> 38e84f6961e80223d2b1fb1bd7aafe50d6a9ff49
+import { ScrollEventModule } from 'ngx-scroll-event';
 
 
 
@@ -55,12 +53,8 @@ import { SpinnerService } from './spinner.service';
     ForgetPasswordComponent,
     Limit,
     StoryComponent,
-<<<<<<< HEAD
     SettingsComponent,
     SpinnerComponent
-=======
-    SettingsComponent
->>>>>>> 38e84f6961e80223d2b1fb1bd7aafe50d6a9ff49
   ],
   entryComponents: [],
   imports: [
@@ -68,13 +62,10 @@ import { SpinnerService } from './spinner.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ScrollEventModule
   ],
-<<<<<<< HEAD
   providers: [CookieService, GuestGuard, AuthGuard, Globals, ApiService, SpinnerService],
-=======
-  providers: [CookieService, GuestGuard, AuthGuard, Globals],
->>>>>>> 38e84f6961e80223d2b1fb1bd7aafe50d6a9ff49
   bootstrap: [AppComponent]
 })
 export class AppModule { }

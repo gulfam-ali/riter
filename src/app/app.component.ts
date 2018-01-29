@@ -8,11 +8,9 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  position = "relative";
   title = 'riter';
-<<<<<<< HEAD
   username: string = '';
-=======
->>>>>>> 38e84f6961e80223d2b1fb1bd7aafe50d6a9ff49
   sidebarVisible = false;
   sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:''};
   is_logged: boolean;
@@ -25,22 +23,28 @@ export class AppComponent {
           this.is_logged = true;
           this.sidebarVisible = true;
       }
-<<<<<<< HEAD
 
       this.username = this.cookieService.get('firstName')+' '+this.cookieService.get('lastName');
-=======
->>>>>>> 38e84f6961e80223d2b1fb1bd7aafe50d6a9ff49
+  }
+
+  public handleScroll(event: ScrollEvent) {
+
+    this.position = "fixed";
+    console.log('scroll occurred', event.originalEvent);
+    if (event.isReachingBottom) {
+      console.log(`the user is reaching the bottom`);
+    }
+    if (event.isReachingTop) {
+      this.position = "relative";
+    }
+
   }
 
   logout(){
     this.cookieService.deleteAll();
 
     //this.cookieService.delete('userId');
-<<<<<<< HEAD
     //this.cookieService.delete('token');
-=======
-    //cookieService.delete('token');
->>>>>>> 38e84f6961e80223d2b1fb1bd7aafe50d6a9ff49
 
     window.location.href = "";
   }

@@ -1,22 +1,39 @@
+.main-header{
+  position: fixed;
+}
+
+.main-body{
+  margin:0;
+  padding: 0.4em 0;
+  margin-top:3em;
+  background: #fafafa;
+}
+
+@media all and (max-width: 576px) {
+  .main-header{
+    position: relative;
+  }
+
+  .main-body{
+    margin-top: 0em; 
+  }
+}
+
 .navigation-bar{
   margin: 0;
-<<<<<<< HEAD
   background: #ee0000;
-box-shadow: 0pt 1pt 2pt #ff5d5d;
+  box-shadow: 0pt 1pt 2pt #ff5d5d;
 }
 .navbar{
   padding-top:0;
   padding-bottom:0;
+  font-family: 'Varela Round';
 }
 .navbar-light .navbar-brand{
   color: #fff;
-      font-family: 'Berkshire Swash', cursive;
-      font-size: 1.8em;
-      text-shadow: 0pt 0pt 1pt #a70000;
-=======
-  background: #5eaec3;
-box-shadow: 0pt 1pt 5pt #65b1ca;
->>>>>>> 38e84f6961e80223d2b1fb1bd7aafe50d6a9ff49
+  font-family: 'Berkshire Swash', cursive;
+  font-size: 1.8em;
+  text-shadow: 0pt 0pt 1pt #a70000;
 }
 
 .navigation-bar a.nav-link{
@@ -24,7 +41,7 @@ box-shadow: 0pt 1pt 5pt #65b1ca;
 }
 
 .navigation-bar a.nav-link:hover{
-  background: #5399ab;
+  background: #cc0000;
   border-radius: 0.2em;
 }
 
@@ -50,4 +67,13 @@ box-shadow: 0pt 1pt 5pt #65b1ca;
 
 .nav-pills .nav-link:hover {
     color: #007bff;
+}
+
+.article-wrapper{
+  padding: 0.5em 0;
+}
+
+.navbar-footer li.nav-item {
+    width: 25%;
+    text-align: center;
 }
