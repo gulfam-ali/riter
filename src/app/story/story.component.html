@@ -1,0 +1,87 @@
+<div class="row">
+
+    <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title story-title" style="margin-bottom:  0.2em;">{{posts.title}}</h5>
+          <p>
+
+            <a class="btn btn-sm btn-light " (click)="bookmark()">
+              <span [hidden]="posts.bookmarked==1">
+                <i class="far fa-bookmark"></i> Bookmark
+              </span>
+              <span style="color: #07f;" [hidden]="posts.bookmarked==0">
+                <i class="fas fa-bookmark"></i> Bookmarked
+              </span>
+            </a>
+
+            <a href="feed/{{posts.id}}#comments" class="btn btn-sm btn-light"><i class="far fa-comment"></i> Comment</a>
+            <!--<button class="btn btn-sm btn-light"><i class="fas fa-exclamation-triangle"></i> Report</button>-->
+          </p>
+          <div class="media story-author">
+              <img class="mr-3" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
+              <div class="media-body">
+                  <h6 class="mt-0">{{posts.first_name}} {{posts.last_name}}</h6>
+                  <p class="comment-timestamp">{{posts.post_date | date }}</p>
+              </div>
+              <div class="media-body">
+                  <button class="btn btn-light float-right">Follow</button>
+              </div>
+          </div>
+          <p class="card-text story-text" unselectable="on" onselectstart="return false;" onmousedown="return false;"> {{ posts.body }}</p>
+
+          <div>
+            <a class="card-link float-left" (click)="togglePostLike(posts.id)">
+              <span [hidden]="posts.liked==1">
+                <i class="far fa-heart" style="color: #777;"></i> Like
+              </span>
+              <span style="color: #ff1100;" [hidden]="posts.liked==0">
+                <i class="fas fa-heart"></i> Liked
+              </span>
+            </a>
+            <p class="post-stats gray-link float-right">
+                {{posts.likes}} Likes &nbsp;
+                {{posts.comments}} Comments &nbsp;
+                {{posts.views}} Views
+            </p>
+          </div>
+
+        </div>
+        <div class="card-footer story-footer" id="comments">
+          <form  (ngSubmit)="postComment()" #commentForm="ngForm">
+            <input type="hidden" [(ngModel)]="comment.postId" name="postId" #postId="ngModel"  />
+            <div class="input-group">
+                <div class="input-group-prepend" style="padding: 0 0.5em 0 0;">
+                  <img src="../assets/avtar.png" alt="Generic placeholder image" style="width: 38px;">
+                </div>
+                <textarea rows="{{storyRows}}" (keyup)="expandArea($event)" [(ngModel)]="comment.text" minlength="1" name="text" #text="ngModel"  class="form-control scrollbar-style comment-input" placeholder="Comment" required></textarea>
+                <div class="ml-1 input-group-append" style="margin: auto;">
+                  <button type="submit" class="btn btn-sm btn-primary" [disabled]="(!commentForm.form.valid) ">Comment</button>
+                </div>
+            </div>
+
+
+          </form>
+        </div>
+    </div>
+
+    <div class="heading heading-small"  [hidden]=" posts.comments < 1">Comments</div>
+
+    <div class="card" style="background-color: #fafafa;" [hidden]=" posts.comments < 1">
+        <div class="card-body comment-body" style="padding-bottom: 0;">
+            <div class="media" *ngFor="let comment of commentArr">
+                <img class="mr-2" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
+                <div class="media-body">
+                      <h6 class="mt-0">{{comment.first_name}} {{comment.last_name}}</h6>
+                      <p class="comment-timestamp">{{ comment.comment_date | date }}</p>
+                      <p class="media-text comment">
+                        {{ comment.comment }}
+                      </p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer story-footer text-center" [hidden]="comments_offset >= posts.comments">
+          <a (click)="loadMoreComments()">Load more comments</a>
+        </div>
+    </div>
+
+</div>

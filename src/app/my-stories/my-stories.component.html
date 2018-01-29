@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="card">
+        <div class="card-body write-body">
+          <div class="float-left">
+            <img class="mr-3" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;"> Gulfam Ali
+          </div>
+          <div class="float-right">
+            <a routerLink="../write" class="btn btn-light"> <i class="far fa-edit"></i> Write Story </a>
+          </div>
+        </div>
+    </div>
+
+    <div class="card" *ngFor="let post of posts" unselectable="on"
+     onselectstart="return false;"
+     onmousedown="return false;">
+        <div class="card-body">
+          <h5 class="card-title story-title"><a href="feed/{{post.id}}">{{post.title}}</a></h5>
+          <div class="media story-author">
+              <img class="mr-3" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
+              <div class="media-body">
+                  <h6 class="mt-0">{{post.first_name}} {{post.last_name}}</h6>
+                  <p class="comment-timestamp">{{post.post_date | date }}</p>
+              </div>
+          </div>
+          <p class="card-text story-text"> {{ post.body | limit:400 }}<a href="feed/{{post.id}}" *ngIf="post.body.length > 600">... (read more)</a></p>
+          <p class="post-stats gray-link">
+              {{post.likes}} Likes &nbsp;
+              {{post.comments}} Comments &nbsp;
+              {{post.views}} Views
+          </p>
+        </div>
+        <div class="card-footer story-footer">
+          <a routerLink="" class="card-link" (click)="togglePostLike(post.id)">
+            <span [hidden]="post.liked==1">
+              <i class="far fa-heart" style="color: #777;"></i> Like
+            </span>
+            <span style="color: #ff1100;" [hidden]="post.liked==0">
+              <i class="fas fa-heart"></i> Liked
+            </span>
+          </a>
+
+          <a routerLink="" class="card-link float-right" (click)="openComment(post.id)"><i class="far fa-comment" style="color: #777;"></i> Comment</a>
+        </div>
+    </div>
+</div>

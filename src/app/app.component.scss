@@ -1,0 +1,48 @@
+.navigation-bar{
+  margin: 0;
+  background: #ee0000;
+box-shadow: 0pt 1pt 2pt #ff5d5d;
+}
+.navbar{
+  padding-top:0;
+  padding-bottom:0;
+}
+.navbar-light .navbar-brand{
+  color: #fff;
+      font-family: 'Berkshire Swash', cursive;
+      font-size: 1.8em;
+      text-shadow: 0pt 0pt 1pt #a70000;
+}
+
+.navigation-bar a.nav-link{
+  color: #fff;
+}
+
+.navigation-bar a.nav-link:hover{
+  background: #5399ab;
+  border-radius: 0.2em;
+}
+
+.sidebar{
+  padding:0.8em 0.5em 0 0;
+  font-size: 1em;
+}
+
+.sidebar .nav-link{
+   padding: 0.4em 1em;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #007bff;
+    background-color: #eaeaea;
+    font-weight: 600;
+}
+
+.nav-pills .nav-link {
+    border-radius:0;
+    color: #777;
+}
+
+.nav-pills .nav-link:hover {
+    color: #007bff;
+}
