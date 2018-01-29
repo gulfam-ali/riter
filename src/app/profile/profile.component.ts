@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { ApiService } from '../api.service';
+=======
+>>>>>>> 38e84f6961e80223d2b1fb1bd7aafe50d6a9ff49
 
 @Component({
   selector: 'app-profile',
@@ -8,6 +11,7 @@ import { ApiService } from '../api.service';
 })
 export class ProfileComponent implements OnInit {
 
+<<<<<<< HEAD
   profile = {
     id:'',
     avtar:'default.png',
@@ -36,6 +40,11 @@ export class ProfileComponent implements OnInit {
         }
       });
 
+=======
+  constructor() { }
+
+  ngOnInit() {
+>>>>>>> 38e84f6961e80223d2b1fb1bd7aafe50d6a9ff49
   }
 
 }
