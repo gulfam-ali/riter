@@ -1,10 +1,10 @@
 <div class="row">
-  <div class="offset-xl-2 offset-lg-3 offset-md-2 offset-sm-2 col-xl-6 col-lg-6 col-md-8 col-sm-8 col-12" style="    padding: 2em; box-shadow: 0pt 0pt 3pt #ccc;">
+  <div class="offset-xl-2 offset-lg-3 offset-md-2 offset-sm-2 col-xl-6 col-lg-6 col-md-8 col-sm-8 col-12" style="     background: #fff;   padding: 2em; box-shadow: 0pt 0pt 3pt #ccc;">
   <p style="font-size: 1.5em; font-weight: 400;">Register Yourself Now!</p>
   <p>Become a member and start posting your story and get recognized by millions of other users.</p>
   <form (ngSubmit)="register()" #registerForm="ngForm">
       <div class="form-group">
-        <label for="firstName">First Name</label>
+        <label for="firstName"><b>First Name</b></label>
         <input type="email" class="form-control" id="firstName"  [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel" maxlength="20" pattern="[a-zA-Z ]*" aria-describedby="firstNameHelp" placeholder="First Name" required>
 
         <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">

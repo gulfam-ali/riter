@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-feed',
@@ -14,14 +15,15 @@ export class FeedComponent implements OnInit {
   total_records: string[];
   validate: string[];
   posts = [];
-  constructor( private http: HttpClient, private cookieService: CookieService) {
+  constructor( private http: HttpClient, private cookieService: CookieService, private globals: Globals) {
     this.user_id = this.cookieService.get('userId');
     this.token = this.cookieService.get('token');
+    this.globals.title = "Feed";
   }
 
   ngOnInit() {
     var data = { user_id: this.user_id, token: this.token }
-     this.http.post('http://localhost/riter/api/feed', data).subscribe(res => {
+     this.http.post(this.globals.apiUrl+'/feed', data).subscribe(res => {
           this.validate = res['validate'];
           this.total_records = res['total_records'];
           this.posts = res['data'];
@@ -41,7 +43,7 @@ export class FeedComponent implements OnInit {
     }
 
     var data = { user_id: this.user_id, token:this.token, post_id: post_id }
-    this.http.post('http://localhost/riter/api/post/like', data).subscribe(res => {
+    this.http.post(this.globals.apiUrl + '/post/like', data).subscribe(res => {
         if(res['validate']!='true')
         {
             this.posts[post_key].liked = (this.posts[post_key].liked)?0:1;

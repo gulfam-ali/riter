@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body{
+  background: #fafafa;
+}
 a{
   cursor: pointer;
   color: #0078C0;
@@ -11,6 +15,11 @@ a{
 
 a:hover{
   text-decoration: none;
+}
+
+label {
+    color: #666;
+    font-weight: 500;
 }
 .story-text{
   -moz-user-select: none;
