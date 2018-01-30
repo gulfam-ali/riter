@@ -22,7 +22,7 @@
                   <p class="comment-timestamp">{{post.post_date | date }}</p>
               </div>
           </div>
-          <p class="card-text story-text"> {{ post.body | limit:400 }}<a routerLink="feed/{{post.id}}" *ngIf="post.body.length > 600">... (read more)</a></p>
+          <p class="card-text story-text"> {{ post.body | limit:400 }}<a routerLink="{{post.id}}" *ngIf="post.body.length > 600">... (read more)</a></p>
           <p class="post-stats gray-link">
               {{post.likes}} Likes &nbsp;
               {{post.comments}} Comments &nbsp;
