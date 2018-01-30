@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
           {
               this.cookieService.set( 'userId', res['user_id'] );
               this.cookieService.set( 'token', res['user_token'] );
-              window.location.href = "feed";
+              window.location.href = "/feed";
           }
        });
   }
