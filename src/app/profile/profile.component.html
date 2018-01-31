@@ -1,12 +1,12 @@
 <div class="row">
   <div class="card register-card">
     <div class="card-body text-center">
-      <img class="mb-3" src="../assets/{{ profile.avtar}}" alt="Generic placeholder image" style="    width: 40%; max-width: 160px; border-radius: 100%; " >
+      <img class="mb-3" src="assets/{{ profile.avtar}}" alt="Profile Picture" style="    width: 40%; max-width: 160px; border-radius: 100%; " >
       <h5 class="card-title">{{ profile.first_name}} {{profile.last_name}}</h5>
       <button class="btn btn-sm btn-light"><i class="far fa-image"></i>&nbsp; Change Picture</button>
     </div>
 
-    <div class="row card-body text-center" style="border-top: 1pt solid #eee; margin:0;">
+    <div class="row card-body text-center" style="border-top: 1pt solid #eee; margin:0;" [hidden]="true">
         <div class="col-md-12 stats-heading">Rank Stats</div>
         <div class="col-md-6 col-sm-6 col-12 stats-box">
           <div>
@@ -23,46 +23,31 @@
         </div>
     </div>
 
-    <div class="row card-body text-center" style="border-top: 1pt solid #eee; margin:0;">
-        <div class="col-md-12 stats-heading">Activity Stats</div>
-        <div class="col-md-4 col-sm-6 col-6 stats-box">
-          <div>
-            <p class="stats-phrase">You gave</p>
-            <p class="stats-count">{{ profile.views}}</p>
-            <p class="stats-category">Views</p>
-          </div>
+    <div class="row card-body" style="border-top: 1pt solid #eee; margin:0;">
+        <div class="col-md-12 stats-heading" style="padding-left: 0.5em;"><i class="fas fa-sliders-h"></i>&nbsp; Activity Stats</div>
+        <div class="col-md-12 stats-box">
+            <p class="stats-category float-left">Views</p>
+            <p class="stats-count float-right">{{ profile.views}}</p>
         </div>
 
-        <div class="col-md-4 col-sm-6 col-6 stats-box">
-          <div>
-            <p class="stats-phrase">You gave</p>
-            <p class="stats-count">{{ profile.likes}}</p>
-            <p class="stats-category">Likes</p>
-          </div>
+        <div class="col-md-12 stats-box">
+            <p class="stats-category float-left">Likes</p>
+            <p class="stats-count float-right">{{ profile.likes}}</p>
         </div>
 
-        <div class="col-md-4 col-sm-6 col-6 stats-box">
-          <div>
-            <p class="stats-phrase">You gave</p>
-            <p class="stats-count">{{ profile.comments }}</p>
-            <p class="stats-category">Comments</p>
-          </div>
+        <div class="col-md-12 stats-box">
+            <p class="stats-category float-left">Comments</p>
+            <p class="stats-count float-right">{{ profile.comments }}</p>
         </div>
 
-        <div class="col-md-4 col-sm-6 col-6 stats-box">
-          <div>
-            <p class="stats-phrase">You have</p>
-            <p class="stats-count">{{ profile.bookmarks}}</p>
-            <p class="stats-category">Bookmarks</p>
-          </div>
+        <div class="col-md-12 stats-box">
+            <p class="stats-category float-left">Bookmarks</p>
+            <p class="stats-count float-right">{{ profile.bookmarks}}</p>
         </div>
 
-        <div class="col-md-4 col-sm-6 col-6 stats-box">
-          <div>
-            <p class="stats-phrase">You have written</p>
-            <p class="stats-count">{{ profile.posts}}</p>
-            <p class="stats-category">Stories</p>
-          </div>
+        <div class="col-md-12 stats-box">
+            <p class="stats-category float-left">Stories</p>
+            <p class="stats-count float-right">{{ profile.posts}}</p>
         </div>
     </div>
   </div>

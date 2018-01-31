@@ -8,6 +8,10 @@
   margin-top:3em;
 }
 
+.article-wrapper{
+  padding: 0.5em 0;
+}
+
 @media all and (max-width: 576px) {
   .main-header{
     position: relative;
@@ -15,6 +19,10 @@
 
   .main-body{
     margin-top: 0em;
+  }
+
+  .article-wrapper{
+    padding: 0;
   }
 }
 
@@ -68,11 +76,14 @@
     color: #007bff;
 }
 
-.article-wrapper{
-  padding: 0.5em 0;
-}
+
 
 .navbar-footer li.nav-item {
-    width: 33.33%;
     text-align: center;
+}
+
+.navbar-footer .nav-link{
+  padding: 0.5em;
+  font-size: 1.34em;
+      border-radius: 0 !important;
 }

@@ -6,7 +6,7 @@ body{
 }
 a{
   cursor: pointer;
-  color: #0078C0;
+  color: #0687C0;
 }
 
 .row{
@@ -170,12 +170,13 @@ textarea::-webkit-scrollbar-thumb
     border-bottom: 1pt solid #eee;
     padding: 0 0 0.5em 0;
     font-weight: 500;
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
 .sub-heading{
   font-weight: 500;
     margin: 0;
+    font-size: 1.1em;
 }
 
 .small-text{
@@ -220,4 +221,29 @@ textarea::-webkit-scrollbar-thumb
     -webkit-transform: scale(1.0);
     transform: scale(1.0);
   }
+}
+
+.w25{
+  width: 25%;
+}
+.p-0{
+  padding: 0;
+}
+.pt-0{
+  padding-top: 0;
+}
+.pb-0{
+  padding-bottom: 0;
+}
+
+.color-red{
+  color: #ee0000;
+}
+
+.color-blue{
+  color: #0687C0;
+}
+
+.color-green {
+    color: #00a207;
 }
