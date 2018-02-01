@@ -32,6 +32,9 @@ import { ApiService } from './api.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerService } from './spinner.service';
 import { ScrollEventModule } from 'ngx-scroll-event';
+import { PopupComponent } from './popup/popup.component';
+import { ChangeEmailComponent } from './popup/change-email/change-email.component';
+import { ChangePasswordComponent } from './popup/change-password/change-password.component';
 
 
 
@@ -54,7 +57,10 @@ import { ScrollEventModule } from 'ngx-scroll-event';
     Limit,
     StoryComponent,
     SettingsComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PopupComponent,
+    ChangeEmailComponent,
+    ChangePasswordComponent
   ],
   entryComponents: [],
   imports: [

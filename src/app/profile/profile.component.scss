@@ -1,6 +1,10 @@
 .stats-box{
   padding: 0.5em;
-  border-radius: 0.2em;
+  border-top: 0.1pt solid #f1f1f1;
+}
+
+.b-0{
+  border: 0;
 }
 
 .stats-heading{
@@ -21,13 +25,13 @@ padding-bottom: 1em;
 }
 
 .stats-box .stats-count{
-    color: #006596;
-    font-size: 1.1em;
+    color: #999;
+    font-size: 0.9em;
     font-weight: 600;
 }
 
 .stats-box .stats-category{
     color: #555;
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 400;
 }

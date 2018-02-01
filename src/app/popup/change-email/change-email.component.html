@@ -1,0 +1,57 @@
+<!-- Modal -->
+<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered h-100 d-flex flex-column justify-content-center my-0" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="modalTitle">Change Primary Email</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form (ngSubmit)="changeEmail()" #changeEmailForm="ngForm">
+
+              <div class="form-group">
+                <label for="email">Primary Email</label>
+                <input type="text" class="form-control" placeholder="Enter email" value="aligulfam6@gmail.com" disabled required>
+              </div>
+
+              <div class="form-group">
+                <label for="email">New Email</label>
+                <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" #email="ngModel" placeholder="Enter email" required>
+
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                    <div *ngIf="email.errors.required">
+                      Email is required
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="mb-0" for="password">Account Password</label>
+                <p class="small small-text mb-2">We need this to verify it's you!</p>
+                <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" minlength="4" pattern="[a-zA-Z#@0-9]*" #password="ngModel" placeholder="Password" required>
+
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                    <div *ngIf="password.errors.required">
+                      Password is required
+                    </div>
+                    <div *ngIf="password.errors.minlength">
+                      Password must not less than 4 characters
+                    </div>
+                    <div *ngIf="password.errors.pattern">
+                      Only Alphabets, Numbers, @ and # characters are allowed
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary" [disabled]="(!changeEmailForm.form.valid) ">Save Changes</button>
+                &nbsp;
+                <span class="btn btn-light" data-dismiss="modal">Cancel</span>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

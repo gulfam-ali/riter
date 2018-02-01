@@ -16,7 +16,7 @@
         <div class="card-body">
           <h5 class="card-title story-title"><a href="feed/{{post.id}}">{{post.title}}</a></h5>
           <div class="media story-author">
-              <img class="mr-3" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
+              <img class="mr-3" src="../assets/{{post.avtar}}" alt="Generic placeholder image" style="width:48px;">
               <div class="media-body">
                   <h6 class="mt-0">{{post.first_name}} {{post.last_name}}</h6>
                   <p class="comment-timestamp">{{post.post_date | date }}</p>

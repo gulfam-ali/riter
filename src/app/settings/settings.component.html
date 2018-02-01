@@ -7,7 +7,7 @@
       <div class="row card-body pt-0">
           <div class="col-md-12 p-0">
               <div>
-                <p class="sub-heading">Email <a href="#" class="float-right"><i class="far fa-edit"></i></a></p>
+                <p class="sub-heading">Email <button class="btn btn-sm btn-link float-right" data-toggle="modal" data-target="#emailModal"><i class="far fa-edit" ></i></button></p>
                 <p class="small small-text">Change your primary email address</p>
               </div>
           </div>
@@ -16,10 +16,13 @@
       <div class="row card-body pt-0">
           <div class="col-md-12 p-0">
               <div>
-                <p class="sub-heading">Password <a href="#" class="float-right"><i class="far fa-edit"></i></a></p>
+                <p class="sub-heading">Password <button class="btn btn-sm btn-link float-right" data-toggle="modal" data-target="#passwordModal"><i class="far fa-edit"></i></button></p>
                 <p class="small small-text">Change your account password</p>
               </div>
           </div>
       </div>
   </div>
 </div>
+
+<app-change-email></app-change-email>
+<app-change-password></app-change-password>
