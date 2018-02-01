@@ -14,6 +14,12 @@ export class ApiService {
       this.api_auth.token = this.cookieService.get('token');
   }
 
+  api_post(url, data){
+      data.user_id = this.api_auth.user_id;
+      data.token = this.api_auth.token;
+      return this.http.post('http://localhost/riter/api/' + url, data).map(response => response);
+  }
+
   login(data){
     this.http.post('http://localhost/riter/api/login', data).subscribe(res => {
         console.log(res);
@@ -40,9 +46,15 @@ export class ApiService {
      });
   }
 
-  profile(){
 
-    return this.http.post('http://localhost/riter/api/profile', this.api_auth).map(response => response)
+
+  changeEmail(data){
+      return this.api_post('settings/change-email', data);
+  }
+
+  profile(){
+      return this.api_post('profile', this.api_auth);
+      return this.http.post('http://localhost/riter/api/profile', this.api_auth).map(response => response)
   }
 
 }
