@@ -54,7 +54,7 @@ export class ApiService {
 
   profile(){
       return this.api_post('profile', this.api_auth);
-      return this.http.post('http://localhost/riter/api/profile', this.api_auth).map(response => response)
+      //return this.http.post('http://localhost/riter/api/profile', this.api_auth).map(response => response)
   }
 
 }
