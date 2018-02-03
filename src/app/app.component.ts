@@ -9,46 +9,41 @@ import { Globals } from './globals';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  position = "relative";
-  title = 'riter';
-  username: string = '';
-  sidebarVisible = false;
-  sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:''};
-  is_logged: boolean;
-  constructor(private http: HttpClientModule, private cookieService: CookieService, private globals: Globals)
-  {
+    position = "relative";
+    username: string = '';
+    sidebarVisible = false;
+    is_logged: boolean;
+    constructor(private http: HttpClientModule, private cookieService: CookieService, private globals: Globals)
+    {
+        this.globals.setTitle( 'Wordsire' );
 
-      if( !( this.cookieService.check('userId') && this.cookieService.check('token')) ){
-          this.is_logged = false;
-      }else{
-          this.is_logged = true;
-          this.sidebarVisible = true;
+        if( !( this.cookieService.check('userId') && this.cookieService.check('token')) ){
+            this.is_logged = false;
+        }else{
+            this.is_logged = true;
+            this.sidebarVisible = true;
+        }
+
+        this.username = this.cookieService.get('firstName')+' '+this.cookieService.get('lastName');
+    }
+
+    public handleScroll(event) {
+
+      this.position = "fixed";
+      console.log('scroll occurred', event.originalEvent);
+      if (event.isReachingBottom) {
+        console.log(`the user is reaching the bottom`);
+      }
+      if (event.isReachingTop) {
+        this.position = "relative";
       }
 
-      this.username = this.cookieService.get('firstName')+' '+this.cookieService.get('lastName');
-  }
-
-  public handleScroll(event) {
-
-    this.position = "fixed";
-    console.log('scroll occurred', event.originalEvent);
-    if (event.isReachingBottom) {
-      console.log(`the user is reaching the bottom`);
-    }
-    if (event.isReachingTop) {
-      this.position = "relative";
     }
 
-  }
-
-  logout(){
-    this.cookieService.deleteAll();
-
-    //this.cookieService.delete('userId');
-    //this.cookieService.delete('token');
-
-    window.location.href = "";
-  }
+    logout(){
+      this.cookieService.deleteAll();
+      window.location.href = "";
+    }
 
 
 }

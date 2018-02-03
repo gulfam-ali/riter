@@ -25,10 +25,10 @@ import { AuthGuard }                from './auth-guard.service';
 
 const routes: Routes = [
 
-  { path: '', component: HomeComponent, canActivate: [GuestGuard]},
+  { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [GuestGuard]},
   { path: 'home', component: HomeComponent, canActivate: [GuestGuard]},
   { path: 'about', component: AboutComponent, canActivate: [GuestGuard]},
-  { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
+  { path: 'feed', component: FeedComponent,  data: {title: 'Feed'}, canActivate: [AuthGuard]},
   { path: 'story',  redirectTo: '/feed', pathMatch: 'full'},
   { path: 'feed/:id', component: StoryComponent, canActivate: [AuthGuard]},
   { path: 'write', component: WriteComponent, canActivate: [AuthGuard]},
@@ -41,7 +41,8 @@ const routes: Routes = [
   { path: 'stats', component: StatsComponent, canActivate: [AuthGuard]},
   { path: 'register', component: RegisterComponent, canActivate: [GuestGuard]},
   { path: 'login', component: LoginComponent, canActivate: [GuestGuard]},
-  { path: 'forget', component: ForgetPasswordComponent, canActivate: [GuestGuard]}
+  { path: 'forget', component: ForgetPasswordComponent, canActivate: [GuestGuard]},
+  { path: '**', component: HomeComponent, canActivate: [GuestGuard]}
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-forget-password',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgetPasswordComponent implements OnInit {
 
-  constructor() { }
+  constructor(private globals: Globals) {
+      this.globals.setTitle( "Forget Password" );
+  }
 
   ngOnInit() {
   }

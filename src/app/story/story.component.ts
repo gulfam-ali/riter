@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Globals } from '../globals';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -39,9 +40,11 @@ export class StoryComponent implements OnInit {
   comments_returned: number = 0;
   comments_offset: number = 0;
 
-  constructor( private http: HttpClient, private route: ActivatedRoute, private cookieService: CookieService) {
-    this.user_id = this.cookieService.get('userId');
-    this.token = this.cookieService.get('token');
+  constructor(private api: ApiService,  private route: ActivatedRoute, private cookieService: CookieService, private globals: Globals) {
+      this.globals.setTitle( "Story" );
+      this.globals.setActiveMenu( "story" );
+      this.user_id = this.cookieService.get('userId');
+      this.token = this.cookieService.get('token');
 
       this.route.params.subscribe( params => {
           this.story_id = params.id;
@@ -49,36 +52,39 @@ export class StoryComponent implements OnInit {
   }
 
   ngOnInit() {
-      var data = { user_id: this.user_id, post_id:this.story_id,  token: this.token }
-     this.http.post('http://localhost/riter/api/post/read', data).subscribe(res => {
-          this.validate = res['validate'];
-          this.total_records = res['total_records'];
-          this.posts = res['data'][0];
-          this.comment.postId = this.posts.id;
+      var data = { post_id:this.story_id }
+      this.api.readStory(data).subscribe(res => {
+           this.validate = res['validate'];
+           this.total_records = res['total_records'];
+           this.posts = res['data'][0];
+           this.comment.postId = this.posts.id;
 
-          this.commentArr = res['comments']['commentsArr'];
-          this.comments_returned = res['comments']['comments_returned'];
-          this.comments_offset = 5;
-      });
+           this.globals.setTitle( this.posts.title );
+
+           this.commentArr = res['comments']['commentsArr'];
+           this.comments_returned = res['comments']['comments_returned'];
+           this.comments_offset = 5;
+       });
   }
 
   bookmark(){
-    this.posts.bookmarked = (this.posts.bookmarked==1)?0:1;
-    var data = { user_id: this.user_id, token:this.token, post_id: this.posts.id }
-    this.http.post('http://localhost/riter/api/post/bookmark', data).subscribe(res => {
-        if(res['validate']!='true')
-        {
-            this.posts.bookmarked = (this.posts.bookmarked)?0:1;
-        }
-     });
+      this.posts.bookmarked = (this.posts.bookmarked==1)?0:1;
+      var data = { post_id: this.posts.id }
+
+      this.api.bookmarkStory(data).subscribe(res => {
+          if(res['validate']!='true')
+          {
+              this.posts.bookmarked = (this.posts.bookmarked)?0:1;
+          }
+       });
   }
 
   togglePostLike(post_id){
     this.posts.liked = (this.posts.liked==1)?0:1;
     this.posts.likes = (this.posts.liked==1)? (Number(this.posts.likes)+1) : (Number(this.posts.likes)-1) ;
 
-    var data = { user_id: this.user_id, token:this.token, post_id: post_id }
-    this.http.post('http://localhost/riter/api/post/like', data).subscribe(res => {
+    var data = { post_id: post_id }
+    this.api.toggleLike(data).subscribe(res => {
         if(res['validate']!='true')
         {
             this.posts.liked = (this.posts.liked)?0:1;
@@ -94,8 +100,8 @@ export class StoryComponent implements OnInit {
       {
         return false;
       }
-      var data = { user_id: this.user_id, token:this.token, post_id: this.comment.postId, comment: this.comment.text }
-      this.http.post('http://localhost/riter/api/post/comment', data).subscribe(res => {
+      var data = { post_id: this.comment.postId, comment: this.comment.text }
+      this.api.comment(data).subscribe(res => {
           if(res['validate']=='true')
           {
               this.comment.text = '';
@@ -108,8 +114,8 @@ export class StoryComponent implements OnInit {
   }
 
   refreshComments(){
-    var data = { user_id: this.user_id, token:this.token, post_id: this.comment.postId, offset: this.comments_offset }
-    this.http.post('http://localhost/riter/api/post/loadcomments', data).subscribe(res => {
+    var data = { post_id: this.comment.postId, offset: this.comments_offset }
+    this.api.loadComments(data).subscribe(res => {
         if(res['comments_returned'] > 0)
         {
             this.comments_offset = this.comments_offset+5;
@@ -121,8 +127,8 @@ export class StoryComponent implements OnInit {
   }
 
   loadMoreComments(){
-    var data = { user_id: this.user_id, token:this.token, post_id: this.comment.postId, offset: this.comments_offset }
-    this.http.post('http://localhost/riter/api/post/loadcomments', data).subscribe(res => {
+    var data = { post_id: this.comment.postId, offset: this.comments_offset }
+    this.api.loadComments(data).subscribe(res => {
         if(res['comments_returned'] > 0)
         {
             this.comments_offset = this.comments_offset+5;

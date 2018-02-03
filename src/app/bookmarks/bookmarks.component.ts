@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-bookmarks',
@@ -14,18 +15,21 @@ export class BookmarksComponent implements OnInit {
   total_records: string[];
   validate: string[];
   posts = [];
-  constructor( private http: HttpClient, private cookieService: CookieService) {
-    this.user_id = this.cookieService.get('userId');
-    this.token = this.cookieService.get('token');
+  constructor(private api: ApiService, private cookieService: CookieService, private globals: Globals) {
+      this.globals.setTitle( "Bookmarks" );
+      this.globals.setActiveMenu( "bookmarks" );
+
+      this.user_id = this.cookieService.get('userId');
+      this.token = this.cookieService.get('token');
   }
 
   ngOnInit() {
-    var data = { user_id: this.user_id, token: this.token }
-     this.http.post('http://localhost/riter/api/feed/bookmark', data).subscribe(res => {
-          this.validate = res['validate'];
-          this.total_records = res['total_records'];
-          this.posts = res['data'];
-      });
+
+      this.api.bookmarksFeed().subscribe(res => {
+           this.validate = res['validate'];
+           this.total_records = res['total_records'];
+           this.posts = res['data'];
+       });
 
   }
 

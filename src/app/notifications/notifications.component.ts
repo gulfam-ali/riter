@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-notifications',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private globals: Globals) {
+      this.globals.setTitle( "Notifications" );
+      this.globals.setActiveMenu( "notifications" );
+  }
 
   ngOnInit() {
   }

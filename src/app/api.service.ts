@@ -2,59 +2,101 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router }    from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { SpinnerService } from './spinner.service';
+import { Globals } from './globals';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ApiService {
   api_auth = { user_id: '', token: ''};
 
-  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService, private spinnerService: SpinnerService) {
+  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService, private globals: Globals) {
       this.api_auth.user_id = this.cookieService.get('userId');
       this.api_auth.token = this.cookieService.get('token');
   }
 
-  api_post(url, data){
-      data.user_id = this.api_auth.user_id;
-      data.token = this.api_auth.token;
-      return this.http.post('http://localhost/riter/api/' + url, data).map(response => response);
+//Common Methods
+  api_get(url){
+      return this.http.get(this.globals.apiUrl+url).map(response => response);
   }
 
+  api_post(url, data = null){
+      if(data == null)
+      {
+        data = this.api_auth;
+      }else{
+        data.user_id = this.api_auth.user_id;
+        data.token = this.api_auth.token;
+      }
+
+      return this.http.post(this.globals.apiUrl+url, data).map(response => response);
+  }
+
+//Login Component
   login(data){
-    this.http.post('http://localhost/riter/api/login', data).subscribe(res => {
-        console.log(res);
-        if(res['validate']=="true")
-        {
-            this.cookieService.set( 'userId', res['user_id'] );
-            this.cookieService.set( 'firstName', res['first_name'] );
-            this.cookieService.set( 'lastName', res['last_name'] );
-            this.cookieService.set( 'token', res['user_token'] );
-            this.spinnerService.clear();
-            window.location.href = "feed";
-        }
-     });
+      return this.api_post('login', data);
   }
 
+//Register Component
   register(data){
-    this.http.post('http://localhost/riter/api/register', data).subscribe(res => {
-        if(res['validate']=="true")
-        {
-            this.spinnerService.add('Setting up your account...');
-            var loginData = { email: data.email, password: data.password }
-            this.login(loginData);
-        }
-     });
+      return this.api_post('register', data);
   }
 
-
-
+//Settings Component
   changeEmail(data){
       return this.api_post('settings/change-email', data);
   }
 
+
+//Guest Feed Component
+  guestfeed(){
+      return this.api_get('guestfeed');
+  }
+
+//Member Feed Component
+  feed(){
+      return this.api_post('feed');
+  }
+
+//Bookmarks Component
+  bookmarksFeed(){
+      return this.api_post('feed/bookmark');
+  }
+
+//My Stories Component
+
+  user_stories(){
+      return this.api_post('feed/mystories');
+  }
+
+//Story Component
+  readStory(data){
+      return this.api_post('post/read', data);
+  }
+
+  bookmarkStory(data){
+      return this.api_post('post/bookmark', data);
+  }
+
+  toggleLike(data){
+      return this.api_post('post/like', data);
+  }
+
+  comment(data){
+      return this.api_post('post/comment', data);
+  }
+
+  loadComments(data){
+      return this.api_post('post/loadcomments', data);
+  }
+
+//Write Story component
+  writeStory(data){
+      return this.api_post('post/write', data);
+  }
+
+//Profile Component
   profile(){
-      return this.api_post('profile', this.api_auth);
-      //return this.http.post('http://localhost/riter/api/profile', this.api_auth).map(response => response)
+      return this.api_post('profile');
   }
 
 }

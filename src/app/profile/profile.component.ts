@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Globals } from '../globals';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -24,15 +25,17 @@ export class ProfileComponent implements OnInit {
     posts:''
   };
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private globals: Globals) {
+      this.globals.setTitle( "Profile" );
+      this.globals.setActiveMenu( "profile" );
+   }
 
   ngOnInit() {
       this.api.profile().subscribe(res => {
-        console.log(res)
-        if(res['validate']=='true'){
-          this.profile = res['data']['0'];
-          console.log(this.profile)
-        }
+          if(res['validate']=='true'){
+              this.profile = res['data']['0'];
+              this.globals.setTitle( this.profile.first_name+' '+this.profile.last_name );
+          }
       });
     }
 

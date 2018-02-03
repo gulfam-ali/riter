@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SpinnerService } from '../spinner.service';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-spinner',
@@ -8,7 +8,7 @@ import { SpinnerService } from '../spinner.service';
 })
 export class SpinnerComponent implements OnInit {
 
-  constructor(public spinnerService: SpinnerService) { }
+  constructor(public globals: Globals) { }
 
   ngOnInit() {
   }

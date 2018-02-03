@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Globals } from '../globals';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -18,7 +19,9 @@ export class WriteComponent implements OnInit {
   postForm = FormGroup;
 
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private api: ApiService,  private cookieService: CookieService, private globals: Globals) {
+      this.globals.setTitle( "Write Your Story" );
+      this.globals.setActiveMenu( "write" );
       this.user_id = this.cookieService.get('userId');
       this.token = this.cookieService.get('token');
   }
@@ -34,8 +37,8 @@ export class WriteComponent implements OnInit {
         return false;
       }
 
-      var data = { title: this.story.title, body: this.story.body, user_id: this.user_id, token: this.token}
-      this.http.post('http://localhost/riter/api/post/write', data).subscribe(res => {
+      var data = { title: this.story.title, body: this.story.body}
+      this.api.writeStory(data).subscribe(res => {
           if(res['validate']=="true")
           {
             window.location.href = "feed/"+res['post_id'];

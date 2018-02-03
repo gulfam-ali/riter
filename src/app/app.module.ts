@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
@@ -30,7 +30,6 @@ import { StoryComponent } from './story/story.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ApiService } from './api.service';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { SpinnerService } from './spinner.service';
 import { ScrollEventModule } from 'ngx-scroll-event';
 import { PopupComponent } from './popup/popup.component';
 import { ChangeEmailComponent } from './popup/change-email/change-email.component';
@@ -71,7 +70,7 @@ import { ChangePasswordComponent } from './popup/change-password/change-password
     HttpClientModule,
     ScrollEventModule
   ],
-  providers: [CookieService, GuestGuard, AuthGuard, Globals, ApiService, SpinnerService],
+  providers: [Title, CookieService, GuestGuard, AuthGuard, Globals, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

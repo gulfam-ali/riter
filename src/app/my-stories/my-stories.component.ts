@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-my-stories',
@@ -8,22 +9,20 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./my-stories.component.scss']
 })
 export class MyStoriesComponent implements OnInit {
-  sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'active', settings:''};
   user_id: string;
   token: string;
   total_records: string[];
   validate: string[];
   posts = [];
-  constructor( private http: HttpClient, private cookieService: CookieService) {
-    this.user_id = this.cookieService.get('userId');
-    this.token = this.cookieService.get('token');
-
-    this.sidebar.myStories = 'active';
+  constructor(private api: ApiService, private cookieService: CookieService, private globals: Globals) {
+      this.globals.setTitle( "My Stories" );
+      this.globals.setActiveMenu( "myStories" );
+      this.user_id = this.cookieService.get('userId');
+      this.token = this.cookieService.get('token');
   }
 
   ngOnInit() {
-    var data = { user_id: this.user_id, token: this.token }
-     this.http.post('http://localhost/riter/api/feed/mystories', data).subscribe(res => {
+      this.api.user_stories().subscribe(res => {
           this.validate = res['validate'];
           this.total_records = res['total_records'];
           this.posts = res['data'];
