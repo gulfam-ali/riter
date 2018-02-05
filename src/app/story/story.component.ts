@@ -20,6 +20,7 @@ export class StoryComponent implements OnInit {
   total_records: string[];
   validate: string[];
   posts = {
+    avtar:"",
     body:"",
     comments: 0,
     first_name: "",

@@ -18,6 +18,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { SettingsComponent } from './settings/settings.component';
+import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 
 
 import { GuestGuard }                from './guest-guard.service';
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [GuestGuard]},
   { path: 'home', component: HomeComponent, canActivate: [GuestGuard]},
   { path: 'about', component: AboutComponent, canActivate: [GuestGuard]},
-  { path: 'feed', component: FeedComponent,  data: {title: 'Feed'}, canActivate: [AuthGuard]},
+  { path: 'menu', component: MobileMenuComponent, canActivate: [AuthGuard]},
+  { path: 'feed', component: FeedComponent,  canActivate: [AuthGuard]},
   { path: 'story',  redirectTo: '/feed', pathMatch: 'full'},
   { path: 'feed/:id', component: StoryComponent, canActivate: [AuthGuard]},
   { path: 'write', component: WriteComponent, canActivate: [AuthGuard]},

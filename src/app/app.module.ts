@@ -34,6 +34,7 @@ import { ScrollEventModule } from 'ngx-scroll-event';
 import { PopupComponent } from './popup/popup.component';
 import { ChangeEmailComponent } from './popup/change-email/change-email.component';
 import { ChangePasswordComponent } from './popup/change-password/change-password.component';
+import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 
 
 
@@ -59,7 +60,8 @@ import { ChangePasswordComponent } from './popup/change-password/change-password
     SpinnerComponent,
     PopupComponent,
     ChangeEmailComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    MobileMenuComponent
   ],
   entryComponents: [],
   imports: [

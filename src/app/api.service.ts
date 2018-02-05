@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ApiService {
   api_auth = { user_id: '', token: ''};
+  pagination = { offset: 0 };
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService, private globals: Globals) {
       this.api_auth.user_id = this.cookieService.get('userId');
@@ -36,6 +37,12 @@ export class ApiService {
       return this.api_post('login', data);
   }
 
+  logout(){
+    this.api_post('logout');
+    this.cookieService.deleteAll();
+    window.location.href = "";
+  }
+
 //Register Component
   register(data){
       return this.api_post('register', data);
@@ -49,23 +56,23 @@ export class ApiService {
 
 //Guest Feed Component
   guestfeed(){
-      return this.api_get('guestfeed');
+      return this.api_get('guestfeed?offset='+this.pagination.offset);
   }
 
 //Member Feed Component
   feed(){
-      return this.api_post('feed');
+      return this.api_post('feed?offset='+this.pagination.offset);
   }
 
 //Bookmarks Component
   bookmarksFeed(){
-      return this.api_post('feed/bookmark');
+      return this.api_post('feed/bookmark?offset='+this.pagination.offset);
   }
 
 //My Stories Component
 
   user_stories(){
-      return this.api_post('feed/mystories');
+      return this.api_post('feed/mystories?offset='+this.pagination.offset);
   }
 
 //Story Component
@@ -74,7 +81,7 @@ export class ApiService {
   }
 
   bookmarkStory(data){
-      return this.api_post('post/bookmark', data);
+      return this.api_post('post/bookmark?offset='+this.pagination.offset, data);
   }
 
   toggleLike(data){

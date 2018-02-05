@@ -1,28 +1,22 @@
-<div class="row">
+<div class="row" detect-scroll (onScroll)="handleScroll($event)" >
   <div class="offset-xl-1 offset-lg-1 offset-md-1 offset-sm-1 col-xl-8 col-lg-10 col-md-10 col-sm-10 col-12" style="padding: 0;">
-    <div class="card register-card">
+    <div class="card register-card" style="background: url('assets/welcome.jpg');     margin-top: -0.4em !important; ">
         <div class="card-body text-center">
-          <h5 class="card-title">Register Yourself Today</h5>
+          <h5 class="card-title">Register Today</h5>
           <p class="card-text">
-            Register now to read or post stories, poems and what not. You can post your confessions hiding your identity. Echo your thoughts to the millions of other users worldwide!</p>
+            Register now to read or post stories, poems and what not. Echo your thoughts to the millions of other wordsires worldwide!</p>
           <a routerLink="register" class="card-link btn btn-primary">Register Now</a>
         </div>
     </div>
 
-    <div class="col-md-12 text-center" *ngIf="loading_post">
-        <div class="spinner">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
-    </div>
+
     <div class="card" *ngFor="let post of posts" unselectable="on"
      onselectstart="return false;"
      onmousedown="return false;">
         <div class="card-body">
           <h5 class="card-title story-title">{{post.title}}</h5>
           <div class="media story-author">
-              <img class="mr-3" src="../assets/avtar.png" alt="Generic placeholder image" style="width:48px;">
+              <img class="mr-3" src="assets/{{post.avtar}}" alt="Generic placeholder image" style="width:48px;">
               <div class="media-body">
                   <h6 class="mt-0">{{post.first_name}} {{post.last_name}}</h6>
                   <p class="comment-timestamp">{{post.post_date | date }}</p>
@@ -40,6 +34,13 @@
           <a href="#" data-toggle="modal" data-target="#RegisterModalCenter" class="card-link"><i class="far fa-heart" style="color: #777;"></i> Like</a>
 
           <a href="#" data-toggle="modal" data-target="#RegisterModalCenter" class="card-link float-right"><i class="far fa-comment" style="color: #777;"></i> Comment</a>
+        </div>
+    </div>
+    <div class="col-md-12 text-center" *ngIf="loading_post">
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
         </div>
     </div>
 </div>

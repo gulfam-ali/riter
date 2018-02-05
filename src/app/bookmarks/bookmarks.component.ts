@@ -12,6 +12,8 @@ export class BookmarksComponent implements OnInit {
   sidebar = { feed: 'active', bookmarks: '', profile:'', notifications: '', myStories:'', settings:''};
   user_id: string;
   token: string;
+  loading_post = true;
+  stop_fetching = false;
   total_records: string[];
   validate: string[];
   posts = [];
@@ -21,16 +23,51 @@ export class BookmarksComponent implements OnInit {
 
       this.user_id = this.cookieService.get('userId');
       this.token = this.cookieService.get('token');
+
+      this.api.pagination.offset = 0;
   }
 
   ngOnInit() {
-
       this.api.bookmarksFeed().subscribe(res => {
-           this.validate = res['validate'];
-           this.total_records = res['total_records'];
-           this.posts = res['data'];
-       });
+           if(res['validate']=="true")
+           {
+               this.loading_post = false;
 
+               this.total_records = res['total_records'];
+               this.posts = res['data'];
+
+               this.api.pagination.offset = 5;
+           }
+       });
+  }
+
+  loadMoreStories(){
+    this.api.bookmarksFeed().subscribe(res => {
+        if(res['validate']=="true")
+        {
+            this.loading_post = false;
+
+            for(let post of res['data']){
+                this.posts.push(post);
+            }
+
+            this.api.pagination.offset+= 5;
+        }
+        else if(res['validate'] == 'empty'){
+            this.loading_post = false;
+            this.stop_fetching = true;
+        }
+
+    });
+  }
+
+  public handleScroll(event) {
+    if (event.isReachingBottom) {
+        if(!this.loading_post && !this.stop_fetching){
+          this.loading_post = true;
+          this.loadMoreStories();
+        }
+    }
   }
 
 }

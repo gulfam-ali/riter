@@ -82,12 +82,20 @@
     text-align: center;
 }
 
+.navbar-footer li a{
+  color: #ff8f8f;
+}
+
 .navbar-footer li.nav-item.active {
     background: #cc0000;
 }
 
+.navbar-footer li.nav-item.active a{
+    color: #fff;
+}
+
 .navbar-footer .nav-link{
-  padding: 0.5em;
+  padding: 0.4em;
   font-size: 1.34em;
       border-radius: 0 !important;
 }

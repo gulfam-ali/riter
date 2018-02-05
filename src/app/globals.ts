@@ -3,8 +3,8 @@ import { Title }     from '@angular/platform-browser';
 
 @Injectable()
 export class Globals {
-    apiUrl: string = "http://localhost/riter/api/";
-    sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:''};
+    apiUrl: string = "https://wordsire.com/wordsire/api/";
+    sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
     loadMessage: string = '';
 
     constructor(private titleService: Title) { }
@@ -14,7 +14,7 @@ export class Globals {
     }
 
     setActiveMenu(menu: string){
-        this.sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:''};
+        this.sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
 
           switch(menu) {
              case 'feed': {
@@ -39,6 +39,10 @@ export class Globals {
              }
              case 'settings': {
                 this.sidebar.settings = 'active';
+                break;
+             }
+             case 'menu': {
+                this.sidebar.menu = 'active';
                 break;
              }
              default: {

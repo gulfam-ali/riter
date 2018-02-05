@@ -28,16 +28,10 @@ export class AppComponent {
     }
 
     public handleScroll(event) {
-
       this.position = "fixed";
-      console.log('scroll occurred', event.originalEvent);
-      if (event.isReachingBottom) {
-        console.log(`the user is reaching the bottom`);
-      }
       if (event.isReachingTop) {
         this.position = "relative";
       }
-
     }
 
     logout(){

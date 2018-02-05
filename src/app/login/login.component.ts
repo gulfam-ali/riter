@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
               this.cookieService.set( 'lastName', res['last_name'] );
               this.cookieService.set( 'token', res['user_token'] );
               this.globals.hideLoad();
-              window.location.href = "feed";
+              location.reload();
           }
      });
   }

@@ -1,12 +1,10 @@
-<div class="row">
+<div class="row" detect-scroll (onScroll)="handleScroll($event)">
 
-    <div class="card" *ngFor="let post of posts" unselectable="on"
-     onselectstart="return false;"
-     onmousedown="return false;">
+    <div class="card" *ngFor="let post of posts" unselectable="on" onselectstart="return false;" onmousedown="return false;">
         <div class="card-body">
           <h5 class="card-title story-title"><a href="feed/{{post.id}}">{{post.title}}</a></h5>
           <div class="media story-author">
-              <img class="mr-3" src="../assets/{{post.avtar}}" alt="Generic placeholder image" style="width:48px;">
+              <img class="mr-3" src="assets/{{post.avtar}}" alt="Generic placeholder image" style="width:48px;">
               <div class="media-body">
                   <h6 class="mt-0">{{post.first_name}} {{post.last_name}}</h6>
                   <p class="comment-timestamp">{{post.post_date | date }}</p>
@@ -30,6 +28,14 @@
           </a>
 
           <a routerLink="" class="card-link float-right" (click)="openComment(post.id)"><i class="far fa-comment" style="color: #777;"></i> Comment</a>
+        </div>
+    </div>
+
+    <div class="col-md-12 text-center" *ngIf="loading_post">
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
         </div>
     </div>
 </div>
