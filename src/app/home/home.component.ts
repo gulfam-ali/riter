@@ -14,7 +14,9 @@ export class HomeComponent implements OnInit {
   validate: string[];
   posts = [];
   loading_post = true;
+  refresh_post = false;
   stop_fetching = false;
+  loadErrorMsg = 'Refresh';
 
   constructor(private globals: Globals, private api: ApiService) {
       this.globals.setTitle( "Wordsire" );
@@ -23,17 +25,33 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
       this.api.guestfeed().subscribe(res => {
+          console.log(res);
            this.loading_post = false;
            this.validate = res['validate'];
            this.total_records = res['total_records'];
            this.posts = res['data'];
 
            this.pagination.offset = 5;
-       });
+       },
+      error =>{
+        this.handleApiError(error);
+      });
 
   }
 
+  handleApiError(error: any){
+    if(error.status == 0)
+    {
+      console.log('No Internet Connection');
+      this.refresh_post = true;
+      this.loading_post = false;
+      this.loadErrorMsg = "No Internet Connection";
+    }
+  }
+
   loadMoreStories(){
+    this.refresh_post = false;
+    this.loading_post = true;
     this.api.pagination.offset = this.pagination.offset;
 
     this.api.guestfeed().subscribe(res => {
@@ -52,7 +70,10 @@ export class HomeComponent implements OnInit {
               this.stop_fetching = true;
           }
 
-       });
+       },
+      error =>{
+        this.handleApiError(error);
+      });
   }
 
   public handleScroll(event) {

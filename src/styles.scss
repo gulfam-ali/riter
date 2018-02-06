@@ -95,6 +95,22 @@ a:focus {
     border-color: #eee;
 }
 
+.btn-red{
+  background-color: #ee0000;
+  border-color: #c70000;
+  color: #fff;
+}
+
+.btn-red:active, .btn-red:focus, .btn-red:hover{
+    color: #fff;
+    background-color: #e20000;
+    border-color: #da0000;
+}
+
+.btn-red:active, .btn-red:focus{
+    box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.5);
+}
+
 .heading{
       padding: 0.5em 0.4em 0 0.2em;
 }

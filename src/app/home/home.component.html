@@ -1,11 +1,11 @@
 <div class="row" detect-scroll (onScroll)="handleScroll($event)" >
   <div class="offset-xl-1 offset-lg-1 offset-md-1 offset-sm-1 col-xl-8 col-lg-10 col-md-10 col-sm-10 col-12" style="padding: 0;">
-    <div class="card register-card" style="background: url('assets/welcome.jpg');     margin-top: -0.4em !important; ">
+    <div class="card register-card" style="border: 0; background: url('assets/welcome.jpg');     margin-top: -0.4em !important; ">
         <div class="card-body text-center">
           <h5 class="card-title">Register Today</h5>
           <p class="card-text">
             Register now to read or post stories, poems and what not. Echo your thoughts to the millions of other wordsires worldwide!</p>
-          <a routerLink="register" class="card-link btn btn-primary">Register Now</a>
+          <a routerLink="register" class="card-link btn btn-red">Register Now</a>
         </div>
     </div>
 
@@ -42,6 +42,9 @@
           <div class="bounce2"></div>
           <div class="bounce3"></div>
         </div>
+    </div>
+    <div class="col-md-12 text-center spinner" *ngIf="refresh_post">
+        <button (click)="loadMoreStories()" class="btn btn-light"><i class="fas fa-sync-alt"></i>&nbsp; {{loadErrorMsg}} </button>
     </div>
 </div>
 <div class="row footer " style="width: 100%">

@@ -43,6 +43,10 @@ export class ApiService {
     window.location.href = "";
   }
 
+  recoverPassword(data){
+      return this.api_post('recover', data);
+  }
+
 //Register Component
   register(data){
       return this.api_post('register', data);

@@ -23,6 +23,9 @@ export class ForgetPasswordComponent implements OnInit {
 
   recover(){
     console.log(this.user);
+    this.api.recoverPassword(this.user).subscribe(res=>{
+        console.log(res);
+    });
   }
 
   checkEmail(){
