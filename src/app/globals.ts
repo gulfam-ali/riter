@@ -3,7 +3,7 @@ import { Title }     from '@angular/platform-browser';
 
 @Injectable()
 export class Globals {
-    apiUrl: string = "https://wordsire.com/wordsire/api/";
+    apiUrl: string = "http://localhost/riter/api/";
     sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
     loadMessage: string = '';
 
