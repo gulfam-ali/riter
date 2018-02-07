@@ -4,7 +4,7 @@ import { Title }     from '@angular/platform-browser';
 @Injectable()
 export class Globals {
     apiUrl: string = "http://localhost/riter/api/";
-    sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
+    sidebar = { login:'', register:'', feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
     loadMessage: string = '';
 
     constructor(private titleService: Title) { }
@@ -14,10 +14,18 @@ export class Globals {
     }
 
     setActiveMenu(menu: string){
-        this.sidebar = { feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
+        this.sidebar = { login:'', register:'', feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
 
           switch(menu) {
-             case 'feed': {
+            case 'login': {
+               this.sidebar.login = 'active';
+               break;
+            }
+            case 'register': {
+               this.sidebar.register = 'active';
+               break;
+            }
+            case 'feed': {
                 this.sidebar.feed = 'active';
                 break;
              }

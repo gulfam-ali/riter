@@ -34,22 +34,26 @@ export class ApiService {
 
 //Login Component
   login(data){
-      return this.api_post('login', data);
+      return this.api_post('user/login', data);
   }
 
   logout(){
-    this.api_post('logout');
+    this.api_post('user/logout');
     this.cookieService.deleteAll();
     window.location.href = "";
   }
 
-  recoverPassword(data){
-      return this.api_post('recover', data);
+  resetCode(data){
+      return this.api_post('user/reset-code', data);
+  }
+
+  resetPassword(data){
+      return this.api_post('user/reset-password', data);
   }
 
 //Register Component
   register(data){
-      return this.api_post('register', data);
+      return this.api_post('user/register', data);
   }
 
 //Settings Component

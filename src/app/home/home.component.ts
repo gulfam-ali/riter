@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private globals: Globals, private api: ApiService) {
       this.globals.setTitle( "Wordsire" );
+      this.globals.setActiveMenu('');
       this.api.pagination.offset = 0;
   }
 

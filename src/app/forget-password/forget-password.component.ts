@@ -15,7 +15,10 @@ export class ForgetPasswordComponent implements OnInit {
   forgetForm = FormGroup;
   CodeForm = FormGroup;
 
+  buttonMsg = ' Get Reset Code';
+
   resetCodeInput = false;
+  passResetDone = false;
   alertMessage = '';
   alertClass = '';
 
@@ -28,18 +31,38 @@ export class ForgetPasswordComponent implements OnInit {
 
   recover(){
     console.log(this.user);
-    this.api.recoverPassword(this.user).subscribe(res=>{
-        if(res['validate']=='true'){
-            this.resetCodeInput = true;
-            this.alertMessage = res['message'];
-            this.alertClass = "alert alert-success";
-        }else{
-          this.resetCodeInput = false;
-          this.alertMessage = res['message'];
-          this.alertClass = "alert alert-danger";
-        }
-        console.log(res);
-    });
+    this.buttonMsg = 'Sending Code...';
+    if(!this.resetCodeInput){
+        this.api.resetCode(this.user).subscribe(res=>{
+            if(res['validate']=='true'){
+                this.resetCodeInput = true;
+                this.buttonMsg = 'Reset Password';
+                this.alertMessage = res['message'];
+                this.alertClass = "alert alert-success";
+            }else{
+              this.resetCodeInput = false;
+              this.buttonMsg = 'Get Reset Code';
+              this.alertMessage = res['message'];
+              this.alertClass = "alert alert-danger";
+            }
+            console.log(res);
+        });
+    }else{
+        this.buttonMsg = 'Resetting Password...';
+        this.api.resetPassword(this.user).subscribe(res=>{
+            if(res['validate']=='true'){
+                this.passResetDone = true;
+                this.alertMessage = res['message'];
+                this.alertClass = "alert alert-success";
+            }else{
+              this.passResetDone = false;
+              this.buttonMsg = 'Reset Password';
+              this.alertMessage = res['message'];
+              this.alertClass = "alert alert-danger";
+            }
+        });
+    }
+
   }
 
   checkEmail(){

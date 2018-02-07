@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private api: ApiService, private globals: Globals) {
       this.globals.setTitle( "Register" );
+      this.globals.setActiveMenu('register');
   }
 
   ngOnInit(){

@@ -59,7 +59,7 @@
   color: #fff;
 }
 
-.navigation-bar a.nav-link:hover{
+.navigation-bar a.nav-link:hover, .navigation-bar a.nav-link.active{
   background: #cc0000;
   border-radius: 0.2em;
 }
