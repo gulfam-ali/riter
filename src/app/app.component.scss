@@ -26,6 +26,18 @@
   }
 }
 
+@media all and (min-width: 1500px) {
+    .article-wrapper{
+      margin-left: -3em;
+    }
+}
+
+@media all and (min-width: 1800px) {
+    .article-wrapper{
+      margin-left: -5em;
+    }
+}
+
 .navigation-bar{
   margin: 0;
   background: #ee0000;

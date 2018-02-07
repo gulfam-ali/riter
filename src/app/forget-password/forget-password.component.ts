@@ -10,9 +10,14 @@ import { Globals } from '../globals';
 })
 export class ForgetPasswordComponent implements OnInit {
 
-  user = { email: '' };
+  user = { email: '', code: '', password: '', confirmPassword: '' };
   emailValid: boolean = true;
   forgetForm = FormGroup;
+  CodeForm = FormGroup;
+
+  resetCodeInput = false;
+  alertMessage = '';
+  alertClass = '';
 
   constructor(private api: ApiService, private globals: Globals) {
       this.globals.setTitle( "Forget Password" );
@@ -24,6 +29,15 @@ export class ForgetPasswordComponent implements OnInit {
   recover(){
     console.log(this.user);
     this.api.recoverPassword(this.user).subscribe(res=>{
+        if(res['validate']=='true'){
+            this.resetCodeInput = true;
+            this.alertMessage = res['message'];
+            this.alertClass = "alert alert-success";
+        }else{
+          this.resetCodeInput = false;
+          this.alertMessage = res['message'];
+          this.alertClass = "alert alert-danger";
+        }
         console.log(res);
     });
   }

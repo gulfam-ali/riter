@@ -59,12 +59,12 @@
                         <a class="nav-link {{globals.sidebar.logout}}" id="v-pills-settings-tab" (click)="logout()" role="tab" aria-selected="false"><i class="fas fa-sign-out-alt"></i>&nbsp; Logout</a>
                     </div>
                 </div>
-              <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12 article-wrapper" *ngIf="sidebarVisible">
-                <router-outlet></router-outlet>
-              </div>
-              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 article-wrapper" *ngIf="!sidebarVisible">
-                <router-outlet></router-outlet>
-              </div>
+                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12 article-wrapper" *ngIf="sidebarVisible">
+                  <router-outlet></router-outlet>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 article-wrapper" *ngIf="!sidebarVisible">
+                  <router-outlet></router-outlet>
+                </div>
             </div>
         </div>
     </div>
