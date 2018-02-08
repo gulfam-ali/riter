@@ -38,4 +38,15 @@
           <div class="bounce3"></div>
         </div>
     </div>
+    <div class="col-md-12 text-center" *ngIf="zero_stories">
+        <div class="card">
+          <div class="card-body">
+            <p class="mb-1"><b>You have no bookmark stories yet. </b></p>
+            <p class="small small-text mb-0">Save your favourite stories using bookmarks.</p>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-12 text-center spinner" *ngIf="refresh_post">
+        <button (click)="loadMoreStories()" class="btn btn-light"><i class="fas fa-sync-alt"></i>&nbsp; {{loadErrorMsg}} </button>
+    </div>
 </div>

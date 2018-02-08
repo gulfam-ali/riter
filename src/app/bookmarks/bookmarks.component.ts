@@ -14,9 +14,14 @@ export class BookmarksComponent implements OnInit {
   token: string;
   loading_post = true;
   stop_fetching = false;
+  zero_stories = false;
+  refresh_post = false;
   total_records: string[];
   validate: string[];
   posts = [];
+
+  loadErrorMsg = 'Refresh';
+
   constructor(private api: ApiService, private cookieService: CookieService, private globals: Globals) {
       this.globals.setTitle( "Bookmarks" );
       this.globals.setActiveMenu( "bookmarks" );
@@ -29,19 +34,43 @@ export class BookmarksComponent implements OnInit {
 
   ngOnInit() {
       this.api.bookmarksFeed().subscribe(res => {
+          this.loading_post = false;
            if(res['validate']=="true")
            {
-               this.loading_post = false;
 
                this.total_records = res['total_records'];
                this.posts = res['data'];
 
                this.api.pagination.offset = 5;
            }
-       });
+           else if(res['validate']=="empty")
+           {
+
+               this.zero_stories = true;
+           }
+       },
+       error =>{
+        this.handleApiError(error);
+      });
+  }
+
+  handleApiError(error: any){
+    this.loading_post = false;
+    this.stop_fetching = true;
+    if(error.status == 0)
+    {
+      console.log('No Internet Connection');
+      this.refresh_post = true;
+      this.loading_post = false;
+      this.loadErrorMsg = "No Internet Connection";
+    }
   }
 
   loadMoreStories(){
+    this.refresh_post = false;
+    this.loading_post = true;
+    this.stop_fetching = false;
+
     this.api.bookmarksFeed().subscribe(res => {
         if(res['validate']=="true")
         {
@@ -58,7 +87,10 @@ export class BookmarksComponent implements OnInit {
             this.stop_fetching = true;
         }
 
-    });
+    },
+     error =>{
+       this.handleApiError(error);
+     });
   }
 
   public handleScroll(event) {

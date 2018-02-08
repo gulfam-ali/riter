@@ -4,20 +4,25 @@
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title" id="modalTitle">Change Primary Email</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" (click)="resetForm(changeEmailForm)" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-          <form (ngSubmit)="changeEmail()" #changeEmailForm="ngForm">
+        <p class="{{alertClass}}" *ngIf="alertMessage">
+          {{alertMessage}}
+        </p>
+
+          <form (ngSubmit)="changeEmail(changeEmailForm)" #changeEmailForm="ngForm">
 
               <div class="form-group">
                 <label for="email">Primary Email</label>
-                <input type="text" class="form-control" placeholder="Enter email" value="aligulfam6@gmail.com" disabled required>
+                <p style="color: #0078d8; font-weight: 500;">{{currentEmail}}</p>
               </div>
 
               <div class="form-group">
                 <label for="email">New Email</label>
+                <p class="small small-text mb-2">You are required to verify this email.</p>
                 <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" #email="ngModel" placeholder="Enter email" required>
 
                 <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
@@ -46,9 +51,9 @@
               </div>
 
               <div class="form-group">
-                <button type="submit" class="btn btn-primary" [disabled]="(!changeEmailForm.form.valid) ">Save Changes</button>
+                <button type="submit" class="btn btn-primary" [disabled]="(!changeEmailForm.form.valid) ">{{ButtonMsg}}</button>
                 &nbsp;
-                <span class="btn btn-light" data-dismiss="modal">Cancel</span>
+                <span class="btn btn-light" data-dismiss="modal" (click)="resetForm(changeEmailForm)">Cancel</span>
               </div>
           </form>
       </div>

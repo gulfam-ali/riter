@@ -41,6 +41,8 @@ export class HomeComponent implements OnInit {
   }
 
   handleApiError(error: any){
+    this.loading_post = false;
+    this.stop_fetching = true;
     if(error.status == 0)
     {
       console.log('No Internet Connection');
@@ -53,6 +55,7 @@ export class HomeComponent implements OnInit {
   loadMoreStories(){
     this.refresh_post = false;
     this.loading_post = true;
+    this.stop_fetching = false;
     this.api.pagination.offset = this.pagination.offset;
 
     this.api.guestfeed().subscribe(res => {

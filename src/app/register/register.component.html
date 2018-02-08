@@ -2,6 +2,10 @@
   <div class="offset-xl-2 offset-lg-3 offset-md-2 offset-sm-2 col-xl-6 col-lg-6 col-md-8 col-sm-8 col-12" style="     background: #fff;   padding: 2em; box-shadow: 0pt 0pt 3pt #ccc;">
   <p style="font-size: 1.5em; font-weight: 400;">Register Yourself Now!</p>
   <p>Become a member and start posting your story and get recognized by millions of other users.</p>
+
+  <p class="{{alertClass}}" *ngIf="alertMessage">
+    {{alertMessage}}
+  </p>
   <form (ngSubmit)="register()" #registerForm="ngForm">
       <div class="form-group">
         <label for="firstName">First Name</label>
@@ -83,7 +87,7 @@
             <div [hidden]="(user.confirmPassword == user.password) || confirmPassword.invalid" class="alert alert-danger">Password don't match</div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary btn-block" [disabled]="(!registerForm.form.valid) || (user.confirmPassword != user.password) || !emailValid ">Register</button>
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="(!registerForm.form.valid) || (user.confirmPassword != user.password) || !emailValid ">{{registerButtonMsg}}</button>
   </form>
 </div>
 </div>

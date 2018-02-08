@@ -12,36 +12,11 @@
   padding: 0.5em 0;
 }
 
-@media all and (max-width: 576px) {
-  .main-header{
-    position: relative;
-  }
-
-  .main-body{
-    margin-top: 0em;
-  }
-
-  .article-wrapper{
-    padding: 0;
-  }
-}
-
-@media all and (min-width: 1500px) {
-    .article-wrapper{
-      margin-left: -3em;
-    }
-}
-
-@media all and (min-width: 1800px) {
-    .article-wrapper{
-      margin-left: -5em;
-    }
-}
 
 .navigation-bar{
   margin: 0;
   background: #ee0000;
-  box-shadow: 0pt 1pt 2pt #ff5d5d;
+  box-shadow: 0pt 1pt 1pt #cc0000;
 }
 .navbar{
   padding-top:0;
@@ -98,11 +73,11 @@
   color: #ff8f8f;
 }
 
-.navbar-footer li.nav-item.active {
+.navbar-footer li.nav-item.active, .navbar-sm-footer li.nav-item.active{
     background: #cc0000;
 }
 
-.navbar-footer li.nav-item.active a{
+.navbar-footer li.nav-item.active a, .navbar-sm-footer li.nav-item.active a{
     color: #fff;
 }
 
@@ -110,4 +85,36 @@
   padding: 0.4em;
   font-size: 1.34em;
       border-radius: 0 !important;
+}
+
+.navbar-sm-footer .nav-item{
+  padding: 0;
+      text-align: center;
+}
+
+
+@media all and (max-width: 768px) {
+  .main-header{
+    position: relative;
+  }
+
+  .main-body{
+    margin-top: 0em;
+  }
+
+  .article-wrapper{
+    padding: 0;
+  }
+}
+
+@media all and (min-width: 1500px) {
+    .article-wrapper{
+      margin-left: -3em;
+    }
+}
+
+@media all and (min-width: 1800px) {
+    .article-wrapper{
+      margin-left: -5em;
+    }
 }

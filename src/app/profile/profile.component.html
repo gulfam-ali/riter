@@ -3,7 +3,7 @@
     <div class="card-body text-center">
       <img class="mb-3" src="assets/{{ profile.avtar}}" alt="Profile Picture" style="    width: 40%; max-width: 160px; border-radius: 100%; " >
       <h5 class="card-title">{{ profile.first_name}} {{profile.last_name}}</h5>
-      <button class="btn btn-sm btn-light"><i class="far fa-image"></i>&nbsp; Change Picture</button>&nbsp;
+      <button class="btn btn-sm btn-light" data-toggle="modal" data-target="#pictureModal"><i class="far fa-image"></i>&nbsp; Change Picture</button>&nbsp;
       <a routerLink="../settings" href="settings" class="btn btn-sm btn-light"><i class="fas fa-cog"></i>&nbsp; Settings</a>
     </div>
 
@@ -53,3 +53,5 @@
     </div>
   </div>
 </div>
+
+<app-change-dp></app-change-dp>

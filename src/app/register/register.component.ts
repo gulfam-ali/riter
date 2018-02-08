@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 import { ApiService } from '../api.service';
 import { Globals } from '../globals';
 
@@ -14,7 +15,11 @@ export class RegisterComponent implements OnInit {
   emailValid: boolean = true;
   registerForm = FormGroup;
 
-  constructor(private api: ApiService, private globals: Globals) {
+  registerButtonMsg = 'Register';
+  alertMessage = '';
+  alertClass = '';
+
+  constructor(private cookieService: CookieService, private api: ApiService, private globals: Globals) {
       this.globals.setTitle( "Register" );
       this.globals.setActiveMenu('register');
   }
@@ -30,12 +35,36 @@ export class RegisterComponent implements OnInit {
         return false;
       }else{ this.emailValid = true; }
 
+      this.registerButtonMsg = 'Creating your account...';
+
       this.api.register(this.user).subscribe(res => {
           if(res['validate']=="true")
           {
               this.globals.showLoad('Setting up your account...');
               var loginData = { email: this.user.email, password: this.user.password }
-              this.api.login(loginData);
+              this.api.login(loginData).subscribe(res => {
+                  if(res['validate']=="true")
+                  {
+                      this.alertMessage = res['message'];
+                      this.alertClass = "alert alert-success";
+
+                      this.cookieService.set( 'userId', res['user_id'] );
+                      this.cookieService.set( 'firstName', res['first_name'] );
+                      this.cookieService.set( 'lastName', res['last_name'] );
+                      this.cookieService.set( 'email', res['email'] );
+                      this.cookieService.set( 'token', res['user_token'] );
+                      this.globals.hideLoad();
+                      location.reload();
+                  }else{
+                    this.registerButtonMsg = 'Register';
+                    this.alertMessage = res['message'];
+                    this.alertClass = "alert alert-danger";
+                  }
+              });
+          }else{
+              this.registerButtonMsg = 'Register';
+              this.alertMessage = res['message'];
+              this.alertClass = "alert alert-danger";
           }
        });
   }

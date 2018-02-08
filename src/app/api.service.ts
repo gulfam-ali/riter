@@ -61,6 +61,10 @@ export class ApiService {
       return this.api_post('settings/change-email', data);
   }
 
+  changePassword(data){
+    return this.api_post('settings/change-password', data);
+  }
+
 
 //Guest Feed Component
   guestfeed(){

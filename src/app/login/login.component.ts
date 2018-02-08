@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
               this.cookieService.set( 'userId', res['user_id'] );
               this.cookieService.set( 'firstName', res['first_name'] );
               this.cookieService.set( 'lastName', res['last_name'] );
+              this.cookieService.set( 'email', res['email'] );
               this.cookieService.set( 'token', res['user_token'] );
               this.globals.hideLoad();
               location.reload();

@@ -2,7 +2,7 @@
     <div class="row navigation-bar main-header" style="margin:0; top: 0;left: 0;right: 0;z-index: 999;">
         <div class="offset-xl-3 offset-md-1 col-xl-6 col-md-10 col-sm-12 col-xs-12" style="padding-left:0; padding-right:0;">
             <nav class="navbar navbar-expand-xs navbar-light">
-              <a class="navbar-brand" routerLink="">wordsire</a>
+              <a class="navbar-brand" routerLink="">Wordsire</a>
 
               <ul class="nav justify-content-end" *ngIf="!is_logged">
                 <li class="nav-item">
@@ -16,13 +16,6 @@
               <ul class="nav justify-content-end" *ngIf="is_logged">
                 <li class="nav-item dropdown" >
                     <a class="nav-link " routerLink="write" role="button" ><i class="far fa-edit"></i> Write</a>
-
-                    <!--<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ username }}</a>
-                    <div class="dropdown-menu dropdown-menu-right" style="left:inherit !important; right:0 !important;">
-                      <a class="dropdown-item" href="#">Profile</a>
-                      <a class="dropdown-item" href="#">Settings</a>
-                      <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
-                    </div> -->
                 </li>
               </ul>
 
@@ -38,6 +31,21 @@
                         <li class="nav-item w20 {{globals.sidebar.notifications}}" ><a class="nav-link " routerLink="notifications" role="button" ><i class="far fa-bell"></i></a></li>
                         <li class="nav-item w20 {{globals.sidebar.profile}}" ><a class="nav-link " routerLink="profile" role="button" ><i class="far fa-user"></i></a></li>
                         <li class="nav-item w20 {{globals.sidebar.menu}}" ><a class="nav-link " routerLink="menu" role="button" ><i class="fas fa-bars"></i></a></li>
+                  </ul>
+
+                </nav>
+            </div>
+        </div>
+        <div class="row navigation-bar d-none d-sm-block d-md-none" style="width: 100%; margin:0;     position: relative; left: 0;right: 0;z-index: 999;" *ngIf="is_logged" [style.position]="position">
+            <div class="col-xs-12">
+                <nav class="navbar-sm-footer">
+                  <ul class="nav row" >
+                        <li class="nav-item col-sm-2 {{globals.sidebar.feed}}" ><a class="nav-link " routerLink="feed" role="button" ><i class="far fa-file-alt"></i> Feed</a> </li>
+                        <li class="nav-item col-sm-3  {{globals.sidebar.bookmarks}}" ><a class="nav-link " routerLink="bookmarks" role="button" ><i class="far fa-bookmark"></i> Bookmarks</a> </li>
+
+                        <li class="nav-item col-sm-3  {{globals.sidebar.notifications}}" ><a class="nav-link " routerLink="notifications" role="button" ><i class="far fa-bell"></i> Notifications</a> </li>
+                        <li class="nav-item col-sm-3  {{globals.sidebar.profile}}" ><a class="nav-link " routerLink="profile" role="button" ><i class="far fa-user"></i> Profile</a> </li>
+                        <li class="nav-item col-sm-1  {{globals.sidebar.menu}}" ><a class="nav-link " routerLink="menu" role="button" ><i class="fas fa-bars"></i></a> </li>
                   </ul>
 
                 </nav>

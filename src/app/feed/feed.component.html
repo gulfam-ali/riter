@@ -49,4 +49,7 @@
           <div class="bounce3"></div>
         </div>
     </div>
+    <div class="col-md-12 text-center spinner" *ngIf="refresh_post">
+        <button (click)="loadMoreStories()" class="btn btn-light"><i class="fas fa-sync-alt"></i>&nbsp; {{loadErrorMsg}} </button>
+    </div>
 </div>
