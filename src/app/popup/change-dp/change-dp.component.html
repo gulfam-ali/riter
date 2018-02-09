@@ -13,17 +13,18 @@
           {{alertMessage}}
         </p>
 
-          <form (ngSubmit)="changeEmail(changeEmailForm)" #changeEmailForm="ngForm">
+          <form (ngSubmit)="changeAvtar()" #changeAvtarForm="ngForm" enctype="multipart/form-data">
 
               <div class="form-group">
                 <label for="email">Profile Picture</label>
-                <input type="file" />
+                <br />
+                <input type="file" class="file-input" (change)="handleFileInput($event.target.files)" required />
               </div>
 
               <div class="form-group">
-                <button type="submit" class="btn btn-primary" [disabled]="(!changeEmailForm.form.valid) ">Upload</button>
+                <button type="submit" class="btn btn-primary" [disabled]="(!user.avtar) ">{{ButtonMsg}}</button>
                 &nbsp;
-                <span class="btn btn-light" data-dismiss="modal" (click)="resetForm(changeEmailForm)">Cancel</span>
+                <span class="btn btn-light" data-dismiss="modal" (click)="resetForm(changeAvtarForm)">Cancel</span>
               </div>
           </form>
       </div>

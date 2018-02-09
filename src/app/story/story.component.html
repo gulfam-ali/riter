@@ -18,7 +18,7 @@
             <!--<button class="btn btn-sm btn-light"><i class="fas fa-exclamation-triangle"></i> Report</button>-->
           </p>
           <div class="media story-author">
-              <img class="mr-3" src="assets/{{posts.avtar}}" alt="Generic placeholder image" style="width:48px;">
+              <img class="mr-3" src="{{globals.mediaUrl}}/images/dp/{{posts.avtar}}" alt="Generic placeholder image" style="width:48px;">
               <div class="media-body">
                   <h6 class="mt-0">{{posts.first_name}} {{posts.last_name}}</h6>
                   <p class="comment-timestamp">{{posts.post_date | date }}</p>
@@ -51,7 +51,7 @@
             <input type="hidden" [(ngModel)]="comment.postId" name="postId" #postId="ngModel"  />
             <div class="input-group">
                 <div class="input-group-prepend" style="padding: 0 0.5em 0 0;">
-                  <img src="assets/default.png" alt="profile picture" style="width: 38px;">
+                  <img src="{{globals.mediaUrl}}/images/dp/default.png" alt="profile picture" style="width: 38px;">
                 </div>
                 <textarea rows="{{storyRows}}" (keyup)="expandArea($event)" [(ngModel)]="comment.text" minlength="1" name="text" #text="ngModel"  class="form-control scrollbar-style comment-input" placeholder="Comment" required></textarea>
                 <div class="ml-1 input-group-append" style="margin: auto;">
@@ -69,7 +69,7 @@
     <div class="card" style="background-color: #fafafa;" [hidden]=" posts.comments < 1">
       <div class="card-body comment-body" style="padding-bottom: 0;">
           <div class="media" *ngFor="let comment of commentArr">
-                <img class="mr-2" src="assets/{{comment.avtar}}" alt="Generic placeholder image" style="width:48px;">
+                <img class="mr-2" src="{{globals.mediaUrl}}/images/dp/{{comment.avtar}}" alt="Generic placeholder image" style="width:48px;">
                 <div class="media-body">
                       <h6 class="mt-0">{{comment.first_name}} {{comment.last_name}}</h6>
                       <p class="comment-timestamp">{{ comment.comment_date | date }}</p>

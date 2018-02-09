@@ -32,6 +32,10 @@ export class ApiService {
       return this.http.post(this.globals.apiUrl+url, data).map(response => response);
   }
 
+  api_post_file(url, formData){
+      return this.http.post(this.globals.apiUrl+url, formData).map(response => response);
+  }
+
 //Login Component
   login(data){
       return this.api_post('user/login', data);
@@ -116,6 +120,16 @@ export class ApiService {
 //Profile Component
   profile(){
       return this.api_post('profile');
+  }
+
+  changeAvtar(data){
+      let input = new FormData();
+
+      input.append('avtar', data.avtar);
+      input.append('user_id', this.api_auth.user_id);
+      input.append('token', this.api_auth.token);
+
+      return this.api_post_file('profile/change-avtar', input);
   }
 
 }

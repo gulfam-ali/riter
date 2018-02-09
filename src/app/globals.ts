@@ -4,6 +4,7 @@ import { Title }     from '@angular/platform-browser';
 @Injectable()
 export class Globals {
     apiUrl: string = "http://localhost/riter/api/";
+    mediaUrl: string = "http://localhost/riter/media";
     sidebar = { login:'', register:'', feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
     loadMessage: string = '';
 
