@@ -19,8 +19,7 @@ export class MobileMenuComponent implements OnInit {
 
   logout()
   {
-    console.log('hi')
-    this.api.logout();
+      this.api.logout();
   }
 
 }

@@ -118,8 +118,8 @@ export class ApiService {
   }
 
 //Profile Component
-  profile(){
-      return this.api_post('profile');
+  profile(data){
+      return this.api_post('profile', data);
   }
 
   changeAvtar(data){
@@ -130,6 +130,10 @@ export class ApiService {
       input.append('token', this.api_auth.token);
 
       return this.api_post_file('profile/change-avtar', input);
+  }
+
+  toggleFollow(data){
+    return this.api_post('profile/follow', data);
   }
 
 }

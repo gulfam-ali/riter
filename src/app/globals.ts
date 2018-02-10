@@ -5,6 +5,8 @@ import { Title }     from '@angular/platform-browser';
 export class Globals {
     apiUrl: string = "http://localhost/riter/api/";
     mediaUrl: string = "http://localhost/riter/media";
+    webUrl: string = "http://localhost/riter-web";
+    userAvtar: string = 'default.png';
     sidebar = { login:'', register:'', feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
     loadMessage: string = '';
 

@@ -34,12 +34,17 @@ export class StoryComponent implements OnInit {
     post_date : "",
     title : "" ,
     user_id : "" ,
-    views : 0
+    views : 0,
+    follow: 0
   };
 
   commentArr = [];
   comments_returned: number = 0;
   comments_offset: number = 0;
+  loading_post = true;
+  refresh_post = false;
+  loadComments = "Load more comments";
+  loadErrorMsg = "No Internet Connection";
 
   constructor(private api: ApiService,  private route: ActivatedRoute, private cookieService: CookieService, private globals: Globals) {
       this.globals.setTitle( "Story" );
@@ -53,19 +58,46 @@ export class StoryComponent implements OnInit {
   }
 
   ngOnInit() {
-      var data = { post_id:this.story_id }
-      this.api.readStory(data).subscribe(res => {
-           this.validate = res['validate'];
-           this.total_records = res['total_records'];
-           this.posts = res['data'][0];
-           this.comment.postId = this.posts.id;
+      this.readStory();
+  }
 
-           this.globals.setTitle( this.posts.title );
+  readStory(){
+    this.refresh_post = false;
+    this.loading_post = true;
+    var data = { post_id:this.story_id }
+    this.api.readStory(data).subscribe(res => {
+        this.loading_post = false;
+        if(res['validate'] == 'true'){
+          this.total_records = res['total_records'];
+          this.posts = res['data'][0];
+          this.comment.postId = this.posts.id;
+          this.posts.follow = +res['data']['0']['follow'];
 
-           this.commentArr = res['comments']['commentsArr'];
-           this.comments_returned = res['comments']['comments_returned'];
-           this.comments_offset = 5;
-       });
+          this.globals.setTitle( this.posts.title );
+
+          this.commentArr = res['comments']['commentsArr'];
+          this.comments_returned = res['comments']['comments_returned'];
+          this.comments_offset = 5;
+        }else{
+          this.handleApiError(res);
+        }
+
+     },
+    error =>{
+      this.handleApiError(error);
+    });
+  }
+
+  handleApiError(error: any){
+    this.loading_post = false;
+    this.refresh_post = true;
+    if(error.status == 0)
+    {
+      console.log('No Internet Connection');
+      this.loadErrorMsg = "No Internet Connection";
+    }else{
+      this.loadErrorMsg = "Story not found.";
+    }
   }
 
   bookmark(){
@@ -78,6 +110,19 @@ export class StoryComponent implements OnInit {
               this.posts.bookmarked = (this.posts.bookmarked)?0:1;
           }
        });
+  }
+
+  toggleFollow(){
+    this.posts.follow = (this.posts.follow)?0:1;
+    var data = { member_id:this.posts.user_id }
+    this.api.toggleFollow(data).subscribe(res => {
+      console.log(res)
+        if(res['validate']=='true'){
+            console.log('Operation Success');
+        }else{
+          this.posts.follow = (this.posts.follow)?0:1;
+        }
+    });
   }
 
   togglePostLike(post_id){
@@ -128,8 +173,10 @@ export class StoryComponent implements OnInit {
   }
 
   loadMoreComments(){
+    this.loadComments = "Loading...";
     var data = { post_id: this.comment.postId, offset: this.comments_offset }
     this.api.loadComments(data).subscribe(res => {
+      this.loadComments = "Load more comments";
         if(res['comments_returned'] > 0)
         {
             this.comments_offset = this.comments_offset+5;

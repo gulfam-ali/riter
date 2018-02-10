@@ -3,7 +3,7 @@
      onselectstart="return false;"
      onmousedown="return false;">
         <div class="card-body">
-          <h5 class="card-title story-title"><a href="feed/{{post.id}}">{{post.title}}</a></h5>
+          <h5 class="card-title story-title"><a routerLink="../feed/{{post.id}}">{{post.title}}</a></h5>
           <div class="media story-author">
               <img class="mr-3" src="{{globals.mediaUrl}}/images/dp/{{post.avtar}}" alt="Generic placeholder image" style="width:48px;">
               <div class="media-body">
@@ -11,7 +11,7 @@
                   <p class="comment-timestamp">{{post.post_date | date }}</p>
               </div>
           </div>
-          <p class="card-text story-text"> {{ post.body | limit:400 }}<a href="feed/{{post.id}}" *ngIf="post.body.length > 600">... (read more)</a></p>
+          <p class="card-text story-text"> {{ post.body | limit:400 }}<a routerLink="../feed/{{post.id}}" *ngIf="post.body.length > 600">... (read more)</a></p>
           <p class="post-stats gray-link">
               {{post.likes}} Likes &nbsp;
               {{post.comments}} Comments &nbsp;

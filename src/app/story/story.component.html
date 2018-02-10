@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="card" >
+    <div class="card" *ngIf="!loading_post && !refresh_post" >
         <div class="card-body">
           <h5 class="card-title story-title" style="margin-bottom:  0.2em;">{{posts.title}}</h5>
           <p>
@@ -20,11 +20,19 @@
           <div class="media story-author">
               <img class="mr-3" src="{{globals.mediaUrl}}/images/dp/{{posts.avtar}}" alt="Generic placeholder image" style="width:48px;">
               <div class="media-body">
-                  <h6 class="mt-0">{{posts.first_name}} {{posts.last_name}}</h6>
+                  <h6 class="mt-0"><a routerLink="../../profile/{{posts.user_id}}">{{posts.first_name}} {{posts.last_name}}</a></h6>
                   <p class="comment-timestamp">{{posts.post_date | date }}</p>
               </div>
               <div class="media-body">
-                  <button class="btn btn-light float-right">Follow</button>
+
+                  <button class="btn btn-sm btn-light float-right" (click)="toggleFollow()" >
+                      <span *ngIf="!posts.follow">
+                        <i class="fas fa-user-plus"></i> Follow
+                      </span>
+                      <span style="color: #07f;" *ngIf="posts.follow">
+                        <i class="fas fa-check"></i> Followed
+                      </span>
+                  </button>
               </div>
           </div>
           <p class="card-text story-text" unselectable="on" onselectstart="return false;" onmousedown="return false;"> {{ posts.body }}</p>
@@ -50,9 +58,9 @@
           <form  (ngSubmit)="postComment()" #commentForm="ngForm">
             <input type="hidden" [(ngModel)]="comment.postId" name="postId" #postId="ngModel"  />
             <div class="input-group">
-                <div class="input-group-prepend" style="padding: 0 0.5em 0 0;">
+                <!--<div class="input-group-prepend" style="padding: 0 0.5em 0 0;">
                   <img src="{{globals.mediaUrl}}/images/dp/default.png" alt="profile picture" style="width: 38px;">
-                </div>
+                </div>-->
                 <textarea rows="{{storyRows}}" (keyup)="expandArea($event)" [(ngModel)]="comment.text" minlength="1" name="text" #text="ngModel"  class="form-control scrollbar-style comment-input" placeholder="Comment" required></textarea>
                 <div class="ml-1 input-group-append" style="margin: auto;">
                   <button type="submit" class="btn btn-sm btn-primary" [disabled]="(!commentForm.form.valid) ">Comment</button>
@@ -64,9 +72,9 @@
         </div>
     </div>
 
-    <div class="heading heading-small"  [hidden]=" posts.comments < 1">Comments</div>
+  <!--<div class="heading heading-small"  [hidden]=" posts.comments < 1">Comments</div>-->
 
-    <div class="card" style="background-color: #fafafa;" [hidden]=" posts.comments < 1">
+    <div *ngIf="!loading_post && !refresh_post" class="card" style="background-color: #fafafa;" [hidden]=" posts.comments < 1">
       <div class="card-body comment-body" style="padding-bottom: 0;">
           <div class="media" *ngFor="let comment of commentArr">
                 <img class="mr-2" src="{{globals.mediaUrl}}/images/dp/{{comment.avtar}}" alt="Generic placeholder image" style="width:48px;">
@@ -80,8 +88,19 @@
             </div>
         </div>
         <div class="card-footer story-footer text-center" [hidden]="comments_offset >= posts.comments">
-          <a (click)="loadMoreComments()">Load more comments</a>
+          <a (click)="loadMoreComments()">{{loadComments}}</a>
         </div>
+    </div>
+
+    <div class="col-md-12 text-center" *ngIf="loading_post">
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+    </div>
+    <div class="col-md-12 text-center mt-4" *ngIf="refresh_post">
+        <button (click)="readStory()" class="btn btn-light"><i class="fas fa-sync-alt"></i>&nbsp; {{loadErrorMsg}} </button>
     </div>
 
 </div>

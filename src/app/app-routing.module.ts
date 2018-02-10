@@ -20,7 +20,6 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { SettingsComponent } from './settings/settings.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 
-
 import { GuestGuard }                from './guest-guard.service';
 import { AuthGuard }                from './auth-guard.service';
 
@@ -35,6 +34,7 @@ const routes: Routes = [
   { path: 'feed/:id', component: StoryComponent, canActivate: [AuthGuard]},
   { path: 'write', component: WriteComponent, canActivate: [AuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'bookmarks', component: BookmarksComponent, canActivate: [AuthGuard]},
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
   { path: 'my-stories', component: MyStoriesComponent, canActivate: [AuthGuard]},

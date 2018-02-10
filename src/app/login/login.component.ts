@@ -25,6 +25,16 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  handleApiError(error: any){
+    this.loginButtonMsg = 'Login';
+    if(error.status == 0)
+    {
+      console.log('No Internet Connection');
+      this.alertClass = "alert alert-warning";
+      this.alertMessage = "No Internet Connection!";
+    }
+  }
+
   login(){
     this.loginButtonMsg = 'Logging you in...';
     this.api.login(this.user).subscribe(res => {
@@ -45,7 +55,10 @@ export class LoginComponent implements OnInit {
             this.alertMessage = res['message'];
             this.alertClass = "alert alert-danger";
           }
-     });
+     },
+    error =>{
+      this.handleApiError(error);
+    });
   }
 
 }

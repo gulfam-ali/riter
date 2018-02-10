@@ -2,9 +2,12 @@
   <div class="offset-xl-1 offset-lg-1 offset-md-1 offset-sm-1 col-xl-8 col-lg-10 col-md-10 col-sm-10 col-12" style="padding: 0;">
     <div class="card register-card" style="border: 0; background: url('assets/welcome.jpg');     margin-top: -0.4em !important; ">
         <div class="card-body text-center">
-          <h5 class="card-title">Register Today</h5>
-          <p class="card-text">
-            Register now to read or post stories, poems and what not. Echo your thoughts to the millions of other wordsires worldwide!</p>
+          <h4 class="card-title mb-0">Are you a Wordsire?</h4>
+          <p class="card-text" style="font-size: 1.14em;">
+              Read. Write. Achieve.
+              Discover the passion in you.
+              Uncover the hidden Wordsire in you.
+          </p>
           <a routerLink="register" class="card-link btn btn-red">Register Now</a>
         </div>
     </div>
@@ -59,20 +62,19 @@
 
 <!-- Register Modal -->
 <div class="modal fade" id="RegisterModalCenter" tabindex="-1" role="dialog" aria-labelledby="RegisterModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered h-100 d-flex flex-column justify-content-center my-0" role="document">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <h5 class="card-title  ">Become a Reader or Writer</h5>
-        <p>
-          Register now to read or post stories, poems and what not. You can post your confessions hiding your identity. Echo your thoughts to the millions of other users worldwide!
-          <br />
-          <br />
-          Explore the possibilities!
+        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="card-title  ">Be a Wordsire Today</h5>
+        <p class="small-text">
+          Register now to read full story, like, comment and much more. Explore the possibilities.
         </p>
 
           <div class="text-center" style="justify-content: center;">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" routerLink="register" >Register Now</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Not Interested</button>
+            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" routerLink="register" >Register Now</button>
           </div>
       </div>
     </div>

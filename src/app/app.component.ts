@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Globals } from './globals';
 
@@ -13,7 +14,7 @@ export class AppComponent {
     username: string = '';
     sidebarVisible = false;
     is_logged: boolean;
-    constructor(private http: HttpClientModule, private cookieService: CookieService, private globals: Globals)
+    constructor(private http: HttpClientModule, private router: Router, private cookieService: CookieService, private globals: Globals)
     {
         this.globals.setTitle( 'Wordsire' );
 
@@ -36,7 +37,7 @@ export class AppComponent {
 
     logout(){
       this.cookieService.deleteAll();
-      window.location.href = "";
+      this.router.navigate(['/']);
     }
 
 

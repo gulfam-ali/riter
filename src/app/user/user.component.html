@@ -1,16 +1,10 @@
 <div class="row">
-  <div class="card register-card" *ngIf="!loading_post && !refresh_post && !notFound" >
+  <div class="card register-card">
     <div class="card-body text-center">
       <img class="mb-3" src="{{globals.mediaUrl}}/images/dp/{{globals.userAvtar}}" alt="Profile Picture" style="    width: 40%; max-width: 160px; border-radius: 100%; " >
       <h5 class="card-title">{{ profile.first_name}} {{profile.last_name}}</h5>
-      <div *ngIf="selfProfile">
-          <button class="btn btn-sm btn-light" data-toggle="modal" data-target="#pictureModal"><i class="far fa-image"></i>&nbsp; Change Picture</button>&nbsp;
-          <a routerLink="../settings" href="settings" class="btn btn-sm btn-light"><i class="fas fa-cog"></i>&nbsp; Settings</a>
-      </div>
-      <div *ngIf="!selfProfile">
-          <button class="btn btn-sm btn-light" (click)="toggleFollow()" *ngIf="!profile.follow"><i class="fas fa-user-plus"></i> Follow</button>
-          <button class="btn btn-sm btn-primary" (click)="toggleFollow()" *ngIf="profile.follow"><i class="fas fa-check"></i> Followed</button>
-      </div>
+      <button class="btn btn-sm btn-light" data-toggle="modal" data-target="#pictureModal"><i class="far fa-image"></i>&nbsp; Change Picture</button>&nbsp;
+      <a routerLink="../settings" href="settings" class="btn btn-sm btn-light"><i class="fas fa-cog"></i>&nbsp; Settings</a>
     </div>
 
     <div class="row card-body text-center" style="border-top: 1pt solid #eee; margin:0;" [hidden]="true">
@@ -57,30 +51,6 @@
             <p class="stats-count float-right">{{ profile.posts}} &nbsp;<i class="fas fa-pencil-alt"></i></p>
         </div>
     </div>
-  </div>
-
-  <div class="col-md-12 text-center" *ngIf="loading_post">
-      <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-      </div>
-  </div>
-  <div class="col-md-12 text-center" *ngIf="notFound">
-      <div class="card">
-        <div class="card-body">
-          <p class="mb-1"><b>Profile Not Found! </b></p>
-          <p class="small small-text mb-0">The profile you are looking for doesn't exist.</p>
-        </div>
-      </div>
-  </div>
-  <div class="col-md-12 text-center spinner" *ngIf="refresh_post">
-      <div class="card">
-        <div class="card-body">
-          <p class="mb-1"><b>{{loadErrorMsg}}</b></p>
-          <p class="small small-text mb-0">It seems the link is broken or moved somewhere else. Please try again.</p>
-        </div>
-      </div>
   </div>
 </div>
 
