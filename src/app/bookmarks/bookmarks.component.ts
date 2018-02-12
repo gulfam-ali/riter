@@ -47,6 +47,8 @@ export class BookmarksComponent implements OnInit {
            {
 
                this.zero_stories = true;
+           }else{
+             this.handleApiError(res);
            }
        },
        error =>{
@@ -57,12 +59,13 @@ export class BookmarksComponent implements OnInit {
   handleApiError(error: any){
     this.loading_post = false;
     this.stop_fetching = true;
+    this.refresh_post = true;
     if(error.status == 0)
     {
       console.log('No Internet Connection');
-      this.refresh_post = true;
-      this.loading_post = false;
       this.loadErrorMsg = "No Internet Connection";
+    }else{
+      this.loadErrorMsg = "Server is not responding at the moment. Please try again later.";
     }
   }
 

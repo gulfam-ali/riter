@@ -96,7 +96,7 @@ export class StoryComponent implements OnInit {
       console.log('No Internet Connection');
       this.loadErrorMsg = "No Internet Connection";
     }else{
-      this.loadErrorMsg = "Story not found.";
+      this.loadErrorMsg = "Server is not responding at the moment. Please try again later.";
     }
   }
 

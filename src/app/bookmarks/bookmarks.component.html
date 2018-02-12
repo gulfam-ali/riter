@@ -46,7 +46,12 @@
           </div>
         </div>
     </div>
-    <div class="col-md-12 text-center spinner" *ngIf="refresh_post">
-        <button (click)="loadMoreStories()" class="btn btn-light"><i class="fas fa-sync-alt"></i>&nbsp; {{loadErrorMsg}} </button>
+    <div class="col-md-12 text-center" *ngIf="refresh_post">
+        <div class="card">
+          <div class="card-body">
+            <p class="mb-1"><b>Oops! Something went wrong.</b></p>
+            <p class="small small-text mb-0"> {{loadErrorMsg}} </p>
+          </div>
+        </div>
     </div>
 </div>
