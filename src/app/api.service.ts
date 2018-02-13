@@ -36,6 +36,23 @@ export class ApiService {
       return this.http.post(this.globals.apiUrl+url, formData).map(response => response);
   }
 
+  getNotifications(){
+      return this.api_post('profile/notifications');
+  }
+
+  getNotifsCount(){
+      this.api_post('profile/new-notifs').subscribe(res => {
+          if(res['validate']=='true')
+          {
+              this.globals.newNotifs = res['unseen_count']
+          }
+      });
+  }
+
+  notifRead(){
+    return this.api_post('profile/read-notifs');
+  }
+
 //Login Component
   login(data){
       return this.api_post('user/login', data);
@@ -97,7 +114,7 @@ export class ApiService {
   }
 
   bookmarkStory(data){
-      return this.api_post('post/bookmark?offset='+this.pagination.offset, data);
+      return this.api_post('post/bookmark', data);
   }
 
   toggleLike(data){

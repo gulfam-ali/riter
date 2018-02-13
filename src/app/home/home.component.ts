@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   refresh_post = false;
   stop_fetching = false;
   loadErrorMsg = 'Refresh';
+  zero_post = false;
 
   constructor(private globals: Globals, private api: ApiService) {
       this.globals.setTitle( "Wordsire" );
@@ -26,13 +27,20 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
       this.api.guestfeed().subscribe(res => {
-          console.log(res);
-           this.loading_post = false;
-           this.validate = res['validate'];
-           this.total_records = res['total_records'];
-           this.posts = res['data'];
+        this.loading_post = false;
+          if(res['validate'] == 'true')
+          {
 
-           this.pagination.offset = 5;
+            this.validate = res['validate'];
+            this.total_records = res['total_records'];
+            this.posts = res['data'];
+
+            this.pagination.offset = 5;
+          }else{
+            this.zero_post = true;
+            this.pagination.offset = 0;
+          }
+
        },
       error =>{
         this.handleApiError(error);

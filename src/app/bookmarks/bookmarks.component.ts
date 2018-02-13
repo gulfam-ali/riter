@@ -30,6 +30,7 @@ export class BookmarksComponent implements OnInit {
       this.token = this.cookieService.get('token');
 
       this.api.pagination.offset = 0;
+      this.api.getNotifsCount();
   }
 
   ngOnInit() {

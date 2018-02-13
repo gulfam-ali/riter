@@ -17,6 +17,7 @@ export class FeedComponent implements OnInit {
   total_records: string[];
   posts = [];
   loadErrorMsg = 'Refresh';
+  zero_stories = false;
   constructor(private api: ApiService, private cookieService: CookieService, private globals: Globals) {
       this.user_id = this.cookieService.get('userId');
       this.token = this.cookieService.get('token');
@@ -24,18 +25,22 @@ export class FeedComponent implements OnInit {
       this.globals.setActiveMenu( "feed" );
 
       this.api.pagination.offset = 0;
+      this.api.getNotifsCount();
   }
 
   ngOnInit() {
       this.api.feed().subscribe(res => {
+          this.loading_post = false;
           if(res['validate']=="true")
           {
-              this.loading_post = false;
+
 
               this.total_records = res['total_records'];
               this.posts = res['data'];
 
               this.api.pagination.offset = 5;
+          }else{
+            this.zero_stories = true;
           }
        },
        error =>{

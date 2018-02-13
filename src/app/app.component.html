@@ -28,7 +28,7 @@
                         <li class="nav-item w20 {{globals.sidebar.feed}}" ><a class="nav-link " routerLink="feed" role="button" ><i class="far fa-file-alt"></i></a></li>
                         <li class="nav-item w20 {{globals.sidebar.bookmarks}}" ><a class="nav-link " routerLink="bookmarks" role="button" ><i class="far fa-bookmark"></i></a></li>
 
-                        <li class="nav-item w20 {{globals.sidebar.notifications}}" ><a class="nav-link " routerLink="notifications" role="button" ><i class="far fa-bell"></i></a></li>
+                        <li class="nav-item w20 {{globals.sidebar.notifications}}" ><a class="nav-link " routerLink="notifications" role="button" ><i class="far fa-bell"></i> <span *ngIf="globals.newNotifs" class="badge badge-red">{{globals.newNotifs}}</span></a></li>
                         <li class="nav-item w20 {{globals.sidebar.profile}}" ><a class="nav-link " routerLink="profile" role="button" ><i class="far fa-user"></i></a></li>
                         <li class="nav-item w20 {{globals.sidebar.menu}}" ><a class="nav-link " routerLink="menu" role="button" ><i class="fas fa-bars"></i></a></li>
                   </ul>
@@ -43,7 +43,7 @@
                         <li class="nav-item col-sm-2 {{globals.sidebar.feed}}" ><a class="nav-link " routerLink="feed" role="button" ><i class="far fa-file-alt"></i> Feed</a> </li>
                         <li class="nav-item col-sm-3  {{globals.sidebar.bookmarks}}" ><a class="nav-link " routerLink="bookmarks" role="button" ><i class="far fa-bookmark"></i> Bookmarks</a> </li>
 
-                        <li class="nav-item col-sm-3  {{globals.sidebar.notifications}}" ><a class="nav-link " routerLink="notifications" role="button" ><i class="far fa-bell"></i> Notifications</a> </li>
+                        <li class="nav-item col-sm-3  {{globals.sidebar.notifications}}" ><a class="nav-link " routerLink="notifications" role="button" ><i class="far fa-bell"></i> Notifs &nbsp; <span class="badge badge-light">{{globals.newNotifs}}</span></a> </li>
                         <li class="nav-item col-sm-3  {{globals.sidebar.profile}}" ><a class="nav-link " routerLink="profile" role="button" ><i class="far fa-user"></i> Profile</a> </li>
                         <li class="nav-item col-sm-1  {{globals.sidebar.menu}}" ><a class="nav-link " routerLink="menu" role="button" ><i class="fas fa-bars"></i></a> </li>
                   </ul>
@@ -61,7 +61,7 @@
                         <a class="nav-link {{globals.sidebar.bookmarks}}" id="v-pills-profile-tab"  routerLink="bookmarks" role="tab" aria-selected="false"><i class="far fa-bookmark"></i> &nbsp; Bookmarks</a>
                         <a class="nav-link {{globals.sidebar.profile}}" id="v-pills-settings-tab" routerLink="profile" role="tab" aria-selected="false"><i class="far fa-user"></i>&nbsp; Profile</a>
                         <!--<a class="nav-link" id="v-pills-settings-tab" routerLink="messages" role="tab" aria-selected="false"><i class="far fa-comments"></i>&nbsp; Messages</a>-->
-                        <a class="nav-link {{globals.sidebar.notifications}}" id="v-pills-messages-tab" routerLink="notifications" role="tab" aria-selected="false"><i class="far fa-bell"></i>&nbsp; Notifications</a>
+                        <a class="nav-link {{globals.sidebar.notifications}}" id="v-pills-messages-tab" routerLink="notifications" role="tab" aria-selected="false"><i class="far fa-bell"></i>&nbsp; Notifications &nbsp;<span class="badge badge-light">{{globals.newNotifs}}</span></a>
                         <a class="nav-link {{globals.sidebar.myStories}}" id="v-pills-settings-tab" routerLink="my-stories" role="tab" aria-selected="false"><i class="fas fa-pencil-alt"></i>&nbsp; My Stories</a>
                         <a class="nav-link {{globals.sidebar.settings}}" id="v-pills-settings-tab" routerLink="settings" role="tab" aria-selected="false"><i class="fas fa-cog"></i>&nbsp; Settings</a>
                         <a class="nav-link {{globals.sidebar.logout}}" id="v-pills-settings-tab" (click)="logout()" role="tab" aria-selected="false"><i class="fas fa-sign-out-alt"></i>&nbsp; Logout</a>
