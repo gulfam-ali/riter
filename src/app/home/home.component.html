@@ -43,11 +43,20 @@
           <div class="bounce3"></div>
         </div>
     </div>
-    <div class="col-md-12 text-center spinner" *ngIf="refresh_post">
+    <div class="col-md-12 text-center" *ngIf="refresh_post">
       <div class="card">
         <div class="card-body">
           <p class="mb-1"><b>Oops! Something went wrong</b></p>
           <button (click)="loadMoreStories()" class="btn btn-light"><i class="fas fa-sync-alt"></i>&nbsp; {{loadErrorMsg}} </button>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-12 text-center" *ngIf="zero_post">
+      <div class="card">
+        <div class="card-body">
+          <p class="mb-1"><b>No stories found</b></p>
+          <p class="small small-text">No stories posted today. Please visit tommorrow.</p>
         </div>
       </div>
 

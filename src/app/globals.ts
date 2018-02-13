@@ -10,6 +10,8 @@ export class Globals {
     sidebar = { login:'', register:'', feed: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
     loadMessage: string = '';
 
+    newNotifs = 0;
+
     constructor(private titleService: Title) { }
 
     setTitle(title: string) {

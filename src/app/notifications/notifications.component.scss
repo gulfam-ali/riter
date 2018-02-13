@@ -2,3 +2,27 @@
     font-size: 0.9em;
     color: #666;
 }
+
+.notification-user-img{
+  width: 36px !important;
+  border-radius: 100% !important;
+}
+
+.notification-text{
+  color: #777 !important;
+  font-size: 0.9em;
+}
+
+.notification-box{
+  padding: 0.5em;
+  width: 100%;
+}
+
+.seen-0{
+  background: #fffcdf;
+  border: 1pt solid #f1ebb9;
+}
+
+.seen-1{
+  background: #fff;
+}
