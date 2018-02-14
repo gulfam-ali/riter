@@ -13,11 +13,22 @@
 }
 
 .badge-red{
-    border-radius: 100%;
     color: #c00000;
     vertical-align: top;
     font-size: 0.6em;
     background: #fff;
+
+}
+
+.badge-xs{
+  position: absolute;
+  margin-left: -1em;
+}
+
+.badge-bg-red{
+  background: #e00000;
+  font-size: 0.8em;
+  color: #fff;
 }
 
 
