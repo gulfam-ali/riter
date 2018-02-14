@@ -22,6 +22,9 @@ export class NotificationsComponent implements OnInit {
 
   };
   emptyRec = false;
+  loading_post = true;
+  refresh_post = false;
+  loadErrorMsg = 'Refresh';
 
   constructor(private api: ApiService, private globals: Globals) {
       this.globals.setTitle( "Notifications" );
@@ -33,7 +36,9 @@ export class NotificationsComponent implements OnInit {
   }
 
   getNotifications(){
+    this.loading_post = true;
       this.api.getNotifications().subscribe(res => {
+        this.loading_post = false;
           if(res['validate']=='true')
           {
               this.notifications = res['data'];
@@ -41,8 +46,22 @@ export class NotificationsComponent implements OnInit {
           }else{
               this.emptyRec = true;
           }
-      });
-  }
+      },
+      error =>{
+       this.handleApiError(error);
+     });
+ }
+
+ handleApiError(error: any){
+   this.loading_post = false;
+   this.refresh_post = true;
+   if(error.status == 0)
+   {
+     this.loadErrorMsg = "No Internet Connection";
+   }else{
+     this.loadErrorMsg = "Refresh";
+   }
+ }
 
   notif_read(){
     this.api.notifRead().subscribe(res => {

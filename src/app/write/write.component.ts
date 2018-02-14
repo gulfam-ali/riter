@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class WriteComponent implements OnInit {
   error = { show: 0, message: '' }
-  storyRows: number = 15;
+  storyRows: number = 8;
   user_id: string;
   token: string;
 
@@ -58,11 +58,11 @@ export class WriteComponent implements OnInit {
 
   expandArea(){
 
-      if(this.story.body.split(/\r\n|\r|\n/).length > 14)
+      if(this.story.body.split(/\r\n|\r|\n/).length > 7)
       {
         this.storyRows = (this.story.body.split(/\r\n|\r|\n/).length) +1;
       }else{
-        this.storyRows = 15;
+        this.storyRows = 8;
       }
   }
 

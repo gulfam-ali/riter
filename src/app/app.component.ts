@@ -15,6 +15,7 @@ export class AppComponent {
     username: string = '';
     sidebarVisible = false;
     is_logged: boolean;
+    hide_sm_header: string = "";
     constructor(private api: ApiService, private http: HttpClientModule, private router: Router, private cookieService: CookieService, private globals: Globals)
     {
         this.globals.setTitle( 'Wordsire' );
@@ -27,13 +28,20 @@ export class AppComponent {
             this.sidebarVisible = true;
         }
 
+        if(this.is_logged)
+        {
+          this.hide_sm_header = "d-none d-md-block";
+        }else{
+          this.hide_sm_header = "";
+        }
+
         this.username = this.cookieService.get('firstName')+' '+this.cookieService.get('lastName');
     }
 
     public handleScroll(event) {
-      this.position = "fixed";
+
       if (event.isReachingTop) {
-        this.position = "relative";
+        
       }
     }
 

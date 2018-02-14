@@ -1,6 +1,6 @@
 <div class="container-fluid" detect-scroll (onScroll)="handleScroll($event)" [topOffset]="70" style="padding:0;">
     <div class="row navigation-bar main-header" style="margin:0; top: 0;left: 0;right: 0;z-index: 999;">
-        <div class="offset-xl-3 offset-md-1 col-xl-6 col-md-10 col-sm-12 col-xs-12" style="padding-left:0; padding-right:0;">
+        <div class="offset-xl-3 offset-md-1 col-xl-6 col-md-10 col-sm-12 col-xs-12 {{hide_sm_header}}" style="padding-left:0; padding-right:0;">
             <nav class="navbar navbar-expand-xs navbar-light">
               <a class="navbar-brand" routerLink="">Wordsire</a>
 
@@ -21,22 +21,22 @@
 
             </nav>
         </div>
-        <div class="row navigation-bar d-block d-sm-none" style="width: 100%; margin:0;     position: relative; left: 0;right: 0;z-index: 999;" *ngIf="is_logged" [style.position]="position">
+        <div class="row navigation-bar d-block d-sm-none" style="width: 100%; margin:0;     position: fixed; left: 0;right: 0;z-index: 999;" *ngIf="is_logged" >
             <div class="col-xs-12">
                 <nav class="navbar-footer">
                   <ul class="nav" >
                         <li class="nav-item w20 {{globals.sidebar.feed}}" ><a class="nav-link " routerLink="feed" role="button" ><i class="far fa-file-alt"></i></a></li>
+                        <li class="nav-item w20 {{globals.sidebar.write}}" ><a class="nav-link " routerLink="write" role="button" ><i class="far fa-edit"></i></a></li>
                         <li class="nav-item w20 {{globals.sidebar.bookmarks}}" ><a class="nav-link " routerLink="bookmarks" role="button" ><i class="far fa-bookmark"></i></a></li>
 
                         <li class="nav-item w20 {{globals.sidebar.notifications}}" ><a class="nav-link " routerLink="notifications" role="button" ><i class="far fa-bell"></i> <span *ngIf="globals.newNotifs" class="badge badge-red badge-xs">{{globals.newNotifs}}</span></a></li>
-                        <li class="nav-item w20 {{globals.sidebar.profile}}" ><a class="nav-link " routerLink="profile" role="button" ><i class="far fa-user"></i></a></li>
                         <li class="nav-item w20 {{globals.sidebar.menu}}" ><a class="nav-link " routerLink="menu" role="button" ><i class="fas fa-bars"></i></a></li>
                   </ul>
 
                 </nav>
             </div>
         </div>
-        <div class="row navigation-bar d-none d-sm-block d-md-none" style="width: 100%; margin:0;     position: relative; left: 0;right: 0;z-index: 999;" *ngIf="is_logged" [style.position]="position">
+        <div class="row navigation-bar d-none d-sm-block d-md-none" style="width: 100%; margin:0;     position: fixed; left: 0;right: 0;z-index: 999;" *ngIf="is_logged" >
             <div class="col-xs-12">
                 <nav class="navbar-sm-footer">
                   <ul class="nav row" >
