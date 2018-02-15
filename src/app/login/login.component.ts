@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
               this.alertClass = "alert alert-success";
 
               this.cookieService.set( 'userId', res['user_id'] );
+              this.cookieService.set( 'username', res['username'] );
               this.cookieService.set( 'firstName', res['first_name'] );
               this.cookieService.set( 'lastName', res['last_name'] );
               this.cookieService.set( 'email', res['email'] );

@@ -41,7 +41,7 @@ export class AppComponent {
     public handleScroll(event) {
 
       if (event.isReachingTop) {
-        
+
       }
     }
 
@@ -49,8 +49,7 @@ export class AppComponent {
     }
 
     logout(){
-      this.cookieService.deleteAll();
-      this.router.navigate(['/']);
+      this.api.logout();
     }
 
 

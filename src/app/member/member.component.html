@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="card register-card" >
+      <div class="row card-body">
+          <div class="media col-md-12 p-0">
+              <img class="mr-3 br-full" width="64px" src="{{globals.mediaUrl}}/images/dp/{{profile.avtar}}" alt="User DP">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">{{ profile.first_name}} {{profile.last_name}}</h5>
+                <p class="small-text m-0">{{ profile.tagline}}</p>
+              </div>
+          </div>
+          <div class="col-md-12 p-0">
+            <p class="small-text m-0 mt-3">
+              {{ profile.bio }}
+            </p>
+          </div>
+          <div class="col-md-12 p-0 mt-3" >
+            <button class="btn btn-sm btn-light mr-2" [hidden]="selfProfile">Follow</button>
+            <button class="btn btn-sm btn-light"><i class="fas fa-share-alt"></i> &nbsp;Share Profile</button>
+          </div>
+      </div>
+
+    <div class="row card-body" style="border-top: 1pt solid #eee; margin:0;">
+        <div class="col-md-12 p-0">
+          <h6 class="block">Highlights</h6>
+        </div>
+        <div class="col-md-12 p-0">
+          <p class="small small-text m-0">
+            <i class="fas fa-user-plus"></i> &nbsp; {{profile.followers}} followers
+          </p>
+          <p class="small small-text m-0">
+            <i class="fas fa-eye"></i> &nbsp; 101 story views
+          </p>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="row card p-0" style="border-top: 1pt solid #eee; margin:0; background: #f4f4f4;">
+    <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link active" >Stories by {{ profile.first_name}}</a>
+        </li>
+    </ul>
+</div>
+<!-- Member Stories -->
+<div class="row card p-0" *ngFor="let post of posts" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+    <div class="card-body">
+      <h5 class="card-title story-title"><a routerLink="{{post.id}}">{{post.title}}</a></h5>
+      <div class="media story-author">
+          <img class="mr-3" src="{{globals.mediaUrl}}/images/dp/{{post.avtar}}" alt="Generic placeholder image" style="width:48px;">
+          <div class="media-body">
+              <h6 class="mt-0"><a routerLink="../profile/{{post.user_id}}">{{post.first_name}} {{post.last_name}}</a></h6>
+              <p class="comment-timestamp">{{post.post_date | date }}</p>
+          </div>
+      </div>
+      <p class="card-text story-text"> {{ post.body | limit:400 }}<a routerLink="../feed/{{post.id}}" *ngIf="post.body.length > 400">... (read more)</a></p>
+      <p class="post-stats gray-link">
+          {{post.likes}} Likes &nbsp;
+          {{post.comments}} Comments &nbsp;
+          {{post.views}} Views
+      </p>
+    </div>
+</div>
+
+<div class="row text-center" *ngIf="loading_post">
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+</div>

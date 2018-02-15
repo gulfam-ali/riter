@@ -3,15 +3,15 @@ import { Title }     from '@angular/platform-browser';
 
 @Injectable()
 export class Globals {
-    apiUrl: string = "https://wordsire.com/api/";
+    /*apiUrl: string = "https://wordsire.com/api/";
     mediaUrl: string = "https://wordsire.com/media";
     webUrl: string = "https://wordsire.com";
+*/
 
-
-    /*apiUrl: string = "http://localhost/riter/api/";
+    apiUrl: string = "http://localhost/riter/api/";
     mediaUrl: string = "http://localhost/riter/media";
     webUrl: string = "http://localhost/riter-web";
-*/
+
     userAvtar: string = 'default.png';
     sidebar = { login:'', register:'', feed: '', write: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
     loadMessage: string = '';

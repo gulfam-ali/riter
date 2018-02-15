@@ -59,7 +59,7 @@ export class ApiService {
   }
 
   logout(){
-    this.api_post('user/logout');
+    this.api_post('user/logout').subscribe();
     this.cookieService.deleteAll();
     window.location.href = "";
   }
@@ -151,6 +151,15 @@ export class ApiService {
 
   toggleFollow(data){
     return this.api_post('profile/follow', data);
+  }
+
+//Member Profile
+  memberProfile(data){
+    return this.api_post('member/profile', data);
+  }
+
+  memberStories(data){
+    return this.api_post('member/stories', data);
   }
 
 }
