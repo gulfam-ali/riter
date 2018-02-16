@@ -159,7 +159,7 @@ export class ApiService {
   }
 
   memberStories(data){
-    return this.api_post('member/stories', data);
+    return this.api_post('member/stories?offset='+this.pagination.offset, data);
   }
 
 }

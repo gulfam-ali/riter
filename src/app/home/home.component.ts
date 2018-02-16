@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Globals } from '../globals';
 import { ApiService } from '../api.service';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-home',
@@ -11,34 +12,33 @@ import { ApiService } from '../api.service';
 export class HomeComponent implements OnInit {
   pagination = { offset: 0, items: 5 };
   total_records: string[];
-  validate: string[];
   posts = [];
-  loading_post = true;
-  refresh_post = false;
   stop_fetching = false;
-  loadErrorMsg = 'Refresh';
-  zero_post = false;
 
   constructor(private globals: Globals, private api: ApiService) {
       this.globals.setTitle( "Wordsire" );
       this.globals.setActiveMenu('');
+      this.globals.clearErrorMsg();
+
       this.api.pagination.offset = 0;
   }
 
   ngOnInit() {
       this.api.guestfeed().subscribe(res => {
-        this.loading_post = false;
+        this.globals.loading = false;
           if(res['validate'] == 'true')
           {
-
-            this.validate = res['validate'];
             this.total_records = res['total_records'];
             this.posts = res['data'];
-
             this.pagination.offset = 5;
+          }
+          else if(res['validate']=="empty")
+          {
+              this.globals.error = true;
+              this.globals.errorMessage = this.globals.errorCodes.zero_feed;
+              this.globals.errorDescription = this.globals.errorCodes.zero_feed_des;
           }else{
-            this.zero_post = true;
-            this.pagination.offset = 0;
+            this.handleApiError(res);
           }
 
        },
@@ -49,36 +49,33 @@ export class HomeComponent implements OnInit {
   }
 
   handleApiError(error: any){
-    this.loading_post = false;
     this.stop_fetching = true;
+    this.globals.loading = false;
+    this.globals.error = true;
+
     if(error.status == 0)
     {
-      console.log('No Internet Connection');
-      this.refresh_post = true;
-      this.loading_post = false;
-      this.loadErrorMsg = "No Internet Connection";
+      this.globals.errorMessage = this.globals.errorCodes.network;
+      this.globals.errorDescription = this.globals.errorCodes.network_des;
+    }else{
+      this.globals.errorMessage = this.globals.errorCodes.oops;
+      this.globals.errorDescription = this.globals.errorCodes.oops_des;
     }
   }
 
   loadMoreStories(){
-    this.refresh_post = false;
-    this.loading_post = true;
+    this.globals.loading = true;
     this.stop_fetching = false;
-    this.api.pagination.offset = this.pagination.offset;
 
     this.api.guestfeed().subscribe(res => {
+          this.globals.loading = false;
           if(res['validate'] == 'true'){
-              this.loading_post = false;
-              this.validate = res['validate'];
-
               for(let post of res['data']){
                   this.posts.push(post);
               }
-
-              this.pagination.offset+=5;
+              this.api.pagination.offset+= 5;
           }
           else if(res['validate'] == 'empty'){
-              this.loading_post = false;
               this.stop_fetching = true;
           }
 
@@ -91,8 +88,8 @@ export class HomeComponent implements OnInit {
   public handleScroll(event) {
 
     if (event.isReachingBottom) {
-        if(!this.loading_post && !this.stop_fetching){
-          this.loading_post = true;
+        if(!this.globals.loading && !this.stop_fetching){
+          this.globals.loading = true;
           this.loadMoreStories();
         }
 

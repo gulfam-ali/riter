@@ -3,6 +3,7 @@ import { Globals } from '../globals';
 import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-member',
@@ -26,23 +27,26 @@ export class MemberComponent implements OnInit {
     follow: 0,
     followers: 0
   };
-
   posts = [];
-  zero_stories = false;
 
   selfProfile = true;
-  data = { username: '' };
+  data = { username: '', member_id: '', user_id: '' };
+  share = { link: 'www.wordsire.com'}
 
-  loadErrorMsg = 'Refresh';
-  notFound = false;
-  loading_post = true;
-  refresh_post = false;
+  stop_fetching = false;
 
   constructor(private api: ApiService,private router: Router, private route: ActivatedRoute, private cookieService: CookieService, private globals: Globals) {
       this.globals.setTitle( "Profile" );
       this.globals.setActiveMenu( "profile" );
+      this.globals.clearErrorMsg();
 
+      this.api.pagination.offset = 0;
+      this.api.getNotifsCount();
+      
       this.data.username = this.cookieService.get('username');
+      this.data.user_id = this.cookieService.get('userId');
+
+      this.share.link = "www.wordsire.com/"+this.data.username;
 
       this.route.params.subscribe( params => {
         if(params.username!= null){
@@ -51,6 +55,8 @@ export class MemberComponent implements OnInit {
                 {
                   this.data.username = params.username;
                   this.selfProfile = false;
+
+                  this.selfProfile = (params.username == this.data.user_id)?true:false;
                 }
             }else{
               this.router.navigate(['feed']);
@@ -60,22 +66,24 @@ export class MemberComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log(this.data);
     this.memberData();
-    this.memberStories();
-
-
   }
 
   memberData(){
     this.api.memberProfile(this.data).subscribe(res => {
-        this.loading_post = false;
+
         if(res['validate']=='true'){
             this.profile = res['data']['0'];
             this.profile.follow = +res['data']['0']['follow'];
             this.globals.setTitle( this.profile.first_name+' '+this.profile.last_name+' | Wordsire' );
+            this.data.member_id = this.profile.id;
+            this.memberStories();
         }else{
-          this.notFound = true;
+          this.globals.loading = false;
+          this.globals.error = true;
+          this.globals.errorMessage = this.globals.errorCodes.error_404;
+          this.globals.errorDescription = this.globals.errorCodes.error_404_des;
+          this.globals.setTitle( "Error 404 | Page Not Found" );
         }
     },
     error =>{
@@ -84,41 +92,59 @@ export class MemberComponent implements OnInit {
   }
 
   memberStories(){
+    this.globals.loading = true;
+    this.stop_fetching = false;
+
     this.api.memberStories(this.data).subscribe(res => {
-      this.loading_post = false;
+      this.globals.loading = false;
       if(res['validate']=="true")
       {
           this.posts = res['data'];
           this.api.pagination.offset = 5;
-      }else{
-        this.zero_stories = true;
       }
-    });
+      else if(res['validate'] == 'empty'){
+          this.stop_fetching = true;
+      }
+    },
+    error =>{
+     this.handleApiError(error);
+   });
   }
 
   handleApiError(error: any){
-   this.loading_post = false;
-   this.refresh_post = true;
+   this.globals.loading = false;
+   this.globals.error = true;
    if(error.status == 0)
    {
-     console.log('No Internet Connection');
-     this.loadErrorMsg = "No Internet Connection";
+       this.globals.errorMessage = this.globals.errorCodes.network;
+       this.globals.errorDescription = this.globals.errorCodes.network_des;
    }else{
-     this.loadErrorMsg = "Oops! Something went wrong";
+       this.globals.errorMessage = this.globals.errorCodes.oops;
+       this.globals.errorDescription = this.globals.errorCodes.oops_des;
    }
   }
 
-    toggleFollow(){
+  toggleFollow(){
       this.profile.follow = (this.profile.follow)?0:1;
 
       this.api.toggleFollow(this.data).subscribe(res => {
-        console.log(res)
           if(res['validate']=='true'){
               console.log('Operation Success');
           }else{
             this.profile.follow = (this.profile.follow)?0:1;
           }
       });
+    }
+
+    handleScroll(event) {
+
+      if (event.isReachingBottom) {
+          if(!this.globals.loading && !this.stop_fetching){
+            this.globals.loading = true;
+            this.memberStories();
+          }
+
+        }
     }
 
 

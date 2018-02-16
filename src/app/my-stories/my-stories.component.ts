@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Globals } from '../globals';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-my-stories',
@@ -14,15 +15,13 @@ export class MyStoriesComponent implements OnInit {
   total_records: string[];
   validate: string[];
   posts = [];
-  loading_post = true;
   stop_fetching = false;
 
-  zero_stories = false;
-  refresh_post = false;
-  loadErrorMsg = 'Refresh';
   constructor(private api: ApiService, private cookieService: CookieService, private globals: Globals) {
       this.globals.setTitle( "My Stories" );
       this.globals.setActiveMenu( "myStories" );
+      this.globals.clearErrorMsg();
+
       this.user_id = this.cookieService.get('userId');
       this.token = this.cookieService.get('token');
 
@@ -31,7 +30,7 @@ export class MyStoriesComponent implements OnInit {
 
   ngOnInit() {
       this.api.user_stories().subscribe(res => {
-          this.loading_post = false;
+          this.globals.loading = false;
           if(res['validate']=="true")
           {
               this.total_records = res['total_records'];
@@ -40,7 +39,11 @@ export class MyStoriesComponent implements OnInit {
           }
           else if(res['validate']=="empty")
           {
-              this.zero_stories = true;
+              this.globals.error = true;
+              this.globals.errorMessage = this.globals.errorCodes.zero_write;
+              this.globals.errorDescription = this.globals.errorCodes.zero_write_des;
+          }else{
+            this.handleApiError(res);
           }
       },
       error =>{
@@ -48,39 +51,37 @@ export class MyStoriesComponent implements OnInit {
      });
  }
 
- handleApiError(error: any){
-   this.loading_post = false;
+handleApiError(error: any){
    this.stop_fetching = true;
+   this.globals.loading = false;
+   this.globals.error = true;
+
    if(error.status == 0)
    {
-     console.log('No Internet Connection');
-     this.refresh_post = true;
-     this.loading_post = false;
-     this.loadErrorMsg = "No Internet Connection";
+     this.globals.errorMessage = this.globals.errorCodes.network;
+     this.globals.errorDescription = this.globals.errorCodes.network_des;
+   }else{
+     this.globals.errorMessage = this.globals.errorCodes.oops;
+     this.globals.errorDescription = this.globals.errorCodes.oops_des;
    }
  }
 
-  loadMoreStories(){
-    this.refresh_post = false;
-    this.loading_post = true;
-    this.stop_fetching = false;
+ loadMoreStories(){
+   this.globals.loading = true;
+   this.stop_fetching = false;
 
     this.api.user_stories().subscribe(res => {
+          this.globals.loading = false;
         if(res['validate']=="true")
         {
-            this.loading_post = false;
-
             for(let post of res['data']){
                 this.posts.push(post);
             }
-
             this.api.pagination.offset+= 5;
         }
         else if(res['validate'] == 'empty'){
-            this.loading_post = false;
             this.stop_fetching = true;
         }
-
     },
      error =>{
        this.handleApiError(error);
@@ -89,8 +90,8 @@ export class MyStoriesComponent implements OnInit {
 
   public handleScroll(event) {
     if (event.isReachingBottom) {
-        if(!this.loading_post && !this.stop_fetching){
-          this.loading_post = true;
+        if(!this.globals.loading && !this.stop_fetching){
+          this.globals.loading = true;
           this.loadMoreStories();
         }
     }

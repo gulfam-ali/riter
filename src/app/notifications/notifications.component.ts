@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Globals } from '../globals';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-notifications',
@@ -21,14 +22,11 @@ export class NotificationsComponent implements OnInit {
     notification_date: ''
 
   };
-  emptyRec = false;
-  loading_post = true;
-  refresh_post = false;
-  loadErrorMsg = 'Refresh';
 
   constructor(private api: ApiService, private globals: Globals) {
       this.globals.setTitle( "Notifications" );
       this.globals.setActiveMenu( "notifications" );
+      this.globals.clearErrorMsg();
   }
 
   ngOnInit() {
@@ -36,15 +34,20 @@ export class NotificationsComponent implements OnInit {
   }
 
   getNotifications(){
-    this.loading_post = true;
       this.api.getNotifications().subscribe(res => {
-        this.loading_post = false;
+        this.globals.loading = false;
           if(res['validate']=='true')
           {
               this.notifications = res['data'];
               this.globals.newNotifs = res['unseen_count'];
+          }
+          else if(res['validate']=="empty")
+          {
+              this.globals.error = true;
+              this.globals.errorMessage = this.globals.errorCodes.zero_notifs;
+              this.globals.errorDescription = this.globals.errorCodes.zero_notifs_des;
           }else{
-              this.emptyRec = true;
+            this.handleApiError(res);
           }
       },
       error =>{
@@ -53,13 +56,16 @@ export class NotificationsComponent implements OnInit {
  }
 
  handleApiError(error: any){
-   this.loading_post = false;
-   this.refresh_post = true;
+   this.globals.loading = false;
+   this.globals.error = true;
+
    if(error.status == 0)
    {
-     this.loadErrorMsg = "No Internet Connection";
+     this.globals.errorMessage = this.globals.errorCodes.network;
+     this.globals.errorDescription = this.globals.errorCodes.network_des;
    }else{
-     this.loadErrorMsg = "Refresh";
+     this.globals.errorMessage = this.globals.errorCodes.oops;
+     this.globals.errorDescription = this.globals.errorCodes.oops_des;
    }
  }
 
@@ -70,7 +76,9 @@ export class NotificationsComponent implements OnInit {
             this.notifications = res['data'];
             this.globals.newNotifs = res['unseen_count'];
         }else{
-          this.emptyRec = true;
+          this.globals.error = true;
+          this.globals.errorMessage = this.globals.errorCodes.zero_notifs;
+          this.globals.errorDescription = this.globals.errorCodes.zero_notifs_des;
         }
     });
   }

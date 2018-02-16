@@ -18,7 +18,7 @@
           <div class="media story-author">
               <img class="mr-3" src="{{globals.mediaUrl}}/images/dp/{{post.avtar}}" alt="Generic placeholder image" style="width:48px;">
               <div class="media-body">
-                  <h6 class="mt-0"><a routerLink="../profile/{{post.user_id}}">{{post.first_name}} {{post.last_name}}</a></h6>
+                  <h6 class="mt-0"><a href="../{{post.username}}">{{post.first_name}} {{post.last_name}}</a></h6>
                   <p class="comment-timestamp">{{post.post_date | date }}</p>
               </div>
           </div>
@@ -42,22 +42,5 @@
           <a href="feed/{{post.id}}#comments" class="card-link float-right" ><i class="far fa-comment" style="color: #777;"></i> Comment</a>
         </div>
     </div>
-    <div class="col-md-12 text-center" *ngIf="loading_post ">
-        <div class="spinner">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
-    </div>
-    <div class="col-md-12 text-center warning-card" *ngIf="zero_stories && !loading_post">
-        <div class="card">
-          <div class="card-body">
-            <p class="mb-1"><b>No Stories Found. </b></p>
-            <p class="small small-text mb-0">Your stories with all other member stories will appear here.</p>
-          </div>
-        </div>
-    </div>
-    <div class="col-md-12 text-center  warning-card" *ngIf="refresh_post">
-        <button (click)="loadMoreStories()" class="btn btn-light"><i class="fas fa-sync-alt"></i>&nbsp; {{loadErrorMsg}} </button>
-    </div>
 </div>
+<app-loader></app-loader>

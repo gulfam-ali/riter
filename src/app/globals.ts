@@ -16,6 +16,36 @@ export class Globals {
     sidebar = { login:'', register:'', feed: '', write: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
     loadMessage: string = '';
 
+    loading: boolean = true;
+    error: boolean = false;
+    errorMessage: string = 'Oops! Something went wrong';
+    errorDescription: string = '';
+
+    errorCodes = {
+      error_404 : 'Error 404',
+      error_404_des: "The page you are looking for no longer exist or moved somewhere else.",
+
+      profile: 'Profile not found',
+      profile_des: "The profile you are looking for doesn't exist",
+
+      oops: 'Oops! Something went wrong.',
+      oops_des: "We’re sorry, but something went wrong. We've been notified about this issue and we’ll take a look at it shortly.",
+
+      network: "No Internet Connection",
+      network_des: "It looks like you have no internet connection. Please check your network connection and try again.",
+
+      zero_feed: 'No new stories',
+      zero_feed_des: "Currently there are no new stories posted. Please visit us again later. ",
+
+      zero_bookmark: "You have no bookmark stories yet",
+      zero_bookmark_des: "Save your favourite stories using bookmarks.",
+
+      zero_write: "You haven't written any story yet",
+      zero_write_des: "Start writing and increase your fan following.",
+
+      zero_notifs: "No new notifications",
+      zero_notifs_des: "Any event related to you or your stories is notified here."
+    }
     newNotifs = 0;
 
     constructor(private titleService: Title) { }
@@ -72,6 +102,13 @@ export class Globals {
                 break;
              }
           }
+    }
+
+    clearErrorMsg(){
+        this.loading = true;
+        this.error  = false;
+        this.errorMessage = '';
+        this.errorDescription = '';
     }
 
     showLoad(message: string) {

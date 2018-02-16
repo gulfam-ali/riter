@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Globals } from '../globals';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-feed',
@@ -11,18 +12,15 @@ import { Globals } from '../globals';
 export class FeedComponent implements OnInit {
   user_id: string;
   token: string;
-  loading_post = true;
   stop_fetching = false;
-  refresh_post = false;
   total_records: string[];
   posts = [];
-  loadErrorMsg = 'Refresh';
-  zero_stories = false;
   constructor(private api: ApiService, private cookieService: CookieService, private globals: Globals) {
       this.user_id = this.cookieService.get('userId');
       this.token = this.cookieService.get('token');
       this.globals.setTitle( "Feed" );
       this.globals.setActiveMenu( "feed" );
+      this.globals.clearErrorMsg();
 
       this.api.pagination.offset = 0;
       this.api.getNotifsCount();
@@ -30,17 +28,17 @@ export class FeedComponent implements OnInit {
 
   ngOnInit() {
       this.api.feed().subscribe(res => {
-          this.loading_post = false;
+          this.globals.loading = false;
           if(res['validate']=="true")
           {
-
-
               this.total_records = res['total_records'];
               this.posts = res['data'];
-
               this.api.pagination.offset = 5;
-          }else{
-            this.zero_stories = true;
+          }
+          else{
+            this.globals.error = true;
+            this.globals.errorMessage = this.globals.errorCodes.zero_feed;
+            this.globals.errorDescription = this.globals.errorCodes.zero_feed_des;
           }
        },
        error =>{
@@ -49,25 +47,26 @@ export class FeedComponent implements OnInit {
   }
 
   handleApiError(error: any){
-    this.loading_post = false;
     this.stop_fetching = true;
+    this.globals.loading = false;
+    this.globals.error = true;
+
     if(error.status == 0)
     {
-      console.log('No Internet Connection');
-      this.refresh_post = true;
-      this.loading_post = false;
-      this.loadErrorMsg = "No Internet Connection";
+      this.globals.errorMessage = this.globals.errorCodes.network;
+      this.globals.errorDescription = this.globals.errorCodes.network_des;
+    }else{
+      this.globals.errorMessage = this.globals.errorCodes.oops;
+      this.globals.errorDescription = this.globals.errorCodes.oops_des;
     }
   }
 
   loadMoreStories(){
-    this.refresh_post = false;
-    this.loading_post = true;
+    this.globals.loading = true;
     this.stop_fetching = false;
 
     this.api.feed().subscribe(res => {
-        this.loading_post = false;
-
+        this.globals.loading = false;
         if(res['validate']=="true")
         {
             for(let post of res['data']){
@@ -76,10 +75,8 @@ export class FeedComponent implements OnInit {
             this.api.pagination.offset+= 5;
         }
         else if(res['validate'] == 'empty'){
-            this.loading_post = false;
             this.stop_fetching = true;
         }
-
     },
      error =>{
        this.handleApiError(error);
@@ -88,8 +85,8 @@ export class FeedComponent implements OnInit {
 
   public handleScroll(event) {
     if (event.isReachingBottom) {
-        if(!this.loading_post && !this.stop_fetching){
-          this.loading_post = true;
+        if(!this.globals.loading && !this.stop_fetching){
+          this.globals.loading = true;
           this.loadMoreStories();
         }
     }

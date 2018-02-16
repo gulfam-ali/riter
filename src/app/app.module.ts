@@ -37,6 +37,8 @@ import { ChangePasswordComponent } from './popup/change-password/change-password
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { ChangeDpComponent } from './popup/change-dp/change-dp.component';
 import { MemberComponent } from './member/member.component';
+import { ErrorComponent } from './error/error.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 
@@ -65,7 +67,9 @@ import { MemberComponent } from './member/member.component';
     ChangePasswordComponent,
     MobileMenuComponent,
     ChangeDpComponent,
-    MemberComponent
+    MemberComponent,
+    ErrorComponent,
+    LoaderComponent
   ],
   entryComponents: [],
   imports: [
