@@ -3,6 +3,7 @@ import { Globals } from '../globals';
 import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -10,6 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  profileForm = FormGroup;
+
   profile = {
     id:'',
     avtar:'default.png',
@@ -27,6 +30,8 @@ export class ProfileComponent implements OnInit {
     posts:'',
     follow: 0
   };
+
+  user = { firstName: '', lastName: '' };
 
   selfProfile = true;
   data = { member_id: '' };
@@ -78,17 +83,17 @@ export class ProfileComponent implements OnInit {
      });
  }
 
- handleApiError(error: any){
-   this.loading_post = false;
-   this.refresh_post = true;
-   if(error.status == 0)
-   {
-     console.log('No Internet Connection');
-     this.loadErrorMsg = "No Internet Connection";
-   }else{
-     this.loadErrorMsg = "Oops! Something went wrong";
+   handleApiError(error: any){
+     this.loading_post = false;
+     this.refresh_post = true;
+     if(error.status == 0)
+     {
+       console.log('No Internet Connection');
+       this.loadErrorMsg = "No Internet Connection";
+     }else{
+       this.loadErrorMsg = "Oops! Something went wrong";
+     }
    }
- }
 
     toggleFollow(){
       this.profile.follow = (this.profile.follow)?0:1;

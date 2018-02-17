@@ -35,3 +35,24 @@ padding-bottom: 1em;
     font-size: 1em;
     font-weight: 400;
 }
+
+.form-control{
+  font-size: 0.9em;
+    padding: 0.4em 0.8em;
+}
+
+.gray-strip-heading{
+  padding: 0.2em 1em;
+  color: #666;
+  background: #f4f4f4;
+}
+.gender{
+  color: #999 !important;
+  font-size: 0.9em;
+    padding: 0.4em 0.8em;
+}
+.gender.active{
+    background: #eaf6ff !important;
+    color: #006ec5 !important;
+    border-color: #006ec5 !important;
+}

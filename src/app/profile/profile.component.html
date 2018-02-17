@@ -1,62 +1,77 @@
 <div class="row">
   <div class="card register-card" *ngIf="!loading_post && !refresh_post && !notFound" >
     <div class="card-body text-center">
-      <img class="mb-3" src="{{globals.mediaUrl}}/images/dp/{{globals.userAvtar}}" alt="Profile Picture" style="    width: 40%; max-width: 160px; border-radius: 100%; " >
-      <h5 class="card-title">{{ profile.first_name}} {{profile.last_name}}</h5>
+      <img class="mb-3" src="{{globals.mediaUrl}}/images/dp/{{globals.userAvtar}}" alt="Profile Picture" style="    width: 124px; max-width: 160px; border-radius: 100%; " >
       <div *ngIf="selfProfile">
-          <button class="btn btn-sm btn-light" data-toggle="modal" data-target="#pictureModal"><i class="far fa-image"></i>&nbsp; Change Picture</button>&nbsp;
-          <a routerLink="../settings" href="settings" class="btn btn-sm btn-light"><i class="fas fa-cog"></i>&nbsp; Settings</a>
-      </div>
-      <div *ngIf="!selfProfile">
-          <button class="btn btn-sm btn-light" (click)="toggleFollow()" *ngIf="!profile.follow"><i class="fas fa-user-plus"></i> Follow</button>
-          <button class="btn btn-sm btn-primary" (click)="toggleFollow()" *ngIf="profile.follow"><i class="fas fa-check"></i> Followed</button>
+          <button class="btn btn-sm btn-light" data-toggle="modal" data-target="#pictureModal"><i class="far fa-image"></i>&nbsp; Change Picture</button>
       </div>
     </div>
 
-    <div class="row card-body text-center" style="border-top: 1pt solid #eee; margin:0;" [hidden]="true">
-        <div class="col-md-12 stats-heading">Rank Stats</div>
-        <div class="col-md-6 col-sm-6 col-12 stats-box">
-          <div>
-            <p class="stats-count">{{ profile.reader_points}}</p>
-            <p class="stats-category">As a Reader</p>
+    <form (ngSubmit)="saveInfo()" #profileForm="ngForm">
+    <div class="row card-body p-0" style="border-top: 1pt solid #eee; margin:0;" >
+
+          <div class="col-md-12 mb-3 gray-strip-heading"><b>About</b></div>
+          <div class="col-md-12"><label>Name</label></div>
+          <div class="col-md-6 col-sm-6 col-6 pr-1">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel" maxlength="20" pattern="[a-zA-Z ]*" required>
+            </div>
           </div>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12 stats-box">
-          <div>
-            <p class="stats-count">{{ profile.writer_points}}</p>
-            <p class="stats-category">As an Author</p>
+          <div class="col-md-6 col-sm-6 col-6 p-0 mb-3">
+              <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Last Name">
+              </div>
           </div>
-        </div>
+          <div class="col-md-12">
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+                <div *ngIf="firstName.errors.required">
+                  First Name is required
+                </div>
+                <div *ngIf="firstName.errors.maxlength">
+                  First Name must be less than 20 characters
+                </div>
+                <div *ngIf="firstName.errors.pattern">
+                  First Name must be alphabets only
+                </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label class="m-0 mb-1">Gender</label>
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-light gender">
+                  <input type="radio" name="options" id="option1" value="female" autocomplete="off"> <i class="fas fa-female"></i> &nbsp;Female
+                </label>
+                <label class="btn btn-light gender">
+                  <input type="radio" name="options" id="option2" value="male" autocomplete="off"> <i class="fas fa-male"></i> &nbsp;Male
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label class="m-0">Tagline</label>
+            <p class="small small-text m-0 mb-1">This will appear just below your name.</p>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="eg. software engineer at Google">
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label class="m-0">Bio</label>
+            <p class="small small-text m-0 mb-1">Write a brief intro about yourself.</p>
+            <div class="form-group">
+                <textarea class="form-control" placeholder="Brief Introduction"></textarea>
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-sm btn-primary pr-3 pl-3">Save Changes</button>
+          </div>
+
     </div>
-
-    <div class="row card-body" style="border-top: 1pt solid #eee; margin:0;">
-        <div class="col-md-12 stats-heading" style="padding-left: 0.5em;"><i class="fas fa-sliders-h"></i>&nbsp; Activity Stats</div>
-        <div class="col-md-12 stats-box b-0">
-            <p class="stats-category float-left">Views</p>
-            <p class="stats-count float-right">{{ profile.views}} &nbsp;<i class="fas fa-eye"></i></p>
-        </div>
-
-        <div class="col-md-12 stats-box">
-            <p class="stats-category float-left">Likes</p>
-            <p class="stats-count float-right">{{ profile.likes}} &nbsp;<i class="fas fa-heart"></i></p>
-        </div>
-
-        <div class="col-md-12 stats-box">
-            <p class="stats-category float-left">Comments</p>
-            <p class="stats-count float-right">{{ profile.comments }} &nbsp;<i class="fas fa-comment"></i></p>
-        </div>
-
-        <div class="col-md-12 stats-box">
-            <p class="stats-category float-left">Bookmarks</p>
-            <p class="stats-count float-right">{{ profile.bookmarks}} &nbsp;&nbsp;<i class="fas fa-bookmark"></i></p>
-        </div>
-
-        <div class="col-md-12 stats-box">
-            <p class="stats-category float-left">Stories</p>
-            <p class="stats-count float-right">{{ profile.posts}} &nbsp;<i class="fas fa-pencil-alt"></i></p>
-        </div>
-    </div>
+    </form>
   </div>
 
   <div class="col-md-12 text-center" *ngIf="loading_post">
