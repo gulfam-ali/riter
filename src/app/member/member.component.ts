@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { Globals } from '../globals';
 import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -31,22 +32,20 @@ export class MemberComponent implements OnInit {
 
   selfProfile = true;
   data = { username: '', member_id: '', user_id: '' };
-  share = { link: 'www.wordsire.com'}
+  share_link: SafeUrl;
 
   stop_fetching = false;
 
-  constructor(private api: ApiService,private router: Router, private route: ActivatedRoute, private cookieService: CookieService, private globals: Globals) {
+  constructor(private api: ApiService,private router: Router, private route: ActivatedRoute, private cookieService: CookieService, public globals: Globals) {
       this.globals.setTitle( "Profile" );
       this.globals.setActiveMenu( "profile" );
       this.globals.clearErrorMsg();
 
       this.api.pagination.offset = 0;
       this.api.getNotifsCount();
-      
+
       this.data.username = this.cookieService.get('username');
       this.data.user_id = this.cookieService.get('userId');
-
-      this.share.link = "www.wordsire.com/"+this.data.username;
 
       this.route.params.subscribe( params => {
         if(params.username!= null){
@@ -58,6 +57,7 @@ export class MemberComponent implements OnInit {
 
                   this.selfProfile = (params.username == this.data.user_id)?true:false;
                 }
+
             }else{
               this.router.navigate(['feed']);
             }
@@ -78,6 +78,8 @@ export class MemberComponent implements OnInit {
             this.globals.setTitle( this.profile.first_name+' '+this.profile.last_name+' | Wordsire' );
             this.data.member_id = this.profile.id;
             this.memberStories();
+
+            this.share_link = this.globals.sanitize('whatsapp://send?text=https://wordsire.com/'+this.data.username);
         }else{
           this.globals.loading = false;
           this.globals.error = true;

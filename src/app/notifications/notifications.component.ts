@@ -9,7 +9,7 @@ import { LoaderComponent } from '../loader/loader.component';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
-  notifications = {
+  /*notifications = {
     id: '',
     user_id: '',
     avtar: 'default.png',
@@ -22,8 +22,11 @@ export class NotificationsComponent implements OnInit {
     notification_date: ''
 
   };
+  */
 
-  constructor(private api: ApiService, private globals: Globals) {
+  notifications = [];
+
+  constructor(private api: ApiService, public globals: Globals) {
       this.globals.setTitle( "Notifications" );
       this.globals.setActiveMenu( "notifications" );
       this.globals.clearErrorMsg();

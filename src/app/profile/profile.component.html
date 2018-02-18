@@ -1,8 +1,8 @@
-<div class="row">
-  <div class="card register-card" *ngIf="!loading_post && !refresh_post && !notFound" >
+<div class="row" [hidden]="globals.loading || globals.error" >
+  <div class="card register-card" >
     <div class="card-body text-center">
       <img class="mb-3" src="{{globals.mediaUrl}}/images/dp/{{globals.userAvtar}}" alt="Profile Picture" style="    width: 124px; max-width: 160px; border-radius: 100%; " >
-      <div *ngIf="selfProfile">
+      <div>
           <button class="btn btn-sm btn-light" data-toggle="modal" data-target="#pictureModal"><i class="far fa-image"></i>&nbsp; Change Picture</button>
       </div>
     </div>
@@ -13,25 +13,33 @@
           <div class="col-md-12 mb-3 gray-strip-heading"><b>About</b></div>
           <div class="col-md-12"><label>Name</label></div>
           <div class="col-md-6 col-sm-6 col-6 pr-1">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel" maxlength="20" pattern="[a-zA-Z ]*" required>
-            </div>
+              <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="user.first_name" name="first_name" #first_name="ngModel" maxlength="20" pattern="[a-zA-Z ]*" required>
           </div>
-          <div class="col-md-6 col-sm-6 col-6 p-0 mb-3">
-              <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Last Name">
-              </div>
+          <div class="col-md-6 col-sm-6 col-6 pl-0">
+              <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="user.last_name" name="last_name"  #last_name="ngModel" maxlength="20" pattern="[a-zA-Z ]*" required>
           </div>
-          <div class="col-md-12">
-            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
-                <div *ngIf="firstName.errors.required">
+          <div class="col-md-12 mb-2">
+            <div *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)" class="alert alert-danger">
+                <div *ngIf="first_name.errors.required">
                   First Name is required
                 </div>
-                <div *ngIf="firstName.errors.maxlength">
+                <div *ngIf="first_name.errors.maxlength">
                   First Name must be less than 20 characters
                 </div>
-                <div *ngIf="firstName.errors.pattern">
+                <div *ngIf="first_name.errors.pattern">
                   First Name must be alphabets only
+                </div>
+            </div>
+
+            <div *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)" class="alert alert-danger">
+                <div *ngIf="last_name.errors.required">
+                  Last Name is required
+                </div>
+                <div *ngIf="last_name.errors.maxlength">
+                  Last Name must be less than 20 characters
+                </div>
+                <div *ngIf="last_name.errors.pattern">
+                  Last Name must be alphabets only
                 </div>
             </div>
           </div>
@@ -39,14 +47,19 @@
           <div class="col-md-12">
             <label class="m-0 mb-1">Gender</label>
             <div class="form-group">
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-light gender">
-                  <input type="radio" name="options" id="option1" value="female" autocomplete="off"> <i class="fas fa-female"></i> &nbsp;Female
-                </label>
-                <label class="btn btn-light gender">
-                  <input type="radio" name="options" id="option2" value="male" autocomplete="off"> <i class="fas fa-male"></i> &nbsp;Male
-                </label>
-              </div>
+              <input type="radio" id="female" value="Female" autocomplete="off" [(ngModel)]="user.gender" name="gender"  #gender="ngModel" required> <label for="female" class="m-0">Female</label>
+              &nbsp;
+              <input type="radio" id="male" value="Male" autocomplete="off" [(ngModel)]="user.gender" name="gender"  required>
+              <label for="male" class="m-0">Male</label>
+              &nbsp;
+              <input type="radio" id="transgender" value="Transgender" autocomplete="off" [(ngModel)]="user.gender" name="gender"  required>
+              <label for="transgender" class="m-0">Transgender</label>
+            </div>
+
+            <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="alert alert-danger">
+                <div *ngIf="gender.errors.required">
+                  Select your gender
+                </div>
             </div>
           </div>
 
@@ -54,7 +67,13 @@
             <label class="m-0">Tagline</label>
             <p class="small small-text m-0 mb-1">This will appear just below your name.</p>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="eg. software engineer at Google">
+                <input type="text" class="form-control" placeholder="eg. software engineer at Google" [(ngModel)]="user.tagline" name="tagline" #tagline="ngModel" maxlength="60">
+            </div>
+
+            <div *ngIf="tagline.invalid && (tagline.dirty || tagline.touched)" class="alert alert-danger">
+                <div *ngIf="tagline.errors.maxlength">
+                    Tagline must be less than 60 characters
+                </div>
             </div>
           </div>
 
@@ -62,41 +81,24 @@
             <label class="m-0">Bio</label>
             <p class="small small-text m-0 mb-1">Write a brief intro about yourself.</p>
             <div class="form-group">
-                <textarea class="form-control" placeholder="Brief Introduction"></textarea>
+                <textarea class="form-control" rows=5 placeholder="Brief Introduction" [(ngModel)]="user.bio" name="bio" #bio="ngModel" maxlength="240"></textarea>
+            </div>
+
+            <div *ngIf="bio.invalid && (bio.dirty || bio.touched)" class="alert alert-danger">
+                <div *ngIf="bio.errors.maxlength">
+                    Tagline must be less than 240 characters
+                </div>
             </div>
           </div>
 
           <div class="col-md-12 mb-3">
-            <button type="submit" class="btn btn-sm btn-primary pr-3 pl-3">Save Changes</button>
+            <button type="submit" class="btn btn-sm btn-primary pr-3 pl-3" [disabled]="(!profileForm.form.valid) || saving">{{saveButtonMsg}}</button> <span class="float-right {{processClass}} m-0">{{processMsg}}</span>
           </div>
 
     </div>
     </form>
   </div>
 
-  <div class="col-md-12 text-center" *ngIf="loading_post">
-      <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-      </div>
-  </div>
-  <div class="col-md-12 text-center" *ngIf="notFound">
-      <div class="card">
-        <div class="card-body">
-          <p class="mb-1"><b>Profile Not Found! </b></p>
-          <p class="small small-text mb-0">The profile you are looking for doesn't exist.</p>
-        </div>
-      </div>
-  </div>
-  <div class="col-md-12 text-center" *ngIf="refresh_post">
-      <div class="card">
-        <div class="card-body">
-          <p class="mb-1"><b>{{loadErrorMsg}}</b></p>
-          <p class="small small-text mb-0">It seems the link is broken or moved somewhere else. Please try again.</p>
-        </div>
-      </div>
-  </div>
 </div>
-
+<app-loader></app-loader>
 <app-change-dp></app-change-dp>

@@ -35,7 +35,6 @@ const routes: Routes = [
   { path: 'feed/:id', component: StoryComponent, canActivate: [AuthGuard]},
   { path: 'write', component: WriteComponent, canActivate: [AuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-  { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'bookmarks', component: BookmarksComponent, canActivate: [AuthGuard]},
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
   { path: 'my-stories', component: MyStoriesComponent, canActivate: [AuthGuard]},

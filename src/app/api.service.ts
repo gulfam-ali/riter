@@ -135,8 +135,12 @@ export class ApiService {
   }
 
 //Profile Component
-  profile(data){
-      return this.api_post('profile', data);
+  profile(){
+      return this.api_post('profile');
+  }
+
+  saveProfile(data){
+      return this.api_post('profile/save', data);
   }
 
   changeAvtar(data){

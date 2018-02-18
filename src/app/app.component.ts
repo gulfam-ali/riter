@@ -18,7 +18,7 @@ export class AppComponent {
     hide_sm_header: string = "";
     constructor(private api: ApiService, private http: HttpClientModule, private router: Router, private cookieService: CookieService, private globals: Globals)
     {
-        this.globals.setTitle( 'Wordsire' );
+        this.globals.setTitle( 'Wordsire - A platform for writers and readers.' );
         this.api.getNotifsCount();
 
         if( !( this.cookieService.check('userId') && this.cookieService.check('token')) ){

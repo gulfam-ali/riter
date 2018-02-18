@@ -8,7 +8,7 @@ import { Globals } from '../globals';
 })
 export class LoaderComponent implements OnInit {
 
-  constructor(private globals: Globals) { }
+  constructor(public globals: Globals) { }
 
   ngOnInit() {
   }

@@ -88,8 +88,12 @@
     text-align: center;
 }
 
-.navbar-footer li a{
+.navbar-footer li a, .navbar-sm-footer li a{
   color: #ff8f8f;
+}
+
+.navbar-sm-footer li a{
+  padding: 0.76em 0;
 }
 
 .navbar-footer li.nav-item.active, .navbar-sm-footer li.nav-item.active{

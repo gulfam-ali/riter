@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   alertClass = '';
 
   constructor(private cookieService: CookieService, private api: ApiService, private globals: Globals) {
-      this.globals.setTitle( "Login" );
+      this.globals.setTitle( "Login | Wordsire" );
       this.globals.setActiveMenu('login');
   }
   ngOnInit() {

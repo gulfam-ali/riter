@@ -20,7 +20,7 @@
           <div class="media story-author">
               <img class="mr-3" src="{{globals.mediaUrl}}/images/dp/{{posts.avtar}}" alt="Generic placeholder image" style="width:48px;">
               <div class="media-body">
-                  <h6 class="mt-0"><a routerLink="../../profile/{{posts.user_id}}">{{posts.first_name}} {{posts.last_name}}</a></h6>
+                  <h6 class="mt-0"><a routerLink="../../{{posts.username}}">{{posts.first_name}} {{posts.last_name}}</a></h6>
                   <p class="comment-timestamp">{{posts.post_date | date }}</p>
               </div>
               <div class="media-body">
@@ -79,7 +79,7 @@
           <div class="media" *ngFor="let comment of commentArr">
                 <img class="mr-2" src="{{globals.mediaUrl}}/images/dp/{{comment.avtar}}" alt="Generic placeholder image" style="width:48px;">
                 <div class="media-body">
-                      <h6 class="mt-0">{{comment.first_name}} {{comment.last_name}}</h6>
+                      <h6 class="mt-0"><a routerLink="../../{{comment.username}}">{{comment.first_name}} {{comment.last_name}}</a></h6>
                       <p class="comment-timestamp">{{ comment.comment_date | date }}</p>
                       <p class="media-text comment">
                         {{ comment.comment }}

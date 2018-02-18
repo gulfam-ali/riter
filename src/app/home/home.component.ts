@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
           {
             this.total_records = res['total_records'];
             this.posts = res['data'];
-            this.pagination.offset = 5;
+            this.api.pagination.offset = 5;
           }
           else if(res['validate']=="empty")
           {

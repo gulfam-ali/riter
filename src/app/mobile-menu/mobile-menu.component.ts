@@ -9,7 +9,7 @@ import { ApiService } from '../api.service';
 })
 export class MobileMenuComponent implements OnInit {
 
-  constructor(private api: ApiService, private globals: Globals) {
+  constructor(private api: ApiService, public globals: Globals) {
       this.globals.setTitle( "Wordsire" );
       this.globals.setActiveMenu( "menu" );
    }

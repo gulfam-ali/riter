@@ -14,9 +14,12 @@
             </p>
           </div>
           <div class="col-md-12 p-0 mt-3" >
-            <button class="btn btn-sm btn-light mr-2" [hidden]="selfProfile || data.user_id=='' ">Follow</button>
+            <span class="mr-2" [hidden]="selfProfile || data.user_id=='' ">
+                <button class="btn btn-sm btn-light" (click)="toggleFollow()" *ngIf="!profile.follow">Follow</button>
+                <button class="btn btn-sm btn-primary" (click)="toggleFollow()" *ngIf="profile.follow"><i class="fas fa-check"></i> Following</button>
+            </span>
             <a routerLink="../profile" class="btn btn-sm btn-light" [hidden]="!selfProfile"><i class="fas fa-pencil-alt"></i> &nbsp;Edit Profile</a>
-            <a href="whatsapp://send?text={{share.link}}" class="btn btn-sm btn-light d d-sm-none"><i class="fab fa-whatsapp"></i> &nbsp;Share Profile</a>
+            <a href="{{share_link}}" class="btn btn-sm btn-light d d-sm-none"><i class="fab fa-whatsapp"></i> &nbsp;Share Profile</a>
 
           </div>
       </div>
@@ -65,7 +68,7 @@
     </div>
 </div>
 
-<div class="row col-md-12 p-0 mt-2 text-center" [hidden]="posts!='' || globals.loading || globals.error">
+<div class="row col-md-12 p-0 mt-2 text-center" [hidden]="globals.loading || globals.error">
     <div class="small-text btn-block">No Stories Written</div>
 </div>
 

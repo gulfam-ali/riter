@@ -3,7 +3,7 @@
       <div class="row card-body pb-0">
           <div class="col-md-12 page-heading">
             <i class="fas fa-bell"></i>&nbsp; Notifications
-            <button class="btn btn-sm btn-light float-right" (click)="notif_read()">Mark All Read</button>
+            <button class="btn btn-sm btn-light float-right" *ngIf="globals.newNotifs>0" (click)="notif_read()">Mark All Read</button>
           </div>
       </div>
 
@@ -11,39 +11,39 @@
           <div class="media notification-box seen-{{notification.seen}}" [hidden]="notification.event != 'FOLLOW' " (click)="readNotif(notification.event, notification.user_id )">
             <img class="mr-3 notification-user-img" src="{{globals.mediaUrl}}/images/dp/{{notification.avtar}}" alt="Avtar">
             <div class="media-body notification-text">
-                <a routerLink="../profile/{{notification.user_id}}">{{notification.first_name}} {{notification.last_name}}</a>
+                <a routerLink="../{{notification.username}}">{{notification.first_name}} {{notification.last_name}}</a>
                 <span [hidden]="notification.personCount<2">and {{notification.personCount-1}} other member<span [hidden]="notification.personCount<3">s</span></span> started following you.
-                <p class="small small-text mb-0">{{notification.notification_date | date:'HH:mm, MMM dd' }}</p>
+                <p class="small small-text mb-0">{{notification.notification_date | date:'MMM dd' }}</p>
             </div>
           </div>
 
           <div class="media notification-box seen-{{notification.seen}}" [hidden]="notification.event != 'LIKE' " (click)="readNotif(notification.event, notification.reference_id )">
             <img class="mr-3 notification-user-img" src="{{globals.mediaUrl}}/images/dp/{{notification.avtar}}" alt="Avtar">
             <div class="media-body notification-text">
-              <a routerLink="../profile/{{notification.user_id}}">{{notification.first_name}} {{notification.last_name}}</a>
+              <a routerLink="../{{notification.username}}">{{notification.first_name}} {{notification.last_name}}</a>
               <span [hidden]="notification.personCount<2">and {{notification.personCount-1}} other member<span [hidden]="notification.personCount<3">s</span></span> liked your story
               <a routerLink="../feed/{{notification.reference_id}}">{{notification.reference_name}}</a>
-              <p class="small small-text mb-0">{{notification.notification_date | date:'HH:mm, MMM dd' }}</p>
+              <p class="small small-text mb-0">{{notification.notification_date | date:'MMM dd' }}</p>
             </div>
           </div>
 
           <div class="media notification-box seen-{{notification.seen}}" [hidden]="notification.event != 'COMMENT' " (click)="readNotif(notification.event, notification.reference_id )">
             <img class="mr-3 notification-user-img" src="{{globals.mediaUrl}}/images/dp/{{notification.avtar}}" alt="Avtar">
             <div class="media-body notification-text">
-              <a routerLink="../profile/{{notification.user_id}}">{{notification.first_name}} {{notification.last_name}}</a>
+              <a routerLink="../{{notification.username}}">{{notification.first_name}} {{notification.last_name}}</a>
               <span [hidden]="notification.personCount<2">and {{notification.personCount-1}} other member<span [hidden]="notification.personCount<3">s</span></span> commented on your story
               <a routerLink="../feed/{{notification.reference_id}}">{{notification.reference_name}}</a>
-              <p class="small small-text mb-0">{{notification.notification_date | date:'HH:mm, MMM dd' }}</p>
+              <p class="small small-text mb-0">{{notification.notification_date | date:'MMM dd' }}</p>
             </div>
           </div>
 
           <div class="media notification-box seen-{{notification.seen}}" [hidden]="notification.event != 'BOOKMARK' " (click)="readNotif(notification.event, notification.reference_id )">
             <img class="mr-3 notification-user-img" src="{{globals.mediaUrl}}/images/dp/{{notification.avtar}}" alt="Avtar">
             <div class="media-body notification-text">
-              <a routerLink="../profile/{{notification.user_id}}">{{notification.first_name}} {{notification.last_name}}</a>
+              <a routerLink="../{{notification.username}}">{{notification.first_name}} {{notification.last_name}}</a>
               <span [hidden]="notification.personCount<2">and {{notification.personCount-1}} other member<span [hidden]="notification.personCount<3">s</span></span> bookmarked your story
               <a routerLink="../feed/{{notification.reference_id}}">{{notification.reference_name}}</a>
-              <p class="small small-text mb-0">{{notification.notification_date | date:'HH:mm, MMM dd' }}</p>
+              <p class="small small-text mb-0">{{notification.notification_date | date:'MMM dd' }}</p>
             </div>
           </div>
       </div>

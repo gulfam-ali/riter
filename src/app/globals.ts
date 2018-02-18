@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Title }     from '@angular/platform-browser';
+import { Title, DomSanitizer }     from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class Globals {
-    /*apiUrl: string = "https://wordsire.com/api/";
+    apiUrl: string = "https://wordsire.com/api/";
     mediaUrl: string = "https://wordsire.com/media";
     webUrl: string = "https://wordsire.com";
-*/
 
+/*
     apiUrl: string = "http://localhost/riter/api/";
     mediaUrl: string = "http://localhost/riter/media";
     webUrl: string = "http://localhost/riter-web";
-
+*/
     userAvtar: string = 'default.png';
+    username: string = '';
     sidebar = { login:'', register:'', feed: '', write: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
     loadMessage: string = '';
 
@@ -48,7 +50,13 @@ export class Globals {
     }
     newNotifs = 0;
 
-    constructor(private titleService: Title) { }
+    constructor(private sanitizer:DomSanitizer, private titleService: Title, private cookieService: CookieService) {
+        this.username = this.cookieService.get('username');
+    }
+
+    sanitize(url:string){
+        return this.sanitizer.bypassSecurityTrustUrl(url);
+    }
 
     setTitle(title: string) {
         this.titleService.setTitle( title );
