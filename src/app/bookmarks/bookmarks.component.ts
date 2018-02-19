@@ -18,7 +18,7 @@ export class BookmarksComponent implements OnInit {
   validate: string[];
   posts = [];
 
-  constructor(private api: ApiService, private cookieService: CookieService, private globals: Globals) {
+  constructor(private api: ApiService, private cookieService: CookieService, public globals: Globals) {
       this.globals.setTitle( "Bookmarks" );
       this.globals.setActiveMenu( "bookmarks" );
       this.globals.clearErrorMsg();

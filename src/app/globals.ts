@@ -4,15 +4,15 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class Globals {
-    apiUrl: string = "https://wordsire.com/api/";
+    /*apiUrl: string = "https://wordsire.com/api/";
     mediaUrl: string = "https://wordsire.com/media";
     webUrl: string = "https://wordsire.com";
+*/
 
-/*
     apiUrl: string = "http://localhost/riter/api/";
     mediaUrl: string = "http://localhost/riter/media";
     webUrl: string = "http://localhost/riter-web";
-*/
+
     userAvtar: string = 'default.png';
     username: string = '';
     sidebar = { login:'', register:'', feed: '', write: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
@@ -125,5 +125,24 @@ export class Globals {
 
     hideLoad() {
       this.loadMessage = '';
+    }
+
+    openStory(story_id: number){
+        window.location.href = "./feed/"+story_id;
+    }
+
+
+    handleApiError(error: any){
+      this.loading = false;
+      this.error = true;
+
+      if(error.status == 0)
+      {
+        this.errorMessage = this.errorCodes.network;
+        this.errorDescription = this.errorCodes.network_des;
+      }else{
+        this.errorMessage = this.errorCodes.oops;
+        this.errorDescription = this.errorCodes.oops_des;
+      }
     }
 }

@@ -27,10 +27,10 @@
 
                   <button class="btn btn-sm btn-light float-right" (click)="toggleFollow()" >
                       <span *ngIf="!posts.follow">
-                        <i class="fas fa-user-plus"></i> Follow
+                          <i class="fas fa-user-plus"></i>
                       </span>
                       <span style="color: #07f;" *ngIf="posts.follow">
-                        <i class="fas fa-check"></i> Followed
+                        <i class="fas fa-check"></i> <i class="fas fa-user-plus"></i>
                       </span>
                   </button>
               </div>

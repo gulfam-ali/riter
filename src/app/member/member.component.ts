@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SafeUrl } from '@angular/platform-browser';
+import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { Globals } from '../globals';
 import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -29,14 +29,14 @@ export class MemberComponent implements OnInit {
     followers: 0
   };
   posts = [];
-
+  total_stories = 0;
   selfProfile = true;
   data = { username: '', member_id: '', user_id: '' };
-  share_link: SafeUrl;
+  share_link: string;
 
   stop_fetching = false;
 
-  constructor(private api: ApiService,private router: Router, private route: ActivatedRoute, private cookieService: CookieService, public globals: Globals) {
+  constructor(private api: ApiService, private sanitizer:DomSanitizer, private router: Router, private route: ActivatedRoute, private cookieService: CookieService, public globals: Globals) {
       this.globals.setTitle( "Profile" );
       this.globals.setActiveMenu( "profile" );
       this.globals.clearErrorMsg();
@@ -69,6 +69,10 @@ export class MemberComponent implements OnInit {
     this.memberData();
   }
 
+  sanitize(){
+      return this.sanitizer.bypassSecurityTrustUrl(this.share_link);
+  }
+
   memberData(){
     this.api.memberProfile(this.data).subscribe(res => {
 
@@ -79,7 +83,7 @@ export class MemberComponent implements OnInit {
             this.data.member_id = this.profile.id;
             this.memberStories();
 
-            this.share_link = this.globals.sanitize('whatsapp://send?text=https://wordsire.com/'+this.data.username);
+            this.share_link = 'whatsapp://send?text=https://wordsire.com/'+this.data.username;
         }else{
           this.globals.loading = false;
           this.globals.error = true;
@@ -103,6 +107,7 @@ export class MemberComponent implements OnInit {
       {
           this.posts = res['data'];
           this.api.pagination.offset = 5;
+          this.total_stories = res['total_records'];
       }
       else if(res['validate'] == 'empty'){
           this.stop_fetching = true;

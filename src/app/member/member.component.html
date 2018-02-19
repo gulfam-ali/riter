@@ -19,7 +19,7 @@
                 <button class="btn btn-sm btn-primary" (click)="toggleFollow()" *ngIf="profile.follow"><i class="fas fa-check"></i> Following</button>
             </span>
             <a routerLink="../profile" class="btn btn-sm btn-light" [hidden]="!selfProfile"><i class="fas fa-pencil-alt"></i> &nbsp;Edit Profile</a>
-            <a href="{{share_link}}" class="btn btn-sm btn-light d d-sm-none"><i class="fab fa-whatsapp"></i> &nbsp;Share Profile</a>
+            <a [href]="sanitize()" class="btn btn-sm btn-light d d-sm-none"><i class="fab fa-whatsapp"></i> &nbsp;Share Profile</a>
 
           </div>
       </div>
@@ -43,7 +43,7 @@
 <div class="row card p-0" style="border-top: 1pt solid #eee; margin:0; background: #f4f4f4;">
     <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link active" >Stories</a>
+          <a class="nav-link active" >{{total_stories}} Stories</a>
         </li>
     </ul>
 </div>
@@ -59,8 +59,8 @@
               <p class="comment-timestamp">{{post.post_date | date }}</p>
           </div>
       </div>
-      <p class="card-text story-text"> {{ post.body | limit:400 }}<a routerLink="../feed/{{post.id}}" *ngIf="post.body.length > 400">... (read more)</a></p>
-      <p class="post-stats gray-link">
+      <p class="card-text story-text" (click)="globals.openStory(post.id)"> {{ post.body | limit:400 }}<a routerLink="../feed/{{post.id}}" *ngIf="post.body.length > 400">... (read more)</a></p>
+      <p class="post-stats gray-link" (click)="globals.openStory(post.id)">
           {{post.likes}} Likes &nbsp;
           {{post.comments}} Comments &nbsp;
           {{post.views}} Views
