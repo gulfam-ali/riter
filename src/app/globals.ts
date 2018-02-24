@@ -4,15 +4,16 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class Globals {
+  /*
     apiUrl: string = "https://wordsire.com/api/";
     mediaUrl: string = "https://wordsire.com/media";
     webUrl: string = "https://wordsire.com";
+*/
 
-/*
     apiUrl: string = "http://localhost/riter/api/";
     mediaUrl: string = "http://localhost/riter/media";
     webUrl: string = "http://localhost/riter-web";
-*/
+
     userAvtar: string = 'default.png';
     username: string = '';
     sidebar = { login:'', register:'', feed: '', write: '', bookmarks: '', profile:'', notifications: '', myStories:'', settings:'', menu: ''};
