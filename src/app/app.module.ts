@@ -39,6 +39,7 @@ import { ChangeDpComponent } from './popup/change-dp/change-dp.component';
 import { MemberComponent } from './member/member.component';
 import { ErrorComponent } from './error/error.component';
 import { LoaderComponent } from './loader/loader.component';
+import { VerifyComponent } from './verify/verify.component';
 
 
 
@@ -69,7 +70,8 @@ import { LoaderComponent } from './loader/loader.component';
     ChangeDpComponent,
     MemberComponent,
     ErrorComponent,
-    LoaderComponent
+    LoaderComponent,
+    VerifyComponent
   ],
   entryComponents: [],
   imports: [

@@ -72,6 +72,18 @@ export class ApiService {
       return this.api_post('user/reset-password', data);
   }
 
+  checkVerify(){
+      return this.api_post('user/check-verify');
+  }
+
+  sendVerificationCode(){
+    return this.api_post('user/send-verify-code');
+  }
+
+  verifyEmail(data){
+      return this.api_post('user/verify-email', data);
+  }
+
 //Register Component
   register(data){
       return this.api_post('user/register', data);

@@ -9,8 +9,8 @@
                   <p class="comment-timestamp">{{post.post_date | date }}</p>
               </div>
           </div>
-          <p class="card-text story-text"> {{ post.body | limit:400 }}<a routerLink="../feed/{{post.id}}" *ngIf="post.body.length > 600">... (read more)</a></p>
-          <p class="post-stats gray-link">
+          <p class="card-text story-text" (click)="globals.openStory(post.id)"> {{ post.body | limit:400 }}<a routerLink="../feed/{{post.id}}" *ngIf="post.body.length > 600">... (read more)</a></p>
+          <p class="post-stats gray-link" (click)="globals.openStory(post.id)">
               {{post.likes}} Likes &nbsp;
               {{post.comments}} Comments &nbsp;
               {{post.views}} Views

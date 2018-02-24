@@ -127,4 +127,23 @@ export class Globals {
     hideLoad() {
       this.loadMessage = '';
     }
+
+    openStory(story_id: number){
+        window.location.href = "./feed/"+story_id;
+    }
+
+
+    handleApiError(error: any){
+      this.loading = false;
+      this.error = true;
+
+      if(error.status == 0)
+      {
+        this.errorMessage = this.errorCodes.network;
+        this.errorDescription = this.errorCodes.network_des;
+      }else{
+        this.errorMessage = this.errorCodes.oops;
+        this.errorDescription = this.errorCodes.oops_des;
+      }
+    }
 }

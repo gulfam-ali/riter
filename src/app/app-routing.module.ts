@@ -20,6 +20,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { SettingsComponent } from './settings/settings.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { MemberComponent } from './member/member.component';
+import { VerifyComponent } from './verify/verify.component';
 
 import { GuestGuard }                from './guest-guard.service';
 import { AuthGuard }                from './auth-guard.service';
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard]},
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
   { path: 'stats', component: StatsComponent, canActivate: [AuthGuard]},
+  { path: 'verify', component: VerifyComponent, canActivate: [AuthGuard]},
   { path: 'register', component: RegisterComponent, canActivate: [GuestGuard]},
   { path: 'login', component: LoginComponent, canActivate: [GuestGuard]},
   { path: 'forget', component: ForgetPasswordComponent, canActivate: [GuestGuard]},

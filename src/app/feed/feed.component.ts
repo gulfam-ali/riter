@@ -11,11 +11,12 @@ import { LoaderComponent } from '../loader/loader.component';
 })
 export class FeedComponent implements OnInit {
   user_id: string;
+  email_verified: boolean = true;
   token: string;
   stop_fetching = false;
   total_records: string[];
   posts = [];
-  constructor(private api: ApiService, private cookieService: CookieService, private globals: Globals) {
+  constructor(private api: ApiService, private cookieService: CookieService, public globals: Globals) {
       this.user_id = this.cookieService.get('userId');
       this.token = this.cookieService.get('token');
       this.globals.setTitle( "Feed" );
@@ -24,6 +25,8 @@ export class FeedComponent implements OnInit {
 
       this.api.pagination.offset = 0;
       this.api.getNotifsCount();
+
+      this.is_email_verified();
   }
 
   ngOnInit() {
@@ -44,6 +47,20 @@ export class FeedComponent implements OnInit {
        error =>{
         this.handleApiError(error);
       });
+  }
+
+  is_email_verified(){
+    this.api.checkVerify().subscribe(res=>{
+        if(res['validate']=='true'){
+            this.email_verified = true;
+        }
+        else if(res['validate']=='empty'){
+          this.email_verified = false;
+        }
+      },
+      error =>{
+      this.email_verified = false;
+     });
   }
 
   handleApiError(error: any){

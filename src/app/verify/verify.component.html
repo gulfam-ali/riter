@@ -1,0 +1,43 @@
+<div class="row" [hidden]="globals.loading || globals.error">
+  <div class="card text-center" [hidden]="verified">
+      <div class="row card-body p-2">
+          <div class="col-md-12">
+            <b><i class="far fa-check-circle"></i>&nbsp; Verify Email Address</b>
+            <!--<button class="btn btn-sm btn-light float-right"  (click)="notif_read()">Resend Code</button>-->
+          </div>
+
+          <div class="col-md-12">
+            <p class="small small-text">
+              A verification code has been sent to your email address. Enter that code in the text box below to confirm your email address.
+            </p>
+          </div>
+      </div>
+
+
+
+      <div class="row card-body text-center p-0" >
+
+        <form class="col-md-12 p-2 pl-4 pr-4" (ngSubmit)="verify()" #CodeForm="ngForm" >
+          <p class="mb-2 small {{processClass}} m-0">{{processMsg}}</p>
+          <input type="number" class="form-control form-control-sm text-center" id="email" [(ngModel)]="user.code" name="code" #code="ngModel" placeholder="Verification Code" required>
+
+          <div class="m-2">
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="(!CodeForm.form.valid) ">{{ buttonMsg }}</button>
+            &nbsp;
+            <span (click)="sendCode()" class="btn btn-sm btn-light">{{codebuttonMsg}}</span>
+          </div>
+        </form>
+      </div>
+  </div>
+
+  <div class="card text-center" [hidden]="!verified">
+    <div class="row card-body p-2">
+        <div class="col-md-12">
+          <h1 class="m-0"><i class="far fa-check-circle" style="color: green;"></i></h1>
+          <p class="p-2">Your email address is now verified.</p>
+        </div>
+    </div>
+  </div>
+</div>
+
+<app-loader></app-loader>
